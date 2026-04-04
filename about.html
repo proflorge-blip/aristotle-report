@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About · Aristotle</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f2f8fb;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(242,248,251,0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-logo span { color: inherit; }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(242,248,251,0.98);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-width: 220px;
+      flex-direction: column;
+      backdrop-filter: blur(8px);
+      z-index: 99;
+      list-style: none;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu li { border-bottom: 1px solid var(--border); }
+    .nav-menu li:last-child { border-bottom: none; }
+    .nav-menu a {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      transition: color 0.15s;
+    }
+    .nav-menu a:hover { color: var(--ink); }
+    .nav-menu a.active { color: var(--ink); font-weight: 500; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 6rem 3rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1.2rem;
+    }
+    .page-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    /* ── BODY ── */
+    .page-body { max-width: 780px; margin: 0 auto; padding: 4rem 3rem 8rem; }
+
+    .lead {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.15rem;
+      line-height: 1.85;
+      color: var(--ink);
+      margin-bottom: 4rem;
+      border-left: 2px solid var(--ink);
+      padding-left: 1.5rem;
+    }
+
+    .section { margin-bottom: 3rem; }
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 1rem;
+    }
+    .section-body {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink);
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    /* ── CTA ── */
+    .cta-block {
+      margin-top: 4rem;
+      padding: 2.5rem;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-text { font-family: 'IBM Plex Serif', serif; font-size: 1rem; color: var(--ink); line-height: 1.7; }
+    .cta-text strong { display: block; font-size: 1rem; color: var(--ink); margin-bottom: 0.3rem; }
+    .btn-primary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-3);
+      letter-spacing: 0.06em;
+    }
+    .footer-brand { font-weight: 400; color: var(--ink); text-transform: uppercase; letter-spacing: 0.14em; }
+
+    @media (max-width: 700px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .cta-block { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="index.html#tiers">Tiers</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="index.html#waitlist">Early access</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Aristotle · Sui Update / Logos</p>
+  <h1 class="page-title">About</h1>
+</div>
+
+<div class="page-body">
+
+  <p class="lead">
+    Aristotle.sui began as an attempt to track the Sui ecosystem more reliably.
+  </p>
+
+  <div class="section">
+    <p class="section-label">Origin</p>
+    <p class="section-body">
+      While evaluating a rotation from Solana to Sui, existing tools and chat-based workflows often produced inconsistent or unverifiable data. This made it difficult to form a clear, repeatable view of the ecosystem.
+    </p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">The Goal</p>
+    <p class="section-body">
+      Create a small, consistent set of metrics that could be reviewed at a glance. Most tools require sustained attention. Aristotle.sui is designed to be reviewed at a glance and trusted.
+    </p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">The Principle</p>
+    <p class="section-body">
+      No signals. No noise. Just concise, comparable data.
+    </p>
+  </div>
+
+  <div class="cta-block">
+    <div class="cta-text">
+      <strong>Aristotle is in early access.</strong>
+      Founding subscribers receive preferred pricing and direct input on the product roadmap.
+    </div>
+    <a href="index.html#waitlist" class="btn-primary">Early Access</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-brand">Aristotle · Sui Update / Logos</span>
+  <span>No hype. No signals. Just data.</span>
+  <span>Not financial advice.</span>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('nav-menu');
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aristotle · Sui Update / Logos</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f2f8fb;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(242,248,251,0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+    .nav-logo span { color: inherit; }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(242,248,251,0.98);
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-width: 220px;
+      flex-direction: column;
+      backdrop-filter: blur(8px);
+      z-index: 99;
+      list-style: none;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu li { border-bottom: 1px solid var(--border); }
+    .nav-menu li:last-child { border-bottom: none; }
+    .nav-menu a {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      transition: color 0.15s;
+    }
+    .nav-menu a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 6rem 4rem;
+      gap: 6rem;
+    }
+
+    .hero-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(3.2rem, 6vw, 5rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+    .hero-tagline {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      font-weight: 300;
+      color: var(--ink-2);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.8rem;
+      line-height: 1.3;
+    }
+    .hero-tagline em {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-weight: 700;
+      color: dodgerblue;
+    }
+    .hero-desc {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--ink-2);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+    }
+    .cta-group { display: flex; gap: 0.75rem; }
+    .btn-primary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.8rem 1.6rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+    .btn-secondary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--ink);
+      padding: 0.8rem 1.6rem;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      transition: opacity 0.15s;
+    }
+    .btn-secondary:hover { opacity: 0.7; }
+
+    /* ── TELEGRAM PREVIEWS ── */
+    .tg-preview { display: flex; flex-direction: column; gap: 1.2rem; }
+    .tg-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 0.5rem;
+    }
+    .tg-phone {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .tg-channel-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .tg-avatar {
+      width: 30px; height: 30px;
+      background: var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; color: #fff; font-weight: 500; flex-shrink: 0;
+    }
+    .tg-channel-name { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
+    .tg-channel-sub { font-size: 0.68rem; color: var(--ink-3); }
+    .tg-messages { background: #fff; padding: 0.9rem 1rem; }
+    .tg-bubble {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 0 8px 8px 8px;
+      padding: 0.8rem 1rem;
+      max-width: 95%;
+      display: inline-block;
+    }
+    .tg-code {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--ink);
+      white-space: pre;
+    }
+    .tg-time { font-size: 0.68rem; color: var(--ink-3); text-align: right; margin-top: 0.25rem; }
+
+    /* ── DIVIDER ── */
+    .section-divider { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
+    .section-divider hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ── SECTION HEADER ── */
+    .section-header { margin-bottom: 3rem; }
+    .section-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1.2rem;
+    }
+    .section-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+    .section-title em {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-weight: 700;
+      color: dodgerblue;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .how-item { padding: 2rem; border-right: 1px solid var(--border); }
+    .how-item:last-child { border-right: none; }
+    .how-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+    .how-title { font-family: 'IBM Plex Serif', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.6rem; }
+    .how-desc { font-family: 'IBM Plex Serif', serif; font-size: 1rem; color: var(--ink); line-height: 1.8; }
+
+    /* ── TIERS ── */
+    .tiers-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+    }
+    .tier-item {
+      padding: 2.5rem;
+      border-right: 1px solid var(--border-strong);
+    }
+    .tier-item:last-child { border-right: none; }
+    .tier-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+    .tier-metrics { list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; color: var(--ink); line-height: 2.2; margin-bottom: 1.5rem; }
+    .tier-metrics li::before { content: '—'; margin-right: 0.6rem; color: var(--border-strong); }
+    .tier-logos-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5rem;
+    }
+    .tier-logos-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+    }
+    .tier-logos-num { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 400; color: var(--ink-2); }
+    .tier-logos-num span { font-size: 0.75rem; color: var(--ink-3); }
+    .tier-pricing { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; }
+    .tier-price { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
+    .tier-price span { font-size: 0.82rem; font-weight: 400; }
+    .tier-price-sub { font-family: 'IBM Plex Serif', serif; font-size: 0.88rem; color: var(--ink); margin-bottom: 0.5rem; }
+    .tier-price-reg { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 400; color: var(--ink-2); }
+
+    /* ── WAITLIST ── */
+    .waitlist-section {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .waitlist-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+    .waitlist-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .waitlist-title em {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-weight: 700;
+      color: dodgerblue;
+    }
+    .waitlist-sub { font-family: 'IBM Plex Serif', serif; font-size: 1rem; line-height: 1.9; color: var(--ink); }
+    .waitlist-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .waitlist-input {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border-strong);
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+    }
+    .waitlist-input:focus { border-color: var(--ink); }
+    .waitlist-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .waitlist-btn:hover { opacity: 0.8; }
+    .waitlist-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink-3); letter-spacing: 0.08em; }
+
+    /* ── FAQ ── */
+    .faq-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .faq-item {
+      padding: 2rem 2.5rem;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-item:nth-child(2n) { border-right: none; }
+    .faq-item:nth-last-child(-n+2) { border-bottom: none; }
+    .faq-q {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .faq-q::before {
+      font-family: 'IBM Plex Mono', monospace;
+      content: 'Q·';
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-3);
+      margin-right: 0.4rem;
+    }
+    .faq-a { font-family: 'IBM Plex Serif', serif; font-size: 1rem; line-height: 1.8; color: var(--ink); padding-left: 1.2rem; border-left: 1px solid var(--border); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink-3);
+      letter-spacing: 0.06em;
+    }
+    .footer-brand { font-weight: 400; color: var(--ink); text-transform: uppercase; letter-spacing: 0.14em; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+      .how-grid { grid-template-columns: 1fr 1fr; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .tier-item { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .tier-item:last-child { border-bottom: none; }
+      .waitlist-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .faq-item { border-right: none; }
+      .how-section, .tiers-section, .faq-section { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-logo">ARISTOTLE <span>REPORT</span></div>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#tiers">Tiers</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="#waitlist">Early access</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div>
+    <p class="hero-eyebrow">aristotlelogos.xyz</p>
+    <h1 class="hero-title">Aristotle</h1>
+    <p class="hero-tagline"><em>Sui</em> intelligence — twice daily.</p>
+    <p class="hero-desc">Verified Sui network data — delivered via Telegram. No hype, no signals, no rocket emojis. Just calm data.</p>
+    <div class="cta-group">
+      <a href="#waitlist" class="btn-primary">Early Access</a>
+      <a href="#how" class="btn-secondary">How it works</a>
+    </div>
+  </div>
+  <div class="tg-preview">
+    <div>
+      <div class="tg-label">Free channel — Sui Update</div>
+      <div class="tg-phone">
+        <div class="tg-channel-bar">
+          <div class="tg-avatar">A</div>
+          <div>
+            <div class="tg-channel-name">Aristotle · Sui Update</div>
+            <div class="tg-channel-sub">Channel</div>
+          </div>
+        </div>
+        <div class="tg-messages">
+          <div class="tg-bubble">
+            <div class="tg-code"><strong>ARISTOTLE · SUI UPDATE</strong>
+Morning · 07:00 UTC · 26 Mar 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUI           $2.14   +4.2%
+TVL           $890M   +1.8%
+DEX vol 24h   $142M  +18.0%</div>
+            <div class="tg-time">07:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tg-label">Logos channel — Sui Logos</div>
+      <div class="tg-phone">
+        <div class="tg-channel-bar">
+          <div class="tg-avatar">A</div>
+          <div>
+            <div class="tg-channel-name">Aristotle · Sui Logos</div>
+            <div class="tg-channel-sub">Private channel</div>
+          </div>
+        </div>
+        <div class="tg-messages">
+          <div class="tg-bubble">
+            <div class="tg-code"><strong>ARISTOTLE · SUI LOGOS</strong>
+Morning · 07:00 UTC · 26 Mar 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUI              $2.14   +4.2%
+TVL              $890M   +1.8%
+Active addr    184,200   +3.1%
+DeepBook liq    $28.4M   -2.3%
+Mean reversion   +0.8σ
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<strong>LOGOS INDEX · 64</strong></div>
+            <div class="tg-time">07:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-header">
+    <h2 class="section-title">How it works</h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-item">
+      <div class="how-num">01 · Delivery</div>
+      <div class="how-title">Twice daily via Telegram.</div>
+      <div class="how-desc">Morning and evening briefs at 07:00 and 19:00 UTC, direct to your channel.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">02 · Data</div>
+      <div class="how-title">Verified sources only.</div>
+      <div class="how-desc">Pyth, DefiLlama, DeepBook, Dune Analytics. No hallucinations, no opinions.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">03 · Coverage</div>
+      <div class="how-title">Sui ecosystem only.</div>
+      <div class="how-desc">Price, TVL, active addresses, DeepBook liquidity, mean reversion. Nothing else.</div>
+    </div>
+    <div class="how-item">
+      <div class="how-num">04 · Logos Index</div>
+      <div class="how-title">One composite number.</div>
+      <div class="how-desc">A weighted health reading of the network. 1–100. No signal, no label. Just the temperature.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- TIERS -->
+<section class="tiers-section" id="tiers">
+  <div class="section-header">
+    <h2 class="section-title">Tiers</h2>
+  </div>
+  <div class="tiers-grid">
+    <div class="tier-item">
+      <div class="tier-tag">Sui Update · Free · Public channel</div>
+      <ul class="tier-metrics">
+        <li>SUI price + 24h change</li>
+        <li>TVL + 24h change</li>
+        <li>DEX vol 24h + 24h change</li>
+      </ul>
+<div class="tier-pricing">
+        <div class="tier-price">Free</div>
+        <div class="tier-price-sub">Public channel · No subscription</div>
+      </div>
+    </div>
+    <div class="tier-item">
+      <div class="tier-tag">Sui Logos · Private channel</div>
+      <ul class="tier-metrics">
+        <li>SUI price + 24h change</li>
+        <li>TVL + 24h change</li>
+        <li>Active addresses 24h</li>
+        <li>DeepBook liquidity</li>
+        <li>Mean reversion (σ)</li>
+      </ul>
+      <div class="tier-logos-row">
+        <span class="tier-logos-label">Logos Index</span>
+        <span class="tier-logos-num">64<span>/100</span></span>
+      </div>
+      <div class="tier-pricing">
+        <div class="tier-price">$29<span>/mo</span></div>
+        <div class="tier-price-sub">Founders price · First 50 subscribers</div>
+        <div class="tier-price-reg">$39/mo thereafter</div>
+      </div>
+    </div>
+  </div>
+  <p style="font-family:'IBM Plex Serif',serif;font-style:italic;font-size:0.95rem;color:var(--ink-2);margin-top:1rem;text-align:left;">In the spirit of Aristotle, 2.5% of every subscription will be donated to <a href="https://www.icpic.org" target="_blank" style="color:inherit;text-decoration:underline;">Philosophy with Children International</a> — because the examined life begins early.</p>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div>
+    <p class="waitlist-eyebrow">Early access</p>
+    <h2 class="section-title" style="margin-bottom:1rem;"><em>Sui</em> data,<br>twice daily.</h2>
+    <p class="waitlist-sub">Aristotle is in development. Founding subscribers receive preferred pricing and direct input on the product roadmap.</p>
+  </div>
+  <div class="waitlist-form">
+    <input class="waitlist-input" type="email" placeholder="your@email.com"/>
+    <button class="waitlist-btn">Request Early Access</button>
+    <p class="waitlist-note">Not financial advice. For informational purposes only.</p>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-header">
+    <h2 class="section-title">FAQ</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <div class="faq-q">What is the Logos Index?</div>
+      <div class="faq-a">A proprietary composite score (1–100) measuring Sui network health across five on-chain dimensions. Updated with every brief.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How is the data sourced?</div>
+      <div class="faq-a">From verified on-chain sources: Pyth Network (price), DefiLlama (TVL), Dune Analytics (active addresses), DeepBook (liquidity). No third-party aggregators.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">When are briefs delivered?</div>
+      <div class="faq-a">07:00 and 19:00 UTC, every day. Morning and evening. No exceptions, no delays.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is this financial advice?</div>
+      <div class="faq-a">No. Aristotle is a data intelligence tool for professional observers. No signals, no recommendations, no forecasts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Aristotle · Sui Update / Logos</span>
+  <span>No hype. No signals. Just data.</span>
+  <span>Not financial advice.</span>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('nav-menu');
+
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
