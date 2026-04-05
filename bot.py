@@ -2,7 +2,7 @@
 ARISTOTLE: SUI LOGOS
 Twice-daily Sui blockchain intelligence brief
 Pipeline: Fetch → Calculate → Format → Post → Store
-v3.1: SUI label, em-dash fallbacks, pre tag restored
+v3: Final formatting, locked metrics, arrows on Logos Index
 """
 
 import os
