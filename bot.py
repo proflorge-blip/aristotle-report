@@ -139,7 +139,7 @@ def fetch_price_binance() -> dict:
     No API key required. No rate limits for basic ticker data.
     Primary price source.
     """
-    result = {"sui_price": None, "sui_price_change_24h": None, "dex_volume": None}
+    result = {"sui_price": None, "sui_price_change_24h": None}
     try:
         r = requests.get(
             "https://api.binance.com/api/v3/ticker/24hr",
@@ -150,7 +150,6 @@ def fetch_price_binance() -> dict:
         data = r.json()
         result["sui_price"] = float(data["lastPrice"])
         result["sui_price_change_24h"] = float(data["priceChangePercent"])
-        result["dex_volume"] = float(data["quoteVolume"])  # Volume in USDT
         log.info(f"Binance: SUI=${result['sui_price']} ({result['sui_price_change_24h']:+.2f}%)")
     except Exception as e:
         log.error(f"Binance price fetch failed: {e}")
@@ -224,7 +223,6 @@ def fetch_coingecko() -> dict:
                 data = r.json().get("sui", {})
                 price_data["sui_price"] = data.get("usd")
                 price_data["sui_price_change_24h"] = data.get("usd_24h_change")
-                price_data["dex_volume"] = data.get("usd_24h_vol")
                 log.info(f"CoinGecko fallback: SUI=${price_data['sui_price']}")
                 break
             except Exception as e:
@@ -238,8 +236,8 @@ def fetch_coingecko() -> dict:
 
 
 def fetch_defillama() -> dict:
-    log.info("Fetching DeFiLlama TVL...")
-    result = {"tvl": None, "tvl_change_24h": None}
+    log.info("Fetching DeFiLlama TVL and DEX volume...")
+    result = {"tvl": None, "tvl_change_24h": None, "dex_volume": None}
     try:
         # Primary: historical TVL endpoint gives us current + previous to calc change
         r = requests.get("https://api.llama.fi/v2/historicalChainTvl/Sui", timeout=10)
@@ -252,19 +250,39 @@ def fetch_defillama() -> dict:
                 if current and previous and previous > 0:
                     result["tvl_change_24h"] = ((current - previous) / previous) * 100
                 log.info(f"DeFiLlama: TVL=${current:,.0f} change={result['tvl_change_24h']}")
-                return result
 
         # Fallback: chains endpoint
-        r2 = requests.get("https://api.llama.fi/v2/chains", timeout=10)
-        r2.raise_for_status()
-        for chain in r2.json():
-            if chain.get("name", "").lower() == "sui":
-                result["tvl"] = chain.get("tvl")
-                result["tvl_change_24h"] = chain.get("change_1d")
-                break
-        log.info(f"DeFiLlama: TVL=${result['tvl']:,.0f}" if result["tvl"] else "DeFiLlama: not found")
+        if result["tvl"] is None:
+            r2 = requests.get("https://api.llama.fi/v2/chains", timeout=10)
+            r2.raise_for_status()
+            for chain in r2.json():
+                if chain.get("name", "").lower() == "sui":
+                    result["tvl"] = chain.get("tvl")
+                    result["tvl_change_24h"] = chain.get("change_1d")
+                    break
+            log.info(f"DeFiLlama: TVL=${result['tvl']:,.0f}" if result["tvl"] else "DeFiLlama: not found")
     except Exception as e:
-        log.error(f"DeFiLlama fetch failed: {e}")
+        log.error(f"DeFiLlama TVL fetch failed: {e}")
+
+    # DEX volume: DeFiLlama Sui DEX aggregator (true on-chain DEX vol)
+    try:
+        r3 = requests.get(
+            "https://api.llama.fi/overview/dexs/sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume",
+            timeout=10
+        )
+        if r3.status_code == 200:
+            data = r3.json()
+            vol = data.get("total24h")
+            if vol:
+                result["dex_volume"] = float(vol)
+                log.info(f"DeFiLlama DEX vol (Sui): ${vol:,.0f}")
+            else:
+                log.warning("DeFiLlama DEX vol: total24h field not found")
+        else:
+            log.warning(f"DeFiLlama DEX vol: {r3.status_code}")
+    except Exception as e:
+        log.error(f"DeFiLlama DEX vol fetch failed: {e}")
+
     return result
 
 
@@ -561,7 +579,7 @@ def fmt_change(value):
 
 def format_free_brief(data: dict) -> str:
     now = datetime.now(timezone.utc)
-    session = "07:00 UTC · MORNING" if now.hour < 14 else "21:00 UTC · EVENING"
+    session = "7h UTC · MORNING" if now.hour < 14 else "19h UTC · EVENING"
     sep = "─" * 24
 
     leader_str = "—"
@@ -604,7 +622,7 @@ def format_free_brief(data: dict) -> str:
 
 def format_paid_brief(data: dict) -> str:
     now = datetime.now(timezone.utc)
-    session = "07:00 UTC · MORNING" if now.hour < 14 else "21:00 UTC · EVENING"
+    session = "7h UTC · MORNING" if now.hour < 14 else "19h UTC · EVENING"
     sep = "─" * 26
 
     # Active addresses with change
@@ -648,6 +666,16 @@ def format_paid_brief(data: dict) -> str:
     else:
         logos_str += "  —"
 
+    # DEX VOL with change vs previous snapshot
+    prev_dex = get_previous_value("dex_volume")
+    curr_dex = data.get("dex_volume")
+    dex_str = fmt_large(curr_dex)
+    if prev_dex and curr_dex and prev_dex > 0:
+        dex_change = ((curr_dex - prev_dex) / prev_dex) * 100
+        dex_str += f"   {fmt_pct(dex_change)}"
+    else:
+        dex_str += "   —"
+
     lines = [
         "ARISTOTLE · SUI LOGOS",
         f"{now.strftime('%d %b %Y')} · {session}",
@@ -655,6 +683,7 @@ def format_paid_brief(data: dict) -> str:
         "",
         f"SUI            {fmt_price(data.get('sui_price'))}     {fmt_pct(data.get('sui_price_change_24h'))}",
         f"TVL            {fmt_large(data.get('tvl'))}   {fmt_pct(data.get('tvl_change_24h'))}",
+        f"DEX VOL        {dex_str}",
         f"STAKING        {str(round(data.get('staking_ratio', 0) * 100, 1)) + '%' if data.get('staking_ratio') else '—'}",
         f"ACTIVE ADDR    {addr_str}",
         f"DEEPBOOK       {db_str}",
@@ -689,99 +718,10 @@ def post_to_telegram(channel_id: str, message: str) -> bool:
 
 
 # ─────────────────────────────────────────
-# X (TWITTER) POSTING
+# X (TWITTER) POSTING — manual for now
+# X API requires paid plan ($100/mo) to post
+# Post manually by screenshotting the Telegram card
 # ─────────────────────────────────────────
-
-def format_x_brief(data: dict) -> str:
-    """Format a compact brief for X — shorter, no monospace columns."""
-    now = datetime.now(timezone.utc)
-    price = fmt_price(data.get("sui_price"))
-    price_chg = fmt_pct(data.get("sui_price_change_24h"))
-    tvl = fmt_large(data.get("tvl"))
-    tvl_chg = fmt_pct(data.get("tvl_change_24h"))
-    dex = fmt_large(data.get("dex_volume"))
-
-    leader_str = ""
-    if data.get("best_token_symbol") and data.get("best_token_change") is not None:
-        leader_str = f"\nLEADER  {data['best_token_symbol']} {fmt_pct(data['best_token_change'])}"
-
-    return (
-        f"ARISTOTLE · SUI UPDATE\n"
-        f"{now.strftime('%d %b %Y')} · {now.strftime('%H:%M')} UTC\n"
-        f"\n"
-        f"PRICE    {price} {price_chg}\n"
-        f"CAPITAL  {tvl} {tvl_chg}\n"
-        f"DEX VOL  {dex}"
-        f"{leader_str}\n"
-        f"\n@aristotlesuiupdate"
-    )
-
-
-def post_to_x(message: str) -> bool:
-    """Post to X using OAuth 1.0a."""
-    if not all([X_API_KEY, X_API_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET]):
-        log.warning("X credentials not set — skipping X post")
-        return False
-    try:
-        import hmac
-        import hashlib
-        import base64
-        import urllib.parse
-        import time as time_mod
-        import uuid
-
-        url = "https://api.twitter.com/2/tweets"
-        method = "POST"
-
-        # OAuth 1.0a signature
-        oauth_timestamp = str(int(time_mod.time()))
-        oauth_nonce = uuid.uuid4().hex
-
-        oauth_params = {
-            "oauth_consumer_key": X_API_KEY,
-            "oauth_nonce": oauth_nonce,
-            "oauth_signature_method": "HMAC-SHA1",
-            "oauth_timestamp": oauth_timestamp,
-            "oauth_token": X_ACCESS_TOKEN,
-            "oauth_version": "1.0",
-        }
-
-        # Build signature base string
-        params_string = "&".join(
-            f"{urllib.parse.quote(k, safe='')}={urllib.parse.quote(v, safe='')}"
-            for k, v in sorted(oauth_params.items())
-        )
-        base_string = "&".join([
-            method,
-            urllib.parse.quote(url, safe=""),
-            urllib.parse.quote(params_string, safe=""),
-        ])
-
-        # Sign
-        signing_key = f"{urllib.parse.quote(X_API_SECRET, safe='')}&{urllib.parse.quote(X_ACCESS_TOKEN_SECRET, safe='')}"
-        signature = base64.b64encode(
-            hmac.new(signing_key.encode(), base_string.encode(), hashlib.sha1).digest()
-        ).decode()
-
-        oauth_params["oauth_signature"] = signature
-        auth_header = "OAuth " + ", ".join(
-            f'{urllib.parse.quote(k, safe="")}="{urllib.parse.quote(v, safe="")}"'
-            for k, v in sorted(oauth_params.items())
-        )
-
-        r = requests.post(
-            url,
-            headers={"Authorization": auth_header, "Content-Type": "application/json"},
-            json={"text": message},
-            timeout=10,
-        )
-        r.raise_for_status()
-        log.info("Posted to X")
-        return True
-
-    except Exception as e:
-        log.error(f"X post failed: {e}")
-        return False
 
 
 # ─────────────────────────────────────────
@@ -794,7 +734,10 @@ def run():
 
     cg      = fetch_coingecko()
     dl      = fetch_defillama()
-    rpc     = fetch_sui_rpc()
+    rpc     = fetch_active_addresses_blockberry()
+    if rpc.get("active_addresses") is None:
+        log.warning("Blockberry unavailable — falling back to RPC proxy")
+        rpc = fetch_sui_rpc()
     db      = fetch_deepbook()
     staking = fetch_staking()
 
@@ -830,9 +773,7 @@ def run():
     post_to_telegram(FREE_CHANNEL_ID, free_brief)
     post_to_telegram(PAID_CHANNEL_ID, paid_brief)
 
-    # Post free brief to X
-    x_brief = format_x_brief(data)
-    post_to_x(x_brief)
+    # X posting: manual for now (API requires paid plan)
 
     save_snapshot(data)
     log.info("═══ PIPELINE COMPLETE ═══")
