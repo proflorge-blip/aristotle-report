@@ -427,16 +427,24 @@
       border-top: 1px solid var(--border);
       padding: 2rem 3rem;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 1.2rem;
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.68rem;
       color: var(--ink-3);
       letter-spacing: 0.06em;
     }
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
     .footer-brand { font-weight: 400; color: var(--ink); text-transform: uppercase; letter-spacing: 0.14em; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--ink-3); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--ink); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -485,7 +493,7 @@
   </div>
   <div class="tg-preview">
     <div>
-      <div class="tg-label">Free channel — Sui Update</div>
+      <div class="tg-label"><strong>Free channel — Sui Update</strong></div>
       <div class="tg-phone">
         <div class="tg-channel-bar">
           <div class="tg-avatar">A</div>
@@ -508,7 +516,7 @@ DEX vol 24h   $142M  +18.0%</div>
       </div>
     </div>
     <div>
-      <div class="tg-label">Logos channel — Sui Logos</div>
+      <div class="tg-label"><strong>Logos channel — Sui Logos</strong></div>
       <div class="tg-phone">
         <div class="tg-channel-bar">
           <div class="tg-avatar">A</div>
@@ -524,6 +532,8 @@ Morning · 07:00 UTC · 26 Mar 2026
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 SUI              $2.14   +4.2%
 TVL              $890M   +1.8%
+DEX vol 24h     $142M   +18.0%
+Staking          75.1%
 Active addr    184,200   +3.1%
 DeepBook liq    $28.4M   -2.3%
 Mean reversion   +0.8σ
@@ -658,9 +668,18 @@ Mean reversion   +0.8σ
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-brand">Aristotle · Sui Update / Logos</span>
-  <span>No hype. No signals. Just data.</span>
-  <span>Not financial advice.</span>
+  <div class="footer-row">
+    <span class="footer-brand">Aristotle · Sui Update / Logos</span>
+    <div class="footer-links">
+      <a href="https://t.me/aristotlesuiupdate" target="_blank">Telegram · Free</a>
+      <a href="https://t.me/aristotlesuilogos" target="_blank">Telegram · Logos</a>
+      <a href="mailto:hello@aristotle.report">hello@aristotle.report</a>
+    </div>
+  </div>
+  <div class="footer-row">
+    <span>Data: Pyth · DeFiLlama · DeepBook · Blockberry</span>
+    <span>No hype. No signals. Just data. · Not financial advice.</span>
+  </div>
 </footer>
 
 <script>
