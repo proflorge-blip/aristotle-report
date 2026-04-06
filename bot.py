@@ -201,12 +201,12 @@ def fetch_coingecko() -> dict:
     """
     log.info("Fetching price data...")
 
-    # Primary: Binance (no rate limits)
-    price_data = fetch_price_binance()
+    # Primary: CoinGecko (Binance geo-blocked on Railway)
+    price_data = {"sui_price": None, "sui_price_change_24h": None}
 
-    # Fallback to CoinGecko if Binance fails
+    # Fallback to Binance only if CoinGecko fails
     if price_data.get("sui_price") is None:
-        log.warning("Binance failed — falling back to CoinGecko")
+        log.warning("Trying Binance as fallback...")
         headers = {"accept": "application/json"}
         for attempt in range(3):
             try:
@@ -685,7 +685,7 @@ def format_paid_brief(data: dict) -> str:
         f"TVL            {fmt_large(data.get('tvl'))}   {fmt_pct(data.get('tvl_change_24h'))}",
         f"DEX VOL        {dex_str}",
         f"STAKING        {str(round(data.get('staking_ratio', 0) * 100, 1)) + '%' if data.get('staking_ratio') else '—'}",
-        f"ACTIVE ADDR    {addr_str}",
+        f"TOTAL ADDR     {addr_str}",
         f"DEEPBOOK       {db_str}",
         f"MEAN REV       {mr_str}σ",
         "",
