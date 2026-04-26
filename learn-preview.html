@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Learn · Style Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f2f8fb;
+      --cream:        #FFFFFF;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+    }
+
+    body {
+      background: #e8e8e4;
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 3rem 2rem;
+    }
+
+    .option-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    }
+    .option-label:first-child { margin-top: 0; }
+
+    /* ══════════════════════════════════════
+       ARTICLE PAGE — Option B (revised)
+    ══════════════════════════════════════ */
+    .article-page {
+      background: var(--bg);
+      max-width: 820px;
+      margin: 0 auto;
+      border: 1px solid var(--border-strong);
+    }
+
+    .art-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.1rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(242,248,251,0.96);
+    }
+    .art-nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .art-nav-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-left: auto;
+    }
+
+    .art-header {
+      padding: 3.5rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .art-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+    .art-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink);
+      max-width: 580px;
+    }
+
+    .art-body {
+      padding: 2.8rem 2.5rem 3.5rem;
+      max-width: 680px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      margin: 2rem 2.5rem 3rem;
+    }
+
+    /* Drop cap on first paragraph */
+    .art-body > p:first-of-type::first-letter {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 3.8rem;
+      font-style: italic;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--ink);
+    }
+
+    .art-body p {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+      margin-bottom: 1.1rem;
+    }
+
+    /* Subheadings: title case, serif italic — not all caps */
+    .art-subhead {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.92rem;
+      font-weight: 500;
+      font-style: normal;
+      color: var(--ink);
+      margin-top: 2.4rem;
+      margin-bottom: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .pull-quote {
+      border-left: 2px solid var(--ink);
+      margin: 1.8rem 0;
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* ══════════════════════════════════════
+       INDEX PAGE — Option C
+    ══════════════════════════════════════ */
+    .index-page {
+      background: var(--bg);
+      max-width: 820px;
+      margin: 0 auto;
+      border: 1px solid var(--border-strong);
+    }
+
+    .index-page .art-nav {
+      background: rgba(242,248,251,0.96);
+    }
+
+    .index-header {
+      padding: 3.5rem 2.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .index-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 1rem;
+    }
+    .index-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.9rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .index-sub {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.95rem;
+      color: var(--ink-3);
+      font-style: italic;
+    }
+
+    .article-list { list-style: none; }
+    .article-item {
+      border-bottom: 1px solid var(--border);
+      padding: 1.8rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .article-item:hover { background: var(--cream); }
+    .article-item:last-child { border-bottom: none; }
+
+    .article-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-3);
+      margin-bottom: 0.4rem;
+    }
+    .article-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+    .article-excerpt {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.88rem;
+      color: var(--ink-3);
+      line-height: 1.6;
+      font-style: italic;
+    }
+    .article-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      white-space: nowrap;
+      padding-top: 1.6rem;
+    }
+  </style>
+</head>
+<body>
+
+<p class="option-label">Article page</p>
+
+<div class="article-page">
+  <div class="art-nav">
+    <span class="art-nav-logo">Aristotle <span style="opacity:0.5">Report</span></span>
+    <span class="art-nav-back">← Learn</span>
+  </div>
+  <div class="art-header">
+    <p class="art-eyebrow">Aristotle · Learn · 01</p>
+    <h1 class="art-title">Why Onchain Data Has a Structural Edge</h1>
+  </div>
+  <div class="art-body">
+    <p>Onchain data is fundamentally different from most signals in crypto. Price action, social sentiment, analyst commentary, and news are usually either lagging indicators or opinions. Onchain metrics reflect actual capital decisions — recorded publicly and permanently — before any narrative forms. This gives them a structural edge that most participants still underuse.</p>
+
+    <h2 class="art-subhead">The Signal Hierarchy Problem</h2>
+    <p>Most traders use what feels like a diverse set of inputs, but they are often highly correlated. News reacts to price. Sentiment follows price. Analyst targets and technical levels are drawn from recent price history. When signals are all downstream of the same source, stacking them doesn't reduce uncertainty — it simply adds noise.</p>
+
+    <p>Onchain data is not a prediction or an opinion. It is a permanent, public record of what market participants actually did with their capital. Every stake, liquidity provision, and protocol interaction is timestamped and immutable. It was not interpreted by analysts or shaped by narrative. It simply happened and was recorded.</p>
+
+    <div class="pull-quote">Capital moves first. Onchain metrics don't move faster because they are smarter — they move first because they are the decisions. Everything else is a reaction.</div>
+
+    <h2 class="art-subhead">Why It Moves Before the Narrative</h2>
+    <p>Serious inflows appear in TVL, staking ratios, and active addresses well before they show up in price — and long before they appear in commentary or social media. Onchain data can be distorted by wash trading or incentive programs, but it still reflects actual behavior rather than opinion — a more honest starting point, as long as it is read with proper context.</p>
+
+    <p>You don't need to monitor dozens of metrics in real time. A small, focused set — TVL trends, staking ratios, active addresses relative to historical ranges, and contextualized DEX volume — reviewed consistently, will deliver better insight than a large volume of price-driven commentary. Most participants are still reacting to price and calling it analysis. The data that precedes those moves is public, permanent, and freely available. That gap is the opportunity.</p>
+  </div>
+</div>
+
+<p class="option-label">Index page</p>
+
+<div class="index-page">
+  <div class="art-nav">
+    <span class="art-nav-logo">Aristotle <span style="opacity:0.5">Report</span></span>
+  </div>
+  <div class="index-header">
+    <p class="index-eyebrow">Aristotle · Learn</p>
+    <h1 class="index-title">Learn</h1>
+    <p class="index-sub">Short essays on data, markets, and the Sui network.</p>
+  </div>
+  <ul class="article-list">
+    <li class="article-item">
+      <div>
+        <div class="article-num">01</div>
+        <div class="article-title">Why Onchain Data Has a Structural Edge</div>
+        <div class="article-excerpt">Onchain metrics reflect actual capital decisions — recorded publicly and permanently — before any narrative forms.</div>
+      </div>
+      <div class="article-meta">4 min read</div>
+    </li>
+    <li class="article-item">
+      <div>
+        <div class="article-num">02</div>
+        <div class="article-title">How to Read TVL Without Getting Fooled</div>
+        <div class="article-excerpt">Total Value Locked is one of the most cited metrics in crypto — and one of the most misread.</div>
+      </div>
+      <div class="article-meta">5 min read</div>
+    </li>
+    <li class="article-item">
+      <div>
+        <div class="article-num">03</div>
+        <div class="article-title">What Staking Ratios Actually Signal</div>
+        <div class="article-excerpt">When a high percentage of circulating supply is staked, it changes the supply dynamics of the asset fundamentally.</div>
+      </div>
+      <div class="article-meta">4 min read</div>
+    </li>
+    <li class="article-item">
+      <div>
+        <div class="article-num">04</div>
+        <div class="article-title">Understanding DEX Volume in Context</div>
+        <div class="article-excerpt">Volume without context is noise. Here's how to read DEX activity as a signal rather than a headline.</div>
+      </div>
+      <div class="article-meta">4 min read</div>
+    </li>
+  </ul>
+</div>
+
+<div style="height:4rem"></div>
+
+</body>
+</html>
