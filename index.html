@@ -74,6 +74,19 @@
     }
     .nav-logo span { color: inherit; }
 
+    .nav-learn {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-learn:hover { color: var(--ink); }
+
     .nav-menu {
       display: none;
       position: absolute;
@@ -481,6 +494,7 @@
     <span></span><span></span><span></span>
   </button>
   <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <a href="learn.html" class="nav-learn">Learn</a>
   <ul class="nav-menu" id="nav-menu">
     <li><a href="#how">How it works</a></li>
     <li><a href="#tiers">Pricing</a></li>
