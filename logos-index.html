@@ -142,7 +142,7 @@
     }
 
     /* ── BODY ── */
-    .page-body { max-width: 780px; margin: 0 auto; padding: 4rem 3rem 8rem; }
+    .page-body { max-width: 780px; margin: 0 auto; padding: 4rem 3rem 5rem; background: #fff; border: 1px solid var(--border); border-top: none; }
 
     .lead {
       font-family: 'IBM Plex Serif', serif;
@@ -244,7 +244,7 @@
     <li><a href="index.html#how">How it works</a></li>
     <li><a href="index.html#tiers">Pricing</a></li>
     <li><a href="logos-index.html" class="active">Logos Index</a></li>
-    <li><a href="learn.html">LEARN/</a></li>
+    <li><a href="learn.html">Learn</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="index.html#waitlist">Early access</a></li>
   </ul>
@@ -264,7 +264,7 @@
   <div class="section">
     <p class="section-label">What it is</p>
     <p class="section-body">
-      The Logos Index is a single score from 1 to 100 that reflects the overall health and steadiness of the Sui network <em>independently of price</em>. It combines seven key on-chain metrics — each weighted and normalised against a 30-day baseline — into one calm, rational reading. A rising Index means the network is strengthening across multiple dimensions simultaneously. A falling Index means the opposite.
+      The Logos Index is a single score from 1 to 100 that reflects the overall health and steadiness of the Sui network <em>independently of price</em>. It combines six key on-chain metrics — each weighted and normalised against a 30-day baseline — into one calm, rational reading. A rising Index means the network is strengthening across multiple dimensions simultaneously. A falling Index means the opposite.
     </p>
     <p class="section-body" style="margin-top:1rem;">
       There are no labels. No bullish or bearish signals. No buy or sell recommendations. Just a number.
@@ -275,15 +275,14 @@
 
   <div class="section">
     <p class="section-label">Methodology</p>
-    <p class="section-body">The Logos Index is built from seven inputs:</p>
+    <p class="section-body">The Logos Index is built from six inputs:</p>
     <ul class="inputs">
-      <li>Total Value Locked (TVL)</li>
-      <li>Staking Ratio</li>
-      <li>Stablecoin Market Cap</li>
-      <li>Mean Reversion</li>
       <li>SUI Price</li>
-      <li>Transaction Count</li>
+      <li>Total Value Locked (TVL)</li>
+      <li>Stablecoin Market Cap</li>
+      <li>DEX Volume</li>
       <li>DeepBook Liquidity</li>
+      <li>Mean Reversion</li>
     </ul>
     <p class="section-body">
       Each metric is normalized against its 30-day rolling baseline. The normalized scores are then combined using proprietary weightings and dampened — blending today's reading with yesterday's — so the Index moves deliberately rather than reactively.

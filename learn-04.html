@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Why Onchain Data Has a Structural Edge · Aristotle</title>
+  <title>From Diem to Sui: What Mysten Labs Has Built (and Why it Matters) · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,10 +115,7 @@
     }
 
     /* ── ARTICLE LAYOUT ── */
-    .art-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-    }
+    .art-wrap { max-width: 780px; margin: 0 auto; }
 
     .art-header {
       padding: 5rem 3rem 2.5rem;
@@ -132,11 +129,8 @@
       color: var(--ink);
       margin-bottom: 1rem;
     }
-    .art-eyebrow a {
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .art-eyebrow a:hover { color: var(--ink); }
+    .art-eyebrow a { color: var(--ink); text-decoration: none; }
+    .art-eyebrow a:hover { opacity: 0.7; }
     .art-title {
       font-family: 'IBM Plex Serif', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -155,7 +149,6 @@
       padding: 2.8rem 3rem 3.5rem;
     }
 
-    /* Drop cap */
     .art-body > p:first-of-type::first-letter {
       font-family: 'Libre Baskerville', serif;
       font-size: 3.8rem;
@@ -212,7 +205,7 @@
       color: var(--ink);
       text-decoration: none;
     }
-    .art-back:hover { color: var(--ink); }
+    .art-back:hover { opacity: 0.7; }
 
     @media (max-width: 600px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -242,26 +235,34 @@
 <div class="art-wrap">
 
   <div class="art-header">
-    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 01</p>
-    <h1 class="art-title">Why Onchain Data Has a Structural Edge</h1>
+    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 04</p>
+    <h1 class="art-title">From Diem to Sui: What Mysten Labs Has Built (and Why it Matters)</h1>
   </div>
 
   <div class="art-body">
-    <p>Onchain data is fundamentally different from most signals in crypto. Price action, social sentiment, analyst commentary, and news are usually either lagging indicators or opinions. Onchain metrics reflect actual capital decisions — recorded publicly and permanently — before any narrative forms. This gives them a structural edge that most participants still underuse.</p>
+    <p>The team behind Sui did not come from the usual crypto startup world. They came from Meta's Novi research division — the group responsible for developing Diem, one of the most ambitious and technically rigorous blockchain projects ever attempted by a major technology company.</p>
 
-    <h2 class="art-subhead">The Signal Hierarchy Problem</h2>
+    <p>When regulators forced Diem to shut down in early 2022, the core team did not disperse. They founded Mysten Labs and began building Sui, carrying forward the engineering standards and lessons they had developed at Meta.</p>
 
-    <p>Most traders use what feels like a diverse set of inputs, but they are often highly correlated. News reacts to price. Sentiment follows price. Analyst targets and technical levels are drawn from recent price history. When signals are all downstream of the same source, stacking them doesn't reduce uncertainty — it simply adds noise.</p>
+    <h2 class="art-subhead">What Carried Over from Diem</h2>
 
-    <p>Onchain data is not a prediction or an opinion. It is a permanent, public record of what market participants actually did with their capital. Every stake, liquidity provision, and protocol interaction is timestamped and immutable. It was not interpreted by analysts or shaped by narrative. It simply happened and was recorded.</p>
+    <p>Diem was designed as institutional-grade payment infrastructure from the outset. It placed strong emphasis on formal verification, safety guarantees, and regulatory considerations. That same careful mindset is visible in many of Sui's foundational choices.</p>
 
-    <div class="pull-quote">Capital moves first. Onchain metrics don't move faster because they are smarter — they move first because they are the decisions. Everything else is a reaction.</div>
+    <p>The Move programming language, originally created for Diem, underpins Sui's smart contracts. Its resource-oriented design helps prevent entire categories of serious bugs — particularly double-spending and unintended asset transfers — that have caused major issues on other chains.</p>
 
-    <h2 class="art-subhead">Why It Moves Before the Narrative</h2>
+    <div class="pull-quote">Instead of forcing every transaction through a single sequential queue, Sui can handle independent transactions simultaneously while preserving strong safety properties.</div>
 
-    <p>Serious inflows appear in TVL, staking ratios, and active addresses well before they show up in price — and long before they appear in commentary or social media. Onchain data can be distorted by wash trading or incentive programs, but it still reflects actual behavior rather than opinion — a more honest starting point, as long as it is read with proper context.</p>
+    <p>Sui's object-centric model and parallel execution system show the same influence. This was a difficult engineering problem the team had been working on for years at Novi.</p>
 
-    <p>You don't need to monitor dozens of metrics in real time. A small, focused set — TVL trends, staking ratios, active addresses relative to historical ranges, and contextualized DEX volume — reviewed consistently, will deliver better insight than a large volume of price-driven commentary. Most participants are still reacting to price and calling it analysis. The data that precedes those moves is public, permanent, and freely available. That gap is the opportunity.</p>
+    <h2 class="art-subhead">Why the Background Matters</h2>
+
+    <p>In an industry that often rewards speed and hype, Mysten Labs chose a slower, more research-driven path. Several of Sui's core technical ideas were published as academic papers before the chain launched. For institutions and serious allocators evaluating long-term infrastructure, this kind of documented, rigorous foundation carries real weight.</p>
+
+    <h2 class="art-subhead">The Trade-offs</h2>
+
+    <p>That deliberate pace came with real downsides. Sui launched later than many competitors, and some aspects of the developer and user experience took longer to mature. At times, the team's caution has looked like slowness in a market that often celebrates rapid iteration.</p>
+
+    <p>Sui was built by engineers who had already spent years tackling complex blockchain problems at institutional scale. That experience does not guarantee success — execution, adoption, and market conditions will ultimately decide the outcome. Still, when assessing which chains have a better chance of lasting, the depth of the founding team's background and the rigor behind the original design decisions remain among the more telling signals available.</p>
   </div>
 
   <div class="art-footer">

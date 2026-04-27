@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Why Onchain Data Has a Structural Edge · Aristotle</title>
+  <title>Why Sui TVL Moves Differently Than Other L1s · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -136,7 +136,7 @@
       color: var(--ink);
       text-decoration: none;
     }
-    .art-eyebrow a:hover { color: var(--ink); }
+    .art-eyebrow a:hover { opacity: 0.7; }
     .art-title {
       font-family: 'IBM Plex Serif', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -197,6 +197,17 @@
       color: var(--ink);
     }
 
+    .art-body ul {
+      margin: 1rem 0 1.1rem 1.4rem;
+    }
+    .art-body ul li {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+      margin-bottom: 0.6rem;
+    }
+
     /* ── FOOTER NAV ── */
     .art-footer {
       max-width: 780px;
@@ -212,7 +223,7 @@
       color: var(--ink);
       text-decoration: none;
     }
-    .art-back:hover { color: var(--ink); }
+    .art-back:hover { opacity: 0.7; }
 
     @media (max-width: 600px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -242,26 +253,36 @@
 <div class="art-wrap">
 
   <div class="art-header">
-    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 01</p>
-    <h1 class="art-title">Why Onchain Data Has a Structural Edge</h1>
+    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 02</p>
+    <h1 class="art-title">Why Sui TVL Moves Differently Than Other L1s</h1>
   </div>
 
   <div class="art-body">
-    <p>Onchain data is fundamentally different from most signals in crypto. Price action, social sentiment, analyst commentary, and news are usually either lagging indicators or opinions. Onchain metrics reflect actual capital decisions — recorded publicly and permanently — before any narrative forms. This gives them a structural edge that most participants still underuse.</p>
+    <p>When analysts cite Sui's TVL as a direct sign of ecosystem health, they often miss an important point: TVL on Sui behaves differently than on more mature Layer 1 blockchains. Some movements can look like new capital inflows when they are not, while real growth can sometimes be hidden. It is like reading a river's water level during a rainstorm — the number is real, but without knowing whether it is rainwater or snowmelt, you cannot be certain whether the river is actually rising or just temporarily flooded.</p>
 
-    <h2 class="art-subhead">The Signal Hierarchy Problem</h2>
+    <h2 class="art-subhead">Three Reasons Sui TVL Is Different</h2>
 
-    <p>Most traders use what feels like a diverse set of inputs, but they are often highly correlated. News reacts to price. Sentiment follows price. Analyst targets and technical levels are drawn from recent price history. When signals are all downstream of the same source, stacking them doesn't reduce uncertainty — it simply adds noise.</p>
+    <p><strong>1. Protocol Concentration.</strong> Sui's TVL is concentrated in a small number of protocols, mainly Suilend, NAVI, and Cetus. On Ethereum, TVL is spread across hundreds of protocols with deep stablecoin liquidity. Because of this concentration, a strong increase or decrease in just one or two protocols can significantly move the overall TVL number. When TVL rises quickly, it is useful to check whether the growth is coming from one protocol or from broader activity across the ecosystem.</p>
 
-    <p>Onchain data is not a prediction or an opinion. It is a permanent, public record of what market participants actually did with their capital. Every stake, liquidity provision, and protocol interaction is timestamped and immutable. It was not interpreted by analysts or shaped by narrative. It simply happened and was recorded.</p>
+    <p><strong>2. Price-Denominated Collateral.</strong> A large share of collateral on Sui is denominated in SUI or SUI-linked assets. This creates a direct connection between the price of SUI and the reported TVL. When the SUI price increases, TVL rises in dollar terms even if no new capital has entered the ecosystem. The same effect works in reverse during price declines. Sui's stablecoin market has been growing, but it is still relatively small compared to more established chains.</p>
 
-    <div class="pull-quote">Capital moves first. Onchain metrics don't move faster because they are smarter — they move first because they are the decisions. Everything else is a reaction.</div>
+    <div class="pull-quote">When the SUI price increases, TVL rises in dollar terms even if no new capital has entered the ecosystem.</div>
 
-    <h2 class="art-subhead">Why It Moves Before the Narrative</h2>
+    <p><strong>3. Mercenary Capital.</strong> Early-stage ecosystems like Sui often attract liquidity through incentive programs. When a protocol offers high yields or rewards, TVL can increase rapidly. When those incentives end or decrease, much of that capital tends to leave. This liquidity is real while it lasts, but it is usually temporary. As a result, incentive-driven TVL can look similar to organic growth in the short term.</p>
 
-    <p>Serious inflows appear in TVL, staking ratios, and active addresses well before they show up in price — and long before they appear in commentary or social media. Onchain data can be distorted by wash trading or incentive programs, but it still reflects actual behavior rather than opinion — a more honest starting point, as long as it is read with proper context.</p>
+    <h2 class="art-subhead">What to Actually Watch</h2>
 
-    <p>You don't need to monitor dozens of metrics in real time. A small, focused set — TVL trends, staking ratios, active addresses relative to historical ranges, and contextualized DEX volume — reviewed consistently, will deliver better insight than a large volume of price-driven commentary. Most participants are still reacting to price and calling it analysis. The data that precedes those moves is public, permanent, and freely available. That gap is the opportunity.</p>
+    <p>TVL is still a useful metric on Sui, but it needs proper context. The key questions to ask are:</p>
+
+    <ul>
+      <li>Is TVL increasing or staying stable while the SUI price is flat or falling? This is usually a stronger sign of genuine capital inflow.</li>
+      <li>Is the TVL growth spread across multiple protocols, or coming mainly from one or two? Growth across several protocols is more meaningful.</li>
+      <li>Are recent TVL increases tied to new incentive programs? If so, observe what happens after the incentives are reduced.</li>
+    </ul>
+
+    <p>For better analysis, track TVL breakdowns on DefiLlama, check protocol-level data on TokenTerminal, and review activity on the Sui Explorer.</p>
+
+    <p>TVL remains one of the main signals in onchain analysis. On Sui, however, the number should be read carefully. By understanding these structural differences, traders and investors can get a clearer picture of the ecosystem's actual progress and capital flows.</p>
   </div>
 
   <div class="art-footer">

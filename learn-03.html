@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Why Onchain Data Has a Structural Edge · Aristotle</title>
+  <title>Why Most Sui Commentary Is Noise · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -115,10 +115,7 @@
     }
 
     /* ── ARTICLE LAYOUT ── */
-    .art-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-    }
+    .art-wrap { max-width: 780px; margin: 0 auto; }
 
     .art-header {
       padding: 5rem 3rem 2.5rem;
@@ -132,11 +129,8 @@
       color: var(--ink);
       margin-bottom: 1rem;
     }
-    .art-eyebrow a {
-      color: var(--ink);
-      text-decoration: none;
-    }
-    .art-eyebrow a:hover { color: var(--ink); }
+    .art-eyebrow a { color: var(--ink); text-decoration: none; }
+    .art-eyebrow a:hover { opacity: 0.7; }
     .art-title {
       font-family: 'IBM Plex Serif', serif;
       font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -155,7 +149,6 @@
       padding: 2.8rem 3rem 3.5rem;
     }
 
-    /* Drop cap */
     .art-body > p:first-of-type::first-letter {
       font-family: 'Libre Baskerville', serif;
       font-size: 3.8rem;
@@ -197,6 +190,30 @@
       color: var(--ink);
     }
 
+    .art-body ul {
+      margin: 1rem 0 1.1rem 0;
+      list-style: none;
+    }
+    .art-body ul li {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+      border-left: 2px solid var(--border-strong);
+    }
+    .art-body ul li strong {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
     /* ── FOOTER NAV ── */
     .art-footer {
       max-width: 780px;
@@ -212,7 +229,7 @@
       color: var(--ink);
       text-decoration: none;
     }
-    .art-back:hover { color: var(--ink); }
+    .art-back:hover { opacity: 0.7; }
 
     @media (max-width: 600px) {
       nav { padding: 1.2rem 1.5rem; }
@@ -242,26 +259,40 @@
 <div class="art-wrap">
 
   <div class="art-header">
-    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 01</p>
-    <h1 class="art-title">Why Onchain Data Has a Structural Edge</h1>
+    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 03</p>
+    <h1 class="art-title">Why Most Sui Commentary Is Noise — And What Actually Matters</h1>
   </div>
 
   <div class="art-body">
-    <p>Onchain data is fundamentally different from most signals in crypto. Price action, social sentiment, analyst commentary, and news are usually either lagging indicators or opinions. Onchain metrics reflect actual capital decisions — recorded publicly and permanently — before any narrative forms. This gives them a structural edge that most participants still underuse.</p>
+    <p>If you spend time in Sui-related discussions on X, Telegram, or YouTube, a familiar pattern emerges. When the price rises, commentary quickly turns optimistic, often supported by selective charts suggesting strong upside. When the price falls, the tone shifts sharply toward caution or concern. In a relatively young ecosystem like Sui, price movements frequently drive the narrative rather than the other way around.</p>
 
-    <h2 class="art-subhead">The Signal Hierarchy Problem</h2>
+    <h2 class="art-subhead">The Noise Problem</h2>
 
-    <p>Most traders use what feels like a diverse set of inputs, but they are often highly correlated. News reacts to price. Sentiment follows price. Analyst targets and technical levels are drawn from recent price history. When signals are all downstream of the same source, stacking them doesn't reduce uncertainty — it simply adds noise.</p>
+    <p>Much of the daily commentary around Sui functions more as narration than analysis. Market participants tend to react to price action and then construct explanations that fit the recent move. This creates a cycle in which loud opinions often reflect sentiment more than insight.</p>
 
-    <p>Onchain data is not a prediction or an opinion. It is a permanent, public record of what market participants actually did with their capital. Every stake, liquidity provision, and protocol interaction is timestamped and immutable. It was not interpreted by analysts or shaped by narrative. It simply happened and was recorded.</p>
+    <div class="pull-quote">Social media sentiment has historically been one of the least reliable indicators in early-stage ecosystems. Elevated discussion frequently coincides with short-term peaks.</div>
 
-    <div class="pull-quote">Capital moves first. Onchain metrics don't move faster because they are smarter — they move first because they are the decisions. Everything else is a reaction.</div>
+    <h2 class="art-subhead">Onchain Data Tends to Lead</h2>
 
-    <h2 class="art-subhead">Why It Moves Before the Narrative</h2>
+    <p>In contrast, onchain metrics reflect actual capital allocation decisions. When participants stake tokens, provide liquidity, or increase usage of applications, these actions represent real commitments of resources. Because of this, onchain data often signals shifts in behavior before they become widely discussed in the narrative.</p>
 
-    <p>Serious inflows appear in TVL, staking ratios, and active addresses well before they show up in price — and long before they appear in commentary or social media. Onchain data can be distorted by wash trading or incentive programs, but it still reflects actual behavior rather than opinion — a more honest starting point, as long as it is read with proper context.</p>
+    <p>Sui has now reached a stage where its onchain activity provides meaningful signals, while the ecosystem remains early enough that careful observation can offer an advantage.</p>
 
-    <p>You don't need to monitor dozens of metrics in real time. A small, focused set — TVL trends, staking ratios, active addresses relative to historical ranges, and contextualized DEX volume — reviewed consistently, will deliver better insight than a large volume of price-driven commentary. Most participants are still reacting to price and calling it analysis. The data that precedes those moves is public, permanent, and freely available. That gap is the opportunity.</p>
+    <h2 class="art-subhead">What's Worth Monitoring</h2>
+
+    <p>Rather than following daily price commentary, the following metrics deserve closer attention:</p>
+
+    <ul>
+      <li><strong>TVL Trends</strong>Whether total value locked is showing steady inflows during periods of price consolidation can indicate quiet positioning by longer-term participants.</li>
+      <li><strong>Staking Behavior</strong>Changes in staking inflows or outflows, especially during neutral or declining price environments, can serve as a clearer measure of conviction than public discussion.</li>
+      <li><strong>Active Addresses &amp; Transactions</strong>Sustained increases viewed against 30- and 90-day averages provide a more stable view of actual usage than any single data point.</li>
+      <li><strong>Volume Relative to Liquidity</strong>Headline trading volume should be evaluated alongside liquidity depth on DeepBook and stablecoin flows to distinguish genuine activity from temporary movements.</li>
+      <li><strong>Mean Reversion</strong>Metrics that move meaningfully away from their historical averages often highlight potential turning points worth closer review.</li>
+    </ul>
+
+    <p>These data points can be tracked on DefiLlama for TVL, the Sui Explorer or TokenTerminal for staking and activity metrics, and Dune Analytics for more detailed analysis.</p>
+
+    <p>Price will continue to fluctuate. The more enduring advantage comes from observing what the chain itself reveals through actual usage and capital flows.</p>
   </div>
 
   <div class="art-footer">
