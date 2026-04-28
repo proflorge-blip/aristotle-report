@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sui and the Agentic Economy Overview: Part 1 · Aristotle</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f4f4f4;
+      --cream:        #FFFEFD;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(244,244,244,0.96);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-width: 220px;
+      flex-direction: column;
+      z-index: 99;
+      list-style: none;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu li { border-bottom: 1px solid var(--border); }
+    .nav-menu li:last-child { border-bottom: none; }
+    .nav-menu a {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      transition: background 0.12s, color 0.12s;
+    }
+    .nav-menu a:hover { color: var(--ink); background: var(--cream); }
+    .nav-menu a.active { color: var(--ink); font-weight: 500; }
+
+    .nav-learn {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: var(--ink);
+      text-decoration: none;
+      padding: 0.45rem 0.9rem;
+    }
+
+    /* ── ARTICLE LAYOUT ── */
+    .art-wrap { max-width: 900px; margin: 0 auto; }
+
+    .art-header {
+      padding: 5rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .art-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .art-eyebrow a { color: var(--ink); text-decoration: none; }
+    .art-eyebrow a:hover { opacity: 0.7; }
+    .art-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink);
+      max-width: 560px;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .art-body {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      margin: 2.5rem 3rem 4rem;
+      padding: 2.8rem 3rem 3.5rem;
+    }
+
+    .art-body > p:first-of-type::first-letter {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 4.4rem;
+      font-style: italic;
+      line-height: 0.8;
+      float: left;
+      margin-right: 0.12em;
+      margin-top: 0.1em;
+      color: var(--ink);
+    }
+
+    .art-body p {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1.15rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+      margin-bottom: 1.3rem;
+    }
+
+    .art-subhead {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.92rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin-top: 2.4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .pull-quote {
+      border-left: 2px solid var(--ink);
+      margin: 2rem 0;
+      padding: 0.4rem 0 0.4rem 1.4rem;
+      font-family: 'IBM Plex Serif', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* ── FOOTER NAV ── */
+    .art-footer {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem 3rem 5rem;
+      border-top: 1px solid var(--border);
+    }
+    .art-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .art-back:hover { opacity: 0.7; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .art-header { padding: 4rem 1.5rem 2rem; }
+      .art-body { margin: 2rem 1.5rem 3rem; padding: 2rem 1.5rem; }
+      .art-footer { padding: 2rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <a href="learn.html" class="nav-learn">LEARN/</a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="learn.html" class="active">Learn</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="art-wrap">
+
+  <div class="art-header">
+    <p class="art-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; 03</p>
+    <h1 class="art-title">Sui and the Agentic Economy Overview: Part 1</h1>
+  </div>
+
+  <div class="art-body">
+    <p>The next wave of internet activity will no longer be driven solely by humans. AI agents — autonomous systems capable of making decisions, executing tasks, and managing resources with little human intervention — are moving from research labs into everyday use. As they scale, these agents require more than just communication. They need to transact continuously, at high volume, and with immediate finality — without waiting for human approval at every step.</p>
+
+    <p>This development is bringing blockchain back into the spotlight. The central question is no longer whether blockchains have a role, but which ones are genuinely designed for the agentic economy that is taking shape.</p>
+
+    <h2 class="art-subhead">What Agents Need</h2>
+
+    <p>Human traders can tolerate delays and fluctuating fees. Autonomous agents cannot. When an agent is executing thousands of micro-transactions per hour — settling contracts, rebalancing positions, or paying for compute — it needs speed, predictability, and finality built into the infrastructure.</p>
+
+    <div class="pull-quote">These are not nice-to-have features. They are essential requirements.</div>
+
+    <h2 class="art-subhead">Why Sui Fits</h2>
+
+    <p>Sui's object-centric architecture and parallel execution model were designed to process many independent transactions simultaneously. This allows the network to handle high-frequency activity without forcing everything into long queues.</p>
+
+    <p>Sub-second finality removes the need for agents to pause and wait for confirmations. Predictable, low fees allow agents to calculate exact costs before executing — something that becomes critical at scale.</p>
+
+    <h2 class="art-subhead">Storage and Liquidity</h2>
+
+    <p>Agents also need reliable persistent storage for history, context, and decision logs. Walrus, Sui's decentralized storage layer, provides a native solution for this within the ecosystem.</p>
+
+    <p>For financial agents, DeepBook — Sui's native central limit order book — offers real market depth and limit order functionality, going beyond the limitations of automated market makers.</p>
+
+    <h2 class="art-subhead">The Bigger Picture</h2>
+
+    <p>Autonomous agents are already active in crypto, managing wallets, executing strategies, and participating in on-chain markets. The chains best positioned for this shift are those built for machine-speed, parallel, and low-latency operations. Sui's architecture gives it a meaningful advantage in this emerging landscape.</p>
+  </div>
+
+  <div class="art-footer">
+    <a href="learn.html" class="art-back">← Back to Learn</a>
+  </div>
+
+</div>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
