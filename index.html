@@ -225,8 +225,15 @@
     }
     .tg-avatar {
       width: 30px; height: 30px;
+      background: var(--ink);
       border-radius: 50%;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #ffffff;
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       font-size: 0.62rem; color: #fff; font-weight: 500; flex-shrink: 0;
@@ -351,7 +358,7 @@
     }
     .tier-logos-num { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 400; color: var(--ink-2); }
     .tier-logos-num span { font-size: 0.75rem; color: var(--ink); }
-    .tier-pricing { border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; }
+    .tier-pricing { padding-top: 1.5rem; margin-top: 1.5rem; }
     .tier-price { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
     .tier-price span { font-size: 0.82rem; font-weight: 400; }
     .tier-price-sub { font-family: 'IBM Plex Serif', serif; font-size: 0.88rem; color: var(--ink); margin-bottom: 0.5rem; }
@@ -498,7 +505,7 @@
     <span></span><span></span><span></span>
   </button>
   <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
-  <a href="learn.html" class="nav-learn">LEARN/</a>
+  <a href="learn.html" class="nav-learn">/LEARN</a>
   <ul class="nav-menu" id="nav-menu">
     <li><a href="#how">How it works</a></li>
     <li><a href="#tiers">Pricing</a></li>
@@ -641,10 +648,6 @@ MEAN REV      -0.47σ     -0.66
         <li>DeepBook liquidity + 24h change</li>
         <li>Mean reversion (σ)</li>
       </ul>
-      <div class="tier-logos-row">
-        <span class="tier-logos-label">Logos Index</span>
-        <span class="tier-logos-num">64<span>/100</span></span>
-      </div>
       <div class="tier-pricing">
         <div class="tier-price">$39<span>/mo</span></div>
         <div class="tier-price-sub">Standard price at launch</div>
