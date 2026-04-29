@@ -27,7 +27,6 @@
       min-height: 100vh;
     }
 
-    /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
@@ -112,7 +111,6 @@
     .nav-menu a:hover { color: var(--ink); }
     .nav-menu a.active { color: var(--ink); font-weight: 500; }
 
-    /* ── PAGE HEADER ── */
     .page-header {
       max-width: 1100px;
       margin: 0 auto;
@@ -144,7 +142,6 @@
       max-width: 560px;
     }
 
-    /* ── PAGE BODY ── */
     .page-body {
       max-width: 1100px;
       margin: 0 auto;
@@ -154,7 +151,6 @@
       border-top: none;
     }
 
-    /* ── STATUS BAR ── */
     .status-bar {
       display: flex;
       align-items: center;
@@ -179,11 +175,7 @@
     }
     .refresh-btn:hover { color: var(--ink); border-color: var(--ink); }
 
-    /* ── PRICE TABLE ── */
-    .price-table {
-      border: 1px solid var(--border);
-      margin-bottom: 2.5rem;
-    }
+    .price-table { border: 1px solid var(--border); margin-bottom: 2.5rem; }
     .price-row {
       display: grid;
       grid-template-columns: 120px 1fr 180px;
@@ -210,10 +202,7 @@
       color: var(--ink);
       letter-spacing: -0.01em;
     }
-    .price-row.ratio-row .price-value {
-      font-size: 1.15rem;
-      color: var(--ink-2);
-    }
+    .price-row.ratio-row .price-value { font-size: 1.15rem; color: var(--ink-2); }
     .price-change {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.88rem;
@@ -221,7 +210,6 @@
       color: var(--ink);
     }
 
-    /* ── PERFORMANCE BAR ── */
     .perf-section { margin-bottom: 2.5rem; }
     .section-label {
       font-family: 'IBM Plex Mono', monospace;
@@ -232,11 +220,7 @@
       color: var(--ink-3);
       margin-bottom: 1.2rem;
     }
-    .bar-wrap {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-    }
+    .bar-wrap { display: flex; align-items: center; gap: 1.2rem; }
     .bar-label {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.68rem;
@@ -249,12 +233,7 @@
     }
     .bar-label.right { text-align: right; }
     .bar-label.active { color: var(--ink); font-weight: 500; }
-    .bar-track {
-      flex: 1;
-      position: relative;
-      height: 5px;
-      background: var(--border);
-    }
+    .bar-track { flex: 1; position: relative; height: 5px; background: var(--border); }
     .bar-fill {
       position: absolute;
       top: 0;
@@ -274,17 +253,13 @@
       transform: translateX(-50%);
     }
 
-    /* ── STATS ROW ── */
     .stats-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       border: 1px solid var(--border);
       margin-bottom: 2.5rem;
     }
-    .stat {
-      padding: 1.5rem;
-      border-right: 1px solid var(--border);
-    }
+    .stat { padding: 1.5rem; border-right: 1px solid var(--border); }
     .stat:last-child { border-right: none; }
     .stat-label {
       font-family: 'IBM Plex Mono', monospace;
@@ -309,10 +284,8 @@
       color: var(--ink-3);
     }
 
-    /* ── DIVIDER ── */
     .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 
-    /* ── EXPLAINER ── */
     .section-body {
       font-family: 'IBM Plex Serif', serif;
       font-size: 1rem;
@@ -320,7 +293,6 @@
       color: var(--ink-2);
     }
 
-    /* ── ERROR ── */
     .error-state {
       display: none;
       font-family: 'IBM Plex Mono', monospace;
@@ -343,7 +315,6 @@
       padding: 0;
     }
 
-    /* ── CTA ── */
     .cta-block {
       margin-top: 2.5rem;
       padding: 2rem 2.5rem;
@@ -354,12 +325,7 @@
       gap: 2rem;
       flex-wrap: wrap;
     }
-    .cta-text {
-      font-family: 'IBM Plex Serif', serif;
-      font-size: 1rem;
-      color: var(--ink);
-      line-height: 1.7;
-    }
+    .cta-text { font-family: 'IBM Plex Serif', serif; font-size: 1rem; color: var(--ink); line-height: 1.7; }
     .btn-primary {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.68rem;
@@ -375,7 +341,6 @@
     }
     .btn-primary:hover { opacity: 0.8; }
 
-    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 3rem;
@@ -391,7 +356,6 @@
     }
     .footer-brand { font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
       nav { padding: 1.1rem 1.5rem; }
       .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
@@ -409,7 +373,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -427,43 +390,39 @@
   </ul>
 </nav>
 
-<!-- PAGE HEADER -->
 <div class="page-header">
   <p class="page-eyebrow">Ratio Tracker</p>
   <h1 class="page-title">SUI / SOL</h1>
   <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
 </div>
 
-<!-- PAGE BODY -->
 <div class="page-body">
 
   <div class="status-bar">
-    <span id="updated">Loading…</span>
-    <button class="refresh-btn" onclick="fetchData()">↻ Refresh</button>
+    <span id="updated">Loading&#8230;</span>
+    <button class="refresh-btn" onclick="fetchData()">&#8635; Refresh</button>
   </div>
 
-  <!-- Price table -->
   <div class="price-table">
     <div class="price-row">
       <span class="price-token">SUI</span>
-      <span class="price-value" id="sui-price">—</span>
-      <span class="price-change" id="sui-change">—</span>
+      <span class="price-value" id="sui-price">&#8212;</span>
+      <span class="price-change" id="sui-change">&#8212;</span>
     </div>
     <div class="price-row ratio-row">
       <span class="price-token">SUI / SOL</span>
-      <span class="price-value" id="ratio-value">—</span>
+      <span class="price-value" id="ratio-value">&#8212;</span>
       <span class="price-change"></span>
     </div>
     <div class="price-row">
       <span class="price-token">SOL</span>
-      <span class="price-value" id="sol-price">—</span>
-      <span class="price-change" id="sol-change">—</span>
+      <span class="price-value" id="sol-price">&#8212;</span>
+      <span class="price-change" id="sol-change">&#8212;</span>
     </div>
   </div>
 
-  <!-- Performance bar -->
   <div class="perf-section">
-    <p class="section-label">Relative 24H Performance — SUI vs SOL</p>
+    <p class="section-label">Relative 24H Performance &#8212; SUI vs SOL</p>
     <div class="bar-wrap">
       <span class="bar-label" id="label-sol">SOL leading</span>
       <div class="bar-track">
@@ -474,54 +433,49 @@
     </div>
   </div>
 
-  <!-- Stats row -->
   <div class="stats-row">
     <div class="stat">
       <p class="stat-label">SUI 24H</p>
-      <p class="stat-value" id="sui-24h">—</p>
+      <p class="stat-value" id="sui-24h">&#8212;</p>
       <p class="stat-sub">vs yesterday</p>
     </div>
     <div class="stat">
       <p class="stat-label">Ratio Shift</p>
-      <p class="stat-value" id="ratio-shift">—</p>
+      <p class="stat-value" id="ratio-shift">&#8212;</p>
       <p class="stat-sub">24h change</p>
     </div>
     <div class="stat">
       <p class="stat-label">SOL 24H</p>
-      <p class="stat-value" id="sol-24h">—</p>
+      <p class="stat-value" id="sol-24h">&#8212;</p>
       <p class="stat-sub">vs yesterday</p>
     </div>
   </div>
 
   <hr class="divider"/>
 
-  <!-- Explainer -->
   <div style="margin-bottom:2.5rem;">
     <p class="section-label">How to read this</p>
-    <p class="section-body">A rising SUI/SOL ratio means SUI is gaining ground relative to SOL — outperforming, declining less, or both. A falling ratio means the reverse. This is not a price prediction. It is a snapshot of relative momentum between two ecosystems competing for the same capital.</p>
+    <p class="section-body">A rising SUI/SOL ratio means SUI is gaining ground relative to SOL &#8212; outperforming, declining less, or both. A falling ratio means the reverse. This is not a price prediction. It is a snapshot of relative momentum between two ecosystems competing for the same capital.</p>
   </div>
 
-  <!-- Error state -->
   <div class="error-state" id="error-state">
-    Data unavailable — <button onclick="fetchData()">refresh to retry</button>
+    Data unavailable &#8212; <button onclick="fetchData()">refresh to retry</button>
   </div>
 
-  <!-- CTA -->
   <div class="cta-block">
-    <p class="cta-text">Aristotle publishes a twice-daily Sui intelligence brief — price, TVL, DEX volume, staking ratio, and the Logos Index — free on Telegram.</p>
+    <p class="cta-text">Aristotle publishes a twice-daily Sui intelligence brief &#8212; price, TVL, DEX volume, staking ratio, and the Logos Index &#8212; free on Telegram.</p>
     <a href="<https://t.me/aristotlesuiupdate>" target="_blank" class="btn-primary">Join Free Channel</a>
   </div>
 
 </div>
 
 <footer>
-  <span class="footer-brand">Aristotle · Sui Update / Lyceum</span>
+  <span class="footer-brand">Aristotle &#183; Sui Update / Lyceum</span>
   <span>No hype. No signals. Just data.</span>
   <span>Not financial advice.</span>
 </footer>
 
 <script>
-  // Nav
   var hamburger = document.getElementById('hamburger');
   var navMenu   = document.getElementById('nav-menu');
   hamburger.addEventListener('click', function() {
@@ -535,42 +489,25 @@
     });
   });
 
-  function fmtPrice(val, decimals) {
-    return '$' + val.toFixed(decimals);
+  function fmtPrice(v, d) { return '$' + v.toFixed(d); }
+  function fmtPct(v) { return (v >= 0 ? '+' : '') + v.toFixed(2) + '%'; }
+  function getArrow(v) {
+    if (Math.abs(v) < 0.05) return ' \u2022';
+    if (v >= 5) return ' \u25b2'; if (v >= 0) return ' \u25b3';
+    if (v > -5) return ' \u25bd'; return ' \u25bc';
   }
 
-  function fmtPct(val) {
-    var sign = val >= 0 ? '+' : '';
-    return sign + val.toFixed(2) + '%';
-  }
-
-  function getArrow(val) {
-    if (Math.abs(val) < 0.05) return ' •';
-    if (val >= 5)  return ' ▲';
-    if (val >= 0)  return ' △';
-    if (val > -5)  return ' ▽';
-    return ' ▼';
-  }
-
-  function updateBar(relPerf) {
-    var bar      = document.getElementById('perf-bar');
-    var labelSol = document.getElementById('label-sol');
-    var labelSui = document.getElementById('label-sui');
-    var maxPerf  = 15;
-    var pct      = Math.min(Math.abs(relPerf) / maxPerf, 1) * 50;
-
-    if (relPerf >= 0) {
-      bar.style.left  = '50%';
-      bar.style.right = 'auto';
-      bar.style.width = pct + '%';
-      labelSui.classList.add('active');
-      labelSol.classList.remove('active');
+  function updateBar(rel) {
+    var bar  = document.getElementById('perf-bar');
+    var lSol = document.getElementById('label-sol');
+    var lSui = document.getElementById('label-sui');
+    var pct  = Math.min(Math.abs(rel) / 15, 1) * 50;
+    if (rel >= 0) {
+      bar.style.left = '50%'; bar.style.right = 'auto'; bar.style.width = pct + '%';
+      lSui.classList.add('active'); lSol.classList.remove('active');
     } else {
-      bar.style.right = '50%';
-      bar.style.left  = 'auto';
-      bar.style.width = pct + '%';
-      labelSol.classList.add('active');
-      labelSui.classList.remove('active');
+      bar.style.right = '50%'; bar.style.left = 'auto'; bar.style.width = pct + '%';
+      lSol.classList.add('active'); lSui.classList.remove('active');
     }
   }
 
@@ -578,133 +515,130 @@
     document.getElementById('error-state').style.display = 'flex';
     document.getElementById('updated').textContent = 'Data unavailable';
   }
+  function hideError() { document.getElementById('error-state').style.display = 'none'; }
 
-  function hideError() {
-    document.getElementById('error-state').style.display = 'none';
+  function tf(url) {
+    var ctrl = new AbortController();
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
+    return fetch(url, { signal: ctrl.signal })
+      .then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
   }
 
-  function binanceFmt(s, o) {
-    return {
-      suiPrice:  parseFloat(s.lastPrice),
-      solPrice:  parseFloat(o.lastPrice),
-      suiChange: parseFloat(s.priceChangePercent),
-      solChange: parseFloat(o.priceChangePercent),
-      suiOpen:   parseFloat(s.openPrice),
-      solOpen:   parseFloat(o.openPrice)
-    };
+  function firstOk(sources) {
+    return new Promise(function(resolve, reject) {
+      var left = sources.length;
+      sources.forEach(function(s) {
+        s.p.then(function(d) { resolve({ d: d, src: s.src }); })
+           .catch(function()  { if (--left === 0) reject(); });
+      });
+    });
   }
 
-  async function tryMexc() {
-    var r = await Promise.all([
-      fetch('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
-      fetch('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
-    ]);
-    if (!r[0].ok || !r[1].ok) throw new Error('mexc');
-    return binanceFmt(await r[0].json(), await r[1].json());
+  function bFmt(s, o) {
+    return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
+             suiChange: parseFloat(s.priceChangePercent), solChange: parseFloat(o.priceChangePercent),
+             suiOpen: parseFloat(s.openPrice),   solOpen: parseFloat(o.openPrice) };
   }
 
-  async function tryBinance() {
-    var r = await Promise.all([
-      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
-      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
-    ]);
-    if (!r[0].ok || !r[1].ok) throw new Error('binance');
-    return binanceFmt(await r[0].json(), await r[1].json());
+  function srcMexc() {
+    return Promise.all([
+      tf('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
+      tf('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) { return bFmt(j[0], j[1]); });
   }
 
-  async function tryBybit() {
-    var r = await Promise.all([
-      fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT>'),
-      fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SOLUSDT>')
-    ]);
-    if (!r[0].ok || !r[1].ok) throw new Error('bybit');
-    var s = (await r[0].json()).result.list[0];
-    var o = (await r[1].json()).result.list[0];
-    var suiPrice = parseFloat(s.lastPrice), suiOpen = parseFloat(s.prevPrice24h);
-    var solPrice = parseFloat(o.lastPrice), solOpen = parseFloat(o.prevPrice24h);
-    return { suiPrice, solPrice, suiOpen, solOpen,
-      suiChange: parseFloat(s.price24hPcnt) * 100,
-      solChange: parseFloat(o.price24hPcnt) * 100 };
+  function srcBinance() {
+    return Promise.all([
+      tf('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
+      tf('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) { return bFmt(j[0], j[1]); });
   }
 
-  async function tryGate() {
-    var r = await Promise.all([
-      fetch('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT>'),
-      fetch('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SOL_USDT>')
-    ]);
-    if (!r[0].ok || !r[1].ok) throw new Error('gate');
-    var s = (await r[0].json())[0];
-    var o = (await r[1].json())[0];
-    var suiPrice = parseFloat(s.last), suiChange = parseFloat(s.change_percentage);
-    var solPrice = parseFloat(o.last), solChange = parseFloat(o.change_percentage);
-    return { suiPrice, solPrice, suiChange, solChange,
-      suiOpen: suiPrice / (1 + suiChange / 100),
-      solOpen: solPrice / (1 + solChange / 100) };
+  function srcBybit() {
+    return Promise.all([
+      tf('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT>'),
+      tf('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SOLUSDT>')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) {
+      var s = j[0].result.list[0], o = j[1].result.list[0];
+      return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
+               suiChange: parseFloat(s.price24hPcnt) * 100, solChange: parseFloat(o.price24hPcnt) * 100,
+               suiOpen: parseFloat(s.prevPrice24h), solOpen: parseFloat(o.prevPrice24h) };
+    });
   }
 
-  async function tryCoinGecko() {
-    var r = await fetch(
-      '<https://api.coingecko.com/api/v3/simple/price?ids=sui,solana&vs_currencies=usd&include_24hr_change=true>'
-    );
-    if (!r.ok) throw new Error('coingecko');
-    var cg = await r.json();
-    var suiPrice = cg.sui.usd, suiChange = cg.sui.usd_24h_change;
-    var solPrice = cg.solana.usd, solChange = cg.solana.usd_24h_change;
-    return { suiPrice, solPrice, suiChange, solChange,
-      suiOpen: suiPrice / (1 + suiChange / 100),
-      solOpen: solPrice / (1 + solChange / 100) };
+  function srcGate() {
+    return Promise.all([
+      tf('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT>'),
+      tf('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SOL_USDT>')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) {
+      var s = j[0][0], o = j[1][0];
+      var sp = parseFloat(s.last), sc = parseFloat(s.change_percentage);
+      var op = parseFloat(o.last), oc = parseFloat(o.change_percentage);
+      return { suiPrice: sp, solPrice: op, suiChange: sc, solChange: oc,
+               suiOpen: sp / (1 + sc / 100), solOpen: op / (1 + oc / 100) };
+    });
   }
 
-  async function fetchData() {
+  function srcKraken() {
+    return tf('<https://api.kraken.com/0/public/Ticker?pair=SUIUSD,SOLUSD>')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) {
+        if (j.error && j.error.length) throw 0;
+        var keys = Object.keys(j.result), sui, sol;
+        keys.forEach(function(k) { if (k.indexOf('SUI') > -1) sui = j.result[k]; });
+        keys.forEach(function(k) { if (k.indexOf('SOL') > -1) sol = j.result[k]; });
+        if (!sui || !sol) throw 0;
+        var sp = parseFloat(sui.c[0]), op = parseFloat(sol.c[0]);
+        var so = parseFloat(sui.o),    oo = parseFloat(sol.o);
+        return { suiPrice: sp, solPrice: op, suiOpen: so, solOpen: oo,
+                 suiChange: (sp - so) / so * 100, solChange: (op - oo) / oo * 100 };
+      });
+  }
+
+  function fetchData() {
     hideError();
-    document.getElementById('updated').textContent = 'Updating…';
+    document.getElementById('updated').textContent = 'Updating\u2026';
 
-    var d, src;
-    try       { d = await tryMexc();    src = 'MEXC';    }
-    catch(e)  {
-      try     { d = await tryBybit();   src = 'Bybit';   }
-      catch(e2) {
-        try   { d = await tryBinance(); src = 'Binance'; }
-        catch(e3) {
-          try { d = await tryGate();    src = 'Gate';    }
-          catch(e4) {
-            try { d = await tryCoinGecko(); src = 'CG'; }
-            catch(e5) { showError(); return; }
-          }
-        }
-      }
-    }
+    firstOk([
+      { p: srcMexc(),    src: 'MEXC'    },
+      { p: srcBybit(),   src: 'Bybit'   },
+      { p: srcBinance(), src: 'Binance' },
+      { p: srcGate(),    src: 'Gate'    },
+      { p: srcKraken(),  src: 'Kraken'  }
+    ]).then(function(res) {
+      var d = res.d;
+      var ratio     = d.suiPrice / d.solPrice;
+      var prevRatio = d.suiOpen  / d.solOpen;
+      var rShift    = (ratio - prevRatio) / prevRatio * 100;
 
-    var suiPrice  = d.suiPrice,  solPrice  = d.solPrice;
-    var suiChange = d.suiChange, solChange = d.solChange;
-    var suiOpen   = d.suiOpen,   solOpen   = d.solOpen;
+      document.getElementById('sui-price').textContent   = fmtPrice(d.suiPrice, 4);
+      document.getElementById('sol-price').textContent   = fmtPrice(d.solPrice, 2);
+      document.getElementById('ratio-value').textContent = ratio.toFixed(5);
+      document.getElementById('sui-change').textContent  = fmtPct(d.suiChange) + getArrow(d.suiChange);
+      document.getElementById('sol-change').textContent  = fmtPct(d.solChange) + getArrow(d.solChange);
+      document.getElementById('sui-24h').textContent     = fmtPct(d.suiChange);
+      document.getElementById('sol-24h').textContent     = fmtPct(d.solChange);
+      document.getElementById('ratio-shift').textContent = fmtPct(rShift);
+      updateBar(d.suiChange - d.solChange);
 
-    var ratio      = suiPrice / solPrice;
-    var prevRatio  = suiOpen  / solOpen;
-    var ratioShift = ((ratio - prevRatio) / prevRatio) * 100;
-    var relPerf    = suiChange - solChange;
-
-    // Price table
-    document.getElementById('sui-price').textContent   = fmtPrice(suiPrice, 4);
-    document.getElementById('sol-price').textContent   = fmtPrice(solPrice, 2);
-    document.getElementById('ratio-value').textContent = ratio.toFixed(5);
-
-    document.getElementById('sui-change').textContent  = fmtPct(suiChange) + getArrow(suiChange);
-    document.getElementById('sol-change').textContent  = fmtPct(solChange) + getArrow(solChange);
-
-    // Stats
-    document.getElementById('sui-24h').textContent     = fmtPct(suiChange);
-    document.getElementById('sol-24h').textContent     = fmtPct(solChange);
-    document.getElementById('ratio-shift').textContent = fmtPct(ratioShift);
-
-    // Bar
-    updateBar(relPerf);
-
-    // Timestamp
-    var now = new Date();
-    var hh  = String(now.getUTCHours()).padStart(2, '0');
-    var mm  = String(now.getUTCMinutes()).padStart(2, '0');
-    document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC · ' + src;
+      var now = new Date();
+      var hh  = String(now.getUTCHours()).padStart(2, '0');
+      var mm  = String(now.getUTCMinutes()).padStart(2, '0');
+      document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC \u00b7 ' + res.src;
+    }).catch(showError);
   }
 
   fetchData();
