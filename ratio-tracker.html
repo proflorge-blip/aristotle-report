@@ -583,14 +583,7 @@
     document.getElementById('error-state').style.display = 'none';
   }
 
-  async function tryBinance() {
-    var results = await Promise.all([
-      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
-      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
-    ]);
-    if (!results[0].ok || !results[1].ok) throw new Error('binance');
-    var s = await results[0].json();
-    var o = await results[1].json();
+  function binanceFmt(s, o) {
     return {
       suiPrice:  parseFloat(s.lastPrice),
       solPrice:  parseFloat(o.lastPrice),
@@ -601,56 +594,84 @@
     };
   }
 
+  async function tryMexc() {
+    var r = await Promise.all([
+      fetch('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
+      fetch('<https://api.mexc.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
+    ]);
+    if (!r[0].ok || !r[1].ok) throw new Error('mexc');
+    return binanceFmt(await r[0].json(), await r[1].json());
+  }
+
+  async function tryBinance() {
+    var r = await Promise.all([
+      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
+      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
+    ]);
+    if (!r[0].ok || !r[1].ok) throw new Error('binance');
+    return binanceFmt(await r[0].json(), await r[1].json());
+  }
+
   async function tryBybit() {
-    var results = await Promise.all([
+    var r = await Promise.all([
       fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT>'),
       fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SOLUSDT>')
     ]);
-    if (!results[0].ok || !results[1].ok) throw new Error('bybit');
-    var sd = await results[0].json();
-    var od = await results[1].json();
-    var s = sd.result.list[0];
-    var o = od.result.list[0];
-    var suiPrice = parseFloat(s.lastPrice);
-    var solPrice = parseFloat(o.lastPrice);
-    var suiOpen  = parseFloat(s.prevPrice24h);
-    var solOpen  = parseFloat(o.prevPrice24h);
-    return {
-      suiPrice,  solPrice,
+    if (!r[0].ok || !r[1].ok) throw new Error('bybit');
+    var s = (await r[0].json()).result.list[0];
+    var o = (await r[1].json()).result.list[0];
+    var suiPrice = parseFloat(s.lastPrice), suiOpen = parseFloat(s.prevPrice24h);
+    var solPrice = parseFloat(o.lastPrice), solOpen = parseFloat(o.prevPrice24h);
+    return { suiPrice, solPrice, suiOpen, solOpen,
       suiChange: parseFloat(s.price24hPcnt) * 100,
-      solChange: parseFloat(o.price24hPcnt) * 100,
-      suiOpen,   solOpen
-    };
+      solChange: parseFloat(o.price24hPcnt) * 100 };
+  }
+
+  async function tryGate() {
+    var r = await Promise.all([
+      fetch('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT>'),
+      fetch('<https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SOL_USDT>')
+    ]);
+    if (!r[0].ok || !r[1].ok) throw new Error('gate');
+    var s = (await r[0].json())[0];
+    var o = (await r[1].json())[0];
+    var suiPrice = parseFloat(s.last), suiChange = parseFloat(s.change_percentage);
+    var solPrice = parseFloat(o.last), solChange = parseFloat(o.change_percentage);
+    return { suiPrice, solPrice, suiChange, solChange,
+      suiOpen: suiPrice / (1 + suiChange / 100),
+      solOpen: solPrice / (1 + solChange / 100) };
   }
 
   async function tryCoinGecko() {
-    var res = await fetch(
+    var r = await fetch(
       '<https://api.coingecko.com/api/v3/simple/price?ids=sui,solana&vs_currencies=usd&include_24hr_change=true>'
     );
-    if (!res.ok) throw new Error('coingecko');
-    var cg = await res.json();
-    var suiPrice  = cg.sui.usd;
-    var solPrice  = cg.solana.usd;
-    var suiChange = cg.sui.usd_24h_change;
-    var solChange = cg.solana.usd_24h_change;
-    return {
-      suiPrice, solPrice, suiChange, solChange,
+    if (!r.ok) throw new Error('coingecko');
+    var cg = await r.json();
+    var suiPrice = cg.sui.usd, suiChange = cg.sui.usd_24h_change;
+    var solPrice = cg.solana.usd, solChange = cg.solana.usd_24h_change;
+    return { suiPrice, solPrice, suiChange, solChange,
       suiOpen: suiPrice / (1 + suiChange / 100),
-      solOpen: solPrice / (1 + solChange / 100)
-    };
+      solOpen: solPrice / (1 + solChange / 100) };
   }
 
   async function fetchData() {
     hideError();
     document.getElementById('updated').textContent = 'Updating…';
 
-    var d;
-    try       { d = await tryBinance();   }
-    catch (e) {
-      try     { d = await tryBybit();     }
-      catch (e2) {
-        try   { d = await tryCoinGecko(); }
-        catch (e3) { showError(); return; }
+    var d, src;
+    try       { d = await tryMexc();    src = 'MEXC';    }
+    catch(e)  {
+      try     { d = await tryBybit();   src = 'Bybit';   }
+      catch(e2) {
+        try   { d = await tryBinance(); src = 'Binance'; }
+        catch(e3) {
+          try { d = await tryGate();    src = 'Gate';    }
+          catch(e4) {
+            try { d = await tryCoinGecko(); src = 'CG'; }
+            catch(e5) { showError(); return; }
+          }
+        }
       }
     }
 
@@ -683,7 +704,7 @@
     var now = new Date();
     var hh  = String(now.getUTCHours()).padStart(2, '0');
     var mm  = String(now.getUTCMinutes()).padStart(2, '0');
-    document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC';
+    document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC · ' + src;
   }
 
   fetchData();
