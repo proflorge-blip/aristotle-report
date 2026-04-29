@@ -583,47 +583,80 @@
     document.getElementById('error-state').style.display = 'none';
   }
 
+  async function tryBinance() {
+    var results = await Promise.all([
+      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
+      fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
+    ]);
+    if (!results[0].ok || !results[1].ok) throw new Error('binance');
+    var s = await results[0].json();
+    var o = await results[1].json();
+    return {
+      suiPrice:  parseFloat(s.lastPrice),
+      solPrice:  parseFloat(o.lastPrice),
+      suiChange: parseFloat(s.priceChangePercent),
+      solChange: parseFloat(o.priceChangePercent),
+      suiOpen:   parseFloat(s.openPrice),
+      solOpen:   parseFloat(o.openPrice)
+    };
+  }
+
+  async function tryBybit() {
+    var results = await Promise.all([
+      fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT>'),
+      fetch('<https://api.bybit.com/v5/market/tickers?category=spot&symbol=SOLUSDT>')
+    ]);
+    if (!results[0].ok || !results[1].ok) throw new Error('bybit');
+    var sd = await results[0].json();
+    var od = await results[1].json();
+    var s = sd.result.list[0];
+    var o = od.result.list[0];
+    var suiPrice = parseFloat(s.lastPrice);
+    var solPrice = parseFloat(o.lastPrice);
+    var suiOpen  = parseFloat(s.prevPrice24h);
+    var solOpen  = parseFloat(o.prevPrice24h);
+    return {
+      suiPrice,  solPrice,
+      suiChange: parseFloat(s.price24hPcnt) * 100,
+      solChange: parseFloat(o.price24hPcnt) * 100,
+      suiOpen,   solOpen
+    };
+  }
+
+  async function tryCoinGecko() {
+    var res = await fetch(
+      '<https://api.coingecko.com/api/v3/simple/price?ids=sui,solana&vs_currencies=usd&include_24hr_change=true>'
+    );
+    if (!res.ok) throw new Error('coingecko');
+    var cg = await res.json();
+    var suiPrice  = cg.sui.usd;
+    var solPrice  = cg.solana.usd;
+    var suiChange = cg.sui.usd_24h_change;
+    var solChange = cg.solana.usd_24h_change;
+    return {
+      suiPrice, solPrice, suiChange, solChange,
+      suiOpen: suiPrice / (1 + suiChange / 100),
+      solOpen: solPrice / (1 + solChange / 100)
+    };
+  }
+
   async function fetchData() {
     hideError();
     document.getElementById('updated').textContent = 'Updating…';
 
-    var suiPrice, solPrice, suiChange, solChange, suiOpen, solOpen;
-
-    // Primary: Binance (no key required, good CORS support)
-    try {
-      var results = await Promise.all([
-        fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT>'),
-        fetch('<https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT>')
-      ]);
-      if (!results[0].ok || !results[1].ok) throw new Error('Binance error');
-      var suiData = await results[0].json();
-      var solData = await results[1].json();
-
-      suiPrice  = parseFloat(suiData.lastPrice);
-      solPrice  = parseFloat(solData.lastPrice);
-      suiChange = parseFloat(suiData.priceChangePercent);
-      solChange = parseFloat(solData.priceChangePercent);
-      suiOpen   = parseFloat(suiData.openPrice);
-      solOpen   = parseFloat(solData.openPrice);
-    } catch (e) {
-      // Fallback: CoinGecko
-      try {
-        var cgRes = await fetch(
-          '<https://api.coingecko.com/api/v3/simple/price?ids=sui,solana&vs_currencies=usd&include_24hr_change=true>'
-        );
-        if (!cgRes.ok) throw new Error('CoinGecko error');
-        var cg = await cgRes.json();
-        suiPrice  = cg.sui.usd;
-        solPrice  = cg.solana.usd;
-        suiChange = cg.sui.usd_24h_change;
-        solChange = cg.solana.usd_24h_change;
-        suiOpen   = suiPrice / (1 + suiChange / 100);
-        solOpen   = solPrice / (1 + solChange / 100);
-      } catch (e2) {
-        showError();
-        return;
+    var d;
+    try       { d = await tryBinance();   }
+    catch (e) {
+      try     { d = await tryBybit();     }
+      catch (e2) {
+        try   { d = await tryCoinGecko(); }
+        catch (e3) { showError(); return; }
       }
     }
+
+    var suiPrice  = d.suiPrice,  solPrice  = d.solPrice;
+    var suiChange = d.suiChange, solChange = d.solChange;
+    var suiOpen   = d.suiOpen,   solOpen   = d.solOpen;
 
     var ratio      = suiPrice / solPrice;
     var prevRatio  = suiOpen  / solOpen;
@@ -635,8 +668,8 @@
     document.getElementById('sol-price').textContent   = fmtPrice(solPrice, 2);
     document.getElementById('ratio-value').textContent = ratio.toFixed(5);
 
-    document.getElementById('sui-change').textContent = fmtPct(suiChange) + getArrow(suiChange);
-    document.getElementById('sol-change').textContent = fmtPct(solChange) + getArrow(solChange);
+    document.getElementById('sui-change').textContent  = fmtPct(suiChange) + getArrow(suiChange);
+    document.getElementById('sol-change').textContent  = fmtPct(solChange) + getArrow(solChange);
 
     // Stats
     document.getElementById('sui-24h').textContent     = fmtPct(suiChange);
