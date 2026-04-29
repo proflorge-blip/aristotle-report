@@ -408,10 +408,11 @@
       <span class="price-value" id="sui-price">&#8212;</span>
       <span class="price-change" id="sui-change">&#8212;</span>
     </div>
-    <div class="price-row ratio-row">
+    <div class="price-row ratio-row" style="grid-template-columns: 120px 1fr 120px 1fr;">
       <span class="price-token">SUI / SOL</span>
       <span class="price-value" id="ratio-value">&#8212;</span>
-      <span class="price-change" id="sol-ratio-value" style="font-size:0.82rem;color:var(--ink-3);">&#8212;</span>
+      <span class="price-token" style="color:var(--ink);">SOL / SUI</span>
+      <span class="price-value" id="sol-ratio-value">&#8212;</span>
     </div>
     <div class="price-row">
       <span class="price-token">SOL</span>
@@ -626,7 +627,7 @@
       document.getElementById('sui-price').textContent   = fmtPrice(d.suiPrice, 4);
       document.getElementById('sol-price').textContent   = fmtPrice(d.solPrice, 2);
       document.getElementById('ratio-value').textContent = ratio.toFixed(5);
-      document.getElementById('sol-ratio-value').textContent = (1 / ratio).toFixed(1) + ' SUI / 1 SOL';
+      document.getElementById('sol-ratio-value').textContent = (1 / ratio).toFixed(1);
       document.getElementById('sui-change').textContent  = fmtPct(d.suiChange) + getArrow(d.suiChange);
       document.getElementById('sol-change').textContent  = fmtPct(d.solChange) + getArrow(d.solChange);
       document.getElementById('sui-24h').textContent     = fmtPct(d.suiChange);
