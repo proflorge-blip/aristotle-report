@@ -313,16 +313,32 @@
     .tiers-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
     .tiers-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       border: 1px solid var(--border-strong);
       background: #fff;
     }
+    .tier-row-label {
+      grid-column: 1 / -1;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 0.65rem 2.5rem;
+      border-bottom: 1px solid var(--border-strong);
+      background: var(--bg);
+    }
+    .tier-row-label--paid {
+      border-top: 1px solid var(--border-strong);
+    }
     .tier-item {
       padding: 2.5rem;
-      border-right: none;
+      border-right: 1px solid var(--border-strong);
       border-bottom: 1px solid var(--border-strong);
     }
-    .tier-item:last-child { border-bottom: none; }
+    .tier-item:nth-child(even) { border-right: none; }
+    .tier-item:nth-last-child(-n+2) { border-bottom: none; }
     .tier-name {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 1.6rem;
@@ -488,7 +504,9 @@
       .how-grid { grid-template-columns: 1fr 1fr; }
       .tiers-grid { grid-template-columns: 1fr; }
       .tier-item { border-right: none; border-bottom: 1px solid var(--border-strong); }
+      .tier-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border-strong); }
       .tier-item:last-child { border-bottom: none; }
+      .tier-row-label { padding: 0.65rem 1.5rem; }
       .waitlist-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
       .faq-grid { grid-template-columns: 1fr; }
       .faq-item { border-right: none; }
@@ -624,6 +642,10 @@ MEAN REV      -0.47σ     -0.66
   </div>
   <div class="tiers-grid">
 
+    <!-- ROW LABEL: FREE -->
+    <div class="tier-row-label">Free</div>
+
+    <!-- TOP-LEFT: Agora -->
     <div class="tier-item">
       <div class="tier-name">Agora</div>
       <div class="tier-tag">Free · Public Telegram Report</div>
@@ -639,6 +661,27 @@ MEAN REV      -0.47σ     -0.66
       </div>
     </div>
 
+    <!-- TOP-RIGHT: SUI/SOL Ratio -->
+    <div class="tier-item">
+      <div class="tier-name">SUI/SOL Ratio</div>
+      <div class="tier-tag">Live ratio tracker · Free</div>
+      <ul class="tier-metrics">
+        <li>Live SUI and SOL prices</li>
+        <li>SUI/SOL ratio + SOL/SUI reciprocal</li>
+        <li>Relative 24h performance bar</li>
+        <li>Updates every 60 seconds</li>
+      </ul>
+      <div class="tier-pricing">
+        <div class="tier-price">Free</div>
+        <div class="tier-price-sub">No account required</div>
+        <a href="ratio-tracker.html" style="display:inline-block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--ink);color:#ffffff;border:1px solid var(--ink);padding:0.75rem 1.5rem;text-decoration:none;transition:opacity 0.15s;">View Tracker →</a>
+      </div>
+    </div>
+
+    <!-- ROW LABEL: PAID -->
+    <div class="tier-row-label tier-row-label--paid">Paid · Coming Soon</div>
+
+    <!-- BOTTOM-LEFT: Lyceum -->
     <div class="tier-item">
       <div class="tier-name">Lyceum</div>
       <div class="tier-tag">Private Telegram Report · Coming soon</div>
@@ -656,6 +699,7 @@ MEAN REV      -0.47σ     -0.66
       </div>
     </div>
 
+    <!-- BOTTOM-RIGHT: Founders -->
     <div class="tier-item">
       <div class="tier-name">Founders</div>
       <div class="tier-tag">50 seats · Closes when full</div>
@@ -676,25 +720,6 @@ MEAN REV      -0.47σ     -0.66
 
   </div>
   <p style="font-family:'IBM Plex Serif',serif;font-style:italic;font-size:0.95rem;color:var(--ink-2);margin-top:1rem;text-align:left;">In the spirit of Aristotle, 3% of every subscription will be donated to <a href="https://www.icpic.org" target="_blank" style="color:inherit;text-decoration:underline;">Philosophy with Children International</a> — because the examined life begins early.</p>
-
-  <!-- RATIO TRACKER CARD -->
-  <div style="margin-top:2rem;">
-    <div class="tier-item" style="background:#fff;max-width:340px;">
-      <div style="margin-bottom:1.2rem;">
-        <div class="tier-name" style="margin-bottom:0.25rem;">SUI/SOL Ratio</div>
-        <div class="tier-tag">SUI / SOL · Free</div>
-      </div>
-      <ul class="tier-metrics">
-        <li>Live SUI and SOL prices</li>
-        <li>SUI / SOL ratio + SOL / SUI reciprocal</li>
-        <li>Relative 24h performance bar</li>
-        <li>Updates every 60 seconds</li>
-      </ul>
-      <div class="tier-pricing">
-        <a href="ratio-tracker.html" style="display:inline-block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--ink);color:#ffffff;border:1px solid var(--ink);padding:0.75rem 1.5rem;text-decoration:none;transition:opacity 0.15s;">View Tracker →</a>
-      </div>
-    </div>
-  </div>
 
 </section>
 
