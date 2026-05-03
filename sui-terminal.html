@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SUI Terminal · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
@@ -178,7 +178,7 @@
 
     .stats-row {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       border: 1px solid var(--border);
       margin-bottom: 2.5rem;
     }
@@ -193,6 +193,14 @@
       color: var(--ink);
       margin-bottom: 0.6rem;
     }
+    .stat-price {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink-2);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.2rem;
+    }
     .stat-value {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 2.4rem;
@@ -206,6 +214,113 @@
       font-size: 0.78rem;
       letter-spacing: 0.06em;
       color: var(--ink-2);
+    }
+
+    .section-header {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border-strong);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      margin-bottom: 1.2rem;
+    }
+
+    .sub-page-header {
+      margin: 4rem -3rem 2.5rem;
+      padding: 3rem 3rem 2.5rem;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .price-table { border: 1px solid var(--border); margin-bottom: 2.5rem; }
+    .price-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 180px;
+      align-items: center;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+    .price-row:last-child { border-bottom: none; }
+    .price-row.ratio-row { background: var(--bg); }
+
+    .perf-section { margin-bottom: 2.5rem; }
+    .bar-wrap { display: flex; align-items: center; gap: 1.2rem; }
+    .bar-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      white-space: nowrap;
+      min-width: 88px;
+      transition: color 0.3s, font-weight 0.3s;
+    }
+    .bar-label.right { text-align: right; }
+    .bar-label.active { color: var(--ink); font-weight: 500; }
+    .bar-track { flex: 1; position: relative; height: 5px; background: var(--border); }
+    .bar-fill {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: var(--ink);
+      transition: width 0.6s ease, left 0.6s ease, right 0.6s ease;
+      width: 0;
+      left: 50%;
+    }
+    .bar-center-line {
+      position: absolute;
+      left: 50%;
+      top: -6px;
+      width: 1px;
+      height: 17px;
+      background: var(--ink-3);
+      transform: translateX(-50%);
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+    .section-body {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--ink-2);
+    }
+
+    .error-state {
+      display: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .error-state button {
+      background: none;
+      border: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
     }
 
     .cta-block {
@@ -252,11 +367,13 @@
     @media (max-width: 700px) {
       nav { padding: 1.1rem 1.5rem; }
       .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .sub-page-header { margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
       .stats-row { grid-template-columns: 1fr 1fr; }
       .stat { border-bottom: 1px solid var(--border); }
       .stat:nth-child(odd) { border-right: 1px solid var(--border); }
       .stat:nth-child(even) { border-right: none; }
       .stat:nth-last-child(-n+2) { border-bottom: none; }
+      .bar-label { min-width: 68px; font-size: 0.62rem; }
       .cta-block { flex-direction: column; }
       footer { flex-direction: column; gap: 0.4rem; }
     }
@@ -275,7 +392,6 @@
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="logos-index.html">Logos Index</a></li>
     <li><a href="sui-terminal.html" class="active">SUI Terminal</a></li>
-    <li><a href="ratio-tracker.html">SUI/SOL Ratio</a></li>
     <li><a href="learn.html">Learn</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
@@ -284,7 +400,7 @@
 <div class="page-header">
   <p class="page-eyebrow">Free &nbsp;&middot;&nbsp; Live</p>
   <h1 class="page-title">SUI Terminal</h1>
-  <p class="page-subtitle">Live Sui ecosystem data — price, TVL, DEX volume, and staking rate.</p>
+  <p class="page-subtitle">Live Sui ecosystem data — price, TVL, DEX volume, and cross-chain ratio tracking.</p>
 </div>
 
 <div class="page-body">
@@ -294,7 +410,9 @@
     <button class="refresh-btn" onclick="fetchData();fetchNetwork();fetchStaking()">&#8635; Refresh</button>
   </div>
 
-  <div class="stats-row">
+  <!-- ── SUI TERMINAL METRICS ── -->
+  <p class="section-header">SUI Terminal</p>
+  <div class="stats-row" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:2.5rem;">
     <div class="stat">
       <p class="stat-label">SUI Price</p>
       <p class="stat-value" id="net-price">&#8212;</p>
@@ -315,6 +433,68 @@
       <p class="stat-value" id="net-staking">&#8212;</p>
       <p class="stat-sub">% of supply staked</p>
     </div>
+  </div>
+
+  <!-- ── SUI/SOL RATIO ── -->
+  <div class="sub-page-header">
+    <h2 class="page-title">SUI / SOL Ratio</h2>
+    <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
+  </div>
+
+  <div class="price-table" style="margin-bottom:2.5rem;">
+    <div class="price-row ratio-row" style="grid-template-columns:1fr 1fr;gap:0;">
+      <span style="display:flex;flex-direction:column;gap:0.15rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SUI / SOL</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:300;color:var(--ink);letter-spacing:-0.01em;" id="ratio-value">&#8212;</span>
+      </span>
+      <span style="display:flex;flex-direction:column;align-items:flex-end;gap:0.15rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SOL / SUI</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:300;color:var(--ink);letter-spacing:-0.01em;" id="sol-ratio-value">&#8212;</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="perf-section">
+    <p class="section-label">Relative Performance &#8212; SUI vs SOL</p>
+    <div class="bar-wrap">
+      <span class="bar-label" id="label-sol">SOL leading</span>
+      <div class="bar-track">
+        <div class="bar-fill" id="perf-bar"></div>
+        <div class="bar-center-line"></div>
+      </div>
+      <span class="bar-label right" id="label-sui">SUI leading</span>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <p class="stat-label">SUI</p>
+      <p class="stat-price" id="sui-stat-price">&#8212;</p>
+      <p class="stat-value" id="sui-24h">&#8212;</p>
+      <p class="stat-sub">24hr</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">Ratio Shift</p>
+      <p class="stat-value" id="ratio-shift">&#8212;</p>
+      <p class="stat-sub" id="ratio-shift-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">SOL</p>
+      <p class="stat-price" id="sol-stat-price">&#8212;</p>
+      <p class="stat-value" id="sol-24h">&#8212;</p>
+      <p class="stat-sub">24hr</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <div style="margin-bottom:2.5rem;">
+    <p class="section-label">How to read this</p>
+    <p class="section-body">A rising SUI/SOL ratio means SUI is gaining ground relative to SOL &#8212; outperforming, declining less, or both. A falling ratio means the reverse. This is not a price prediction. It is a snapshot of relative momentum between two ecosystems competing for the same capital.</p>
+  </div>
+
+  <div class="error-state" id="error-state">
+    Data unavailable &#8212; <button onclick="fetchData()">refresh to retry</button>
   </div>
 
   <div class="cta-block">
@@ -351,6 +531,31 @@
     if (v >= 1e6) return '$' + (v / 1e6).toFixed(0) + 'M';
     return '$' + v.toFixed(0);
   }
+  function getArrow(v) {
+    if (Math.abs(v) < 0.05) return ' •';
+    if (v >= 5) return ' ▲'; if (v >= 0) return ' △';
+    if (v > -5) return ' ▽'; return ' ▼';
+  }
+
+  function updateBar(rel) {
+    var bar  = document.getElementById('perf-bar');
+    var lSol = document.getElementById('label-sol');
+    var lSui = document.getElementById('label-sui');
+    var pct  = Math.min(Math.abs(rel) / 15, 1) * 50;
+    if (rel >= 0) {
+      bar.style.left = '50%'; bar.style.right = 'auto'; bar.style.width = pct + '%';
+      lSui.classList.add('active'); lSol.classList.remove('active');
+    } else {
+      bar.style.right = '50%'; bar.style.left = 'auto'; bar.style.width = pct + '%';
+      lSol.classList.add('active'); lSui.classList.remove('active');
+    }
+  }
+
+  function showError() {
+    document.getElementById('error-state').style.display = 'flex';
+    document.getElementById('updated').textContent = 'Data unavailable';
+  }
+  function hideError() { document.getElementById('error-state').style.display = 'none'; }
 
   function tf(url) {
     var ctrl = new AbortController();
@@ -382,46 +587,83 @@
     });
   }
 
+  function bFmt(s, o) {
+    return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
+             suiChange: parseFloat(s.priceChangePercent), solChange: parseFloat(o.priceChangePercent),
+             suiOpen: parseFloat(s.openPrice),   solOpen: parseFloat(o.openPrice) };
+  }
+
   function srcMexc() {
-    return tf('https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function(j) { return { suiPrice: parseFloat(j.lastPrice), suiChange: parseFloat(j.priceChangePercent) }; });
+    return Promise.all([
+      tf('https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT'),
+      tf('https://api.mexc.com/api/v3/ticker/24hr?symbol=SOLUSDT')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) { return bFmt(j[0], j[1]); });
   }
+
   function srcBinance() {
-    return tf('https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function(j) { return { suiPrice: parseFloat(j.lastPrice), suiChange: parseFloat(j.priceChangePercent) }; });
+    return Promise.all([
+      tf('https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT'),
+      tf('https://api.binance.com/api/v3/ticker/24hr?symbol=SOLUSDT')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) { return bFmt(j[0], j[1]); });
   }
+
   function srcBybit() {
-    return tf('https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function(j) {
-        var s = j.result.list[0];
-        return { suiPrice: parseFloat(s.lastPrice), suiChange: parseFloat(s.price24hPcnt) * 100 };
-      });
+    return Promise.all([
+      tf('https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT'),
+      tf('https://api.bybit.com/v5/market/tickers?category=spot&symbol=SOLUSDT')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) {
+      var s = j[0].result.list[0], o = j[1].result.list[0];
+      return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
+               suiChange: parseFloat(s.price24hPcnt) * 100, solChange: parseFloat(o.price24hPcnt) * 100,
+               suiOpen: parseFloat(s.prevPrice24h), solOpen: parseFloat(o.prevPrice24h) };
+    });
   }
+
   function srcGate() {
-    return tf('https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function(j) {
-        var s = j[0];
-        return { suiPrice: parseFloat(s.last), suiChange: parseFloat(s.change_percentage) };
-      });
+    return Promise.all([
+      tf('https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT'),
+      tf('https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SOL_USDT')
+    ]).then(function(r) {
+      if (!r[0].ok || !r[1].ok) throw 0;
+      return Promise.all([r[0].json(), r[1].json()]);
+    }).then(function(j) {
+      var s = j[0][0], o = j[1][0];
+      var sp = parseFloat(s.last), sc = parseFloat(s.change_percentage);
+      var op = parseFloat(o.last), oc = parseFloat(o.change_percentage);
+      return { suiPrice: sp, solPrice: op, suiChange: sc, solChange: oc,
+               suiOpen: sp / (1 + sc / 100), solOpen: op / (1 + oc / 100) };
+    });
   }
+
   function srcKraken() {
-    return tf('https://api.kraken.com/0/public/Ticker?pair=SUIUSD')
+    return tf('https://api.kraken.com/0/public/Ticker?pair=SUIUSD,SOLUSD')
       .then(function(r) { if (!r.ok) throw 0; return r.json(); })
       .then(function(j) {
         if (j.error && j.error.length) throw 0;
-        var key = Object.keys(j.result)[0];
-        var sui = j.result[key];
-        var sp = parseFloat(sui.c[0]), so = parseFloat(sui.o);
-        return { suiPrice: sp, suiChange: (sp - so) / so * 100 };
+        var keys = Object.keys(j.result), sui, sol;
+        keys.forEach(function(k) { if (k.indexOf('SUI') > -1) sui = j.result[k]; });
+        keys.forEach(function(k) { if (k.indexOf('SOL') > -1) sol = j.result[k]; });
+        if (!sui || !sol) throw 0;
+        var sp = parseFloat(sui.c[0]), op = parseFloat(sol.c[0]);
+        var so = parseFloat(sui.o),    oo = parseFloat(sol.o);
+        return { suiPrice: sp, solPrice: op, suiOpen: so, solOpen: oo,
+                 suiChange: (sp - so) / so * 100, solChange: (op - oo) / oo * 100 };
       });
   }
 
   function fetchData() {
+    hideError();
     document.getElementById('updated').textContent = 'Updating…';
+
     firstOk([
       { p: srcMexc(),    src: 'MEXC'    },
       { p: srcBybit(),   src: 'Bybit'   },
@@ -430,16 +672,27 @@
       { p: srcKraken(),  src: 'Kraken'  }
     ]).then(function(res) {
       var d = res.d;
-      document.getElementById('net-price').textContent     = fmtPrice(d.suiPrice, 4);
-      document.getElementById('net-price-sub').textContent = fmtPct(d.suiChange);
+      var ratio     = d.suiPrice / d.solPrice;
+      var prevRatio = d.suiOpen  / d.solOpen;
+      var rShift    = (ratio - prevRatio) / prevRatio * 100;
+
+      document.getElementById('net-price').textContent         = fmtPrice(d.suiPrice, 4);
+      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange);
+      document.getElementById('sui-stat-price').textContent    = fmtPrice(d.suiPrice, 4);
+      document.getElementById('sol-stat-price').textContent    = fmtPrice(d.solPrice, 2);
+      document.getElementById('ratio-value').textContent       = ratio.toFixed(5);
+      document.getElementById('sol-ratio-value').textContent   = (1 / ratio).toFixed(1);
+      document.getElementById('sui-24h').textContent           = fmtPct(d.suiChange);
+      document.getElementById('sol-24h').textContent           = fmtPct(d.solChange);
+      document.getElementById('ratio-shift').textContent       = fmtPct(rShift);
+      document.getElementById('ratio-shift-sub').textContent   = rShift >= 0 ? 'SUI gaining vs SOL' : 'SOL gaining vs SUI';
+      updateBar(d.suiChange - d.solChange);
+
       var now = new Date();
       var hh  = String(now.getUTCHours()).padStart(2, '0');
       var mm  = String(now.getUTCMinutes()).padStart(2, '0');
       document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC · ' + res.src;
-    }).catch(function() {
-      document.getElementById('net-price').textContent = '—';
-      document.getElementById('updated').textContent = 'Data unavailable';
-    });
+    }).catch(showError);
   }
 
   function fetchNetwork() {
