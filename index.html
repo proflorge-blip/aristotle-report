@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
- <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3"
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aristotle · Sui Agora / Lyceum</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@400;700&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-.
+
     :root {
       --bg:           #f4f4f4;
       --ink:          #0a0a0a;
@@ -29,7 +29,7 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: sticky;
       top: 0;
@@ -42,7 +42,6 @@
       background: rgba(244,244,244,0.96);
       backdrop-filter: blur(8px);
     }
-
     .nav-hamburger {
       display: flex;
       flex-direction: column;
@@ -63,7 +62,6 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
     .nav-logo {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.88rem;
@@ -74,7 +72,6 @@
       text-decoration: none;
     }
     .nav-logo span { color: inherit; }
-
     .nav-learn {
       margin-left: auto;
       font-family: 'IBM Plex Mono', monospace;
@@ -87,7 +84,6 @@
       text-decoration: none;
       padding: 0.45rem 0.9rem;
     }
-
     .nav-menu {
       display: none;
       position: absolute;
@@ -98,7 +94,6 @@
       border-right: 1px solid var(--border);
       min-width: 220px;
       flex-direction: column;
-      backdrop-filter: blur(8px);
       z-index: 99;
       list-style: none;
     }
@@ -118,7 +113,7 @@
     }
     .nav-menu a:hover { color: var(--ink); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -130,7 +125,6 @@
       background: transparent;
       border: 1px solid var(--border);
     }
-
     .hero-eyebrow {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.68rem;
@@ -201,7 +195,7 @@
     }
     .btn-secondary:hover { opacity: 0.7; }
 
-    /* ── TELEGRAM PREVIEWS ── */
+    /* TELEGRAM PREVIEWS */
     .tg-preview { display: flex; flex-direction: column; gap: 1.2rem; }
     .tg-label {
       font-family: 'IBM Plex Mono', monospace;
@@ -225,7 +219,8 @@
       border-bottom: 1px solid var(--border);
     }
     .tg-avatar {
-      width: 30px; height: 30px;
+      width: 36px;
+      height: 36px;
       background: var(--ink);
       border-radius: 50%;
       display: flex;
@@ -234,45 +229,36 @@
       font-family: 'IBM Plex Mono', monospace;
       font-size: 1rem;
       font-weight: 400;
-      letter-spacing: 0.06em;
       color: #ffffff;
       flex-shrink: 0;
     }
     .tg-channel-name { font-size: 0.82rem; font-weight: 500; color: var(--ink); }
-    .tg-channel-sub { font-size: 0.68rem; color: var(--ink); }
-    .tg-messages { background: #fff; padding: 0.9rem 1rem; }
+    .tg-channel-sub { font-size: 0.68rem; color: var(--ink-3); }
+    .tg-messages { background: #f0f0f0; padding: 0.9rem 1rem; }
     .tg-bubble {
       background: #fff;
       border: 1px solid var(--border);
       border-radius: 0 8px 8px 8px;
-      padding: 0.8rem 1rem;
-      max-width: 95%;
+      padding: 0.9rem 1.1rem;
+      max-width: 100%;
       display: inline-block;
     }
     .tg-code {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       font-weight: 300;
       line-height: 1.75;
       color: var(--ink);
       white-space: pre;
     }
-    .tg-time { font-size: 0.68rem; color: var(--ink); text-align: right; margin-top: 0.25rem; }
+    .tg-time { font-size: 0.68rem; color: var(--ink-3); text-align: right; margin-top: 0.25rem; }
 
-    /* ── DIVIDER ── */
+    /* DIVIDER */
     .section-divider { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
     .section-divider hr { border: none; border-top: 1px solid var(--border); }
 
-    /* ── SECTION HEADER ── */
+    /* SECTION HEADER */
     .section-header { margin-bottom: 3rem; }
-    .section-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 1.2rem;
-    }
     .section-title {
       font-family: 'IBM Plex Serif', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.6rem);
@@ -281,14 +267,8 @@
       line-height: 1.1;
       color: var(--ink);
     }
-    .section-title em {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-weight: 700;
-      color: dodgerblue;
-    }
 
-    /* ── HOW IT WORKS ── */
+    /* HOW IT WORKS */
     .how-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
     .how-grid {
       display: grid;
@@ -309,7 +289,7 @@
     .how-title { font-family: 'IBM Plex Serif', serif; font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.6rem; }
     .how-desc { font-family: 'IBM Plex Serif', serif; font-size: 1rem; color: var(--ink); line-height: 1.8; }
 
-    /* ── TIERS ── */
+    /* TIERS */
     .tiers-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
     .tiers-grid {
       display: grid;
@@ -329,15 +309,13 @@
       border-bottom: 1px solid var(--border-strong);
       background: var(--bg);
     }
-    .tier-row-label--paid {
-      border-top: 1px solid var(--border-strong);
-    }
+    .tier-row-label--paid { border-top: 1px solid var(--border-strong); }
     .tier-item {
       padding: 2.5rem;
       border-right: 1px solid var(--border-strong);
       border-bottom: 1px solid var(--border-strong);
     }
-    .tier-item:nth-child(3n) { border-right: none; }
+    .tier-item:nth-child(even) { border-right: none; }
     .tier-item:nth-last-child(-n+2) { border-bottom: none; }
     .tier-name {
       font-family: 'IBM Plex Mono', monospace;
@@ -354,94 +332,17 @@
       font-weight: 400;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink);
+      color: var(--ink-3);
       margin-bottom: 1.5rem;
     }
     .tier-metrics { list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; color: var(--ink); line-height: 2.2; margin-bottom: 1.5rem; }
     .tier-metrics li::before { content: '—'; margin-right: 0.6rem; color: var(--border-strong); }
-    .tier-logos-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1.5rem;
-    }
-    .tier-logos-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink-2);
-    }
-    .tier-logos-num { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 400; color: var(--ink-2); }
-    .tier-logos-num span { font-size: 0.75rem; color: var(--ink); }
     .tier-pricing { padding-top: 1.5rem; margin-top: 1.5rem; }
     .tier-price { font-family: 'IBM Plex Mono', monospace; font-size: 1.4rem; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; }
     .tier-price span { font-size: 0.82rem; font-weight: 400; }
-    .tier-price-sub { font-family: 'IBM Plex Serif', serif; font-size: 0.88rem; color: var(--ink); margin-bottom: 0.5rem; }
-    .tier-price-reg { font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; font-weight: 400; color: var(--ink-2); }
+    .tier-price-sub { font-family: 'IBM Plex Serif', serif; font-size: 0.88rem; color: var(--ink-2); margin-bottom: 0.5rem; }
 
-    /* ── WAITLIST ── */
-    .waitlist-section {
-      padding: 7rem 3rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-      border: 1px solid var(--border);
-    }
-    .waitlist-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
-    .waitlist-title {
-      font-family: 'IBM Plex Serif', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-    .waitlist-title em {
-      font-family: 'Libre Baskerville', serif;
-      font-style: italic;
-      font-weight: 700;
-      color: dodgerblue;
-    }
-    .waitlist-sub { font-family: 'IBM Plex Serif', serif; font-size: 1rem; line-height: 1.9; color: var(--ink); }
-    .waitlist-form { display: flex; flex-direction: column; gap: 0.75rem; }
-    .waitlist-input {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem;
-      padding: 0.9rem 1rem;
-      border: 1px solid var(--border-strong);
-      background: #fff;
-      color: var(--ink);
-      outline: none;
-    }
-    .waitlist-input:focus { border-color: var(--ink); }
-    .waitlist-btn {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      background: var(--ink);
-      color: #fff;
-      padding: 0.9rem;
-      border: none;
-      cursor: pointer;
-      transition: opacity 0.15s;
-    }
-    .waitlist-btn:hover { opacity: 0.8; }
-    .waitlist-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; color: var(--ink); letter-spacing: 0.08em; }
-
-    /* ── FAQ ── */
+    /* FAQ */
     .faq-section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
     .faq-grid {
       display: grid;
@@ -473,7 +374,7 @@
     }
     .faq-a { font-family: 'IBM Plex Serif', serif; font-size: 1rem; line-height: 1.8; color: var(--ink); padding-left: 1.2rem; border-left: 1px solid var(--border); }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
       padding: 2rem 3rem;
@@ -495,19 +396,16 @@
     .footer-brand { font-weight: 400; color: var(--ink); text-transform: uppercase; letter-spacing: 0.14em; }
     .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
     .footer-links a { color: var(--ink); text-decoration: none; transition: color 0.15s; }
-    .footer-links a:hover { color: var(--ink); }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 900px) {
       nav { padding: 1.1rem 1.5rem; }
       .hero { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
       .how-grid { grid-template-columns: 1fr 1fr; }
       .tiers-grid { grid-template-columns: 1fr; }
       .tier-item { border-right: none; border-bottom: 1px solid var(--border-strong); }
-      .tier-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--border-strong); }
       .tier-item:last-child { border-bottom: none; }
       .tier-row-label { padding: 0.65rem 1.5rem; }
-      .waitlist-section { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.5rem; }
       .faq-grid { grid-template-columns: 1fr; }
       .faq-item { border-right: none; }
       .how-section, .tiers-section, .faq-section { padding: 4rem 1.5rem; }
@@ -643,10 +541,8 @@ MEAN REV      -0.47σ     -0.66
   </div>
   <div class="tiers-grid">
 
-    <!-- ROW LABEL: FREE -->
     <div class="tier-row-label">Free</div>
 
-    <!-- TOP-LEFT: Agora -->
     <div class="tier-item">
       <div class="tier-name">Agora</div>
       <div class="tier-tag">Free · Public Telegram Report</div>
@@ -662,7 +558,6 @@ MEAN REV      -0.47σ     -0.66
       </div>
     </div>
 
-    <!-- TOP-RIGHT: SUI/SOL Ratio -->
     <div class="tier-item">
       <div class="tier-name">SUI/SOL Ratio</div>
       <div class="tier-tag">Live ratio tracker · Free</div>
@@ -679,10 +574,8 @@ MEAN REV      -0.47σ     -0.66
       </div>
     </div>
 
-    <!-- ROW LABEL: PAID -->
     <div class="tier-row-label tier-row-label--paid">Paid</div>
 
-    <!-- BOTTOM-LEFT: Lyceum -->
     <div class="tier-item">
       <div class="tier-name">Lyceum</div>
       <div class="tier-tag">Private Telegram Report · Coming soon</div>
@@ -692,15 +585,15 @@ MEAN REV      -0.47σ     -0.66
         <li>DEX vol + 24h change</li>
         <li>DeepBook liquidity + 24h change</li>
         <li>Mean reversion (σ)</li>
+        <li>Logos Index — composite network score</li>
       </ul>
       <div class="tier-pricing">
-        <div class="tier-price">$49<span>/mo</span></div>
+        <div class="tier-price">$39<span>/mo</span></div>
         <div class="tier-price-sub">Standard price at launch</div>
         <a href="https://aristotle-report.beehiiv.com/subscribe" target="_blank" style="display:inline-block;margin-top:1.2rem;font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;background:var(--ink);color:#fff;padding:0.75rem 1.5rem;text-decoration:none;transition:opacity 0.15s;">Join Waitlist</a>
       </div>
     </div>
 
-    <!-- BOTTOM-RIGHT: Founders -->
     <div class="tier-item">
       <div class="tier-name">Founders</div>
       <div class="tier-tag">50 seats · Closes when full</div>
@@ -721,7 +614,6 @@ MEAN REV      -0.47σ     -0.66
 
   </div>
   <p style="font-family:'IBM Plex Serif',serif;font-style:italic;font-size:0.95rem;color:var(--ink-2);margin-top:1rem;text-align:left;">In the spirit of Aristotle, 3% of every subscription will be donated to <a href="https://www.icpic.org" target="_blank" style="color:inherit;text-decoration:underline;">Philosophy with Children International</a> — because the examined life begins early.</p>
-
 </section>
 
 <div class="section-divider"><hr></div>
@@ -770,12 +662,10 @@ MEAN REV      -0.47σ     -0.66
 <script>
   var hamburger = document.getElementById('hamburger');
   var navMenu = document.getElementById('nav-menu');
-
   hamburger.addEventListener('click', function() {
     hamburger.classList.toggle('open');
     navMenu.classList.toggle('open');
   });
-
   navMenu.querySelectorAll('a').forEach(function(link) {
     link.addEventListener('click', function() {
       hamburger.classList.remove('open');
