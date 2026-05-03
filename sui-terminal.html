@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SUI Terminal · Aristotle</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f4f4f4;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(244,244,244,0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-logo span { color: inherit; }
+    .nav-learn {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: var(--ink);
+      text-decoration: none;
+      padding: 0.45rem 0.9rem;
+    }
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-width: 220px;
+      flex-direction: column;
+      z-index: 99;
+      list-style: none;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu li { border-bottom: 1px solid var(--border); }
+    .nav-menu li:last-child { border-bottom: none; }
+    .nav-menu a {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      transition: color 0.15s;
+    }
+    .nav-menu a:hover { color: var(--ink); }
+    .nav-menu a.active { color: var(--ink); font-weight: 500; }
+
+    .page-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+    .page-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .page-subtitle {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 1.1rem;
+      color: var(--ink-2);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    .page-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 3rem 5rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-3);
+      margin-bottom: 2rem;
+    }
+    .refresh-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--border-strong);
+      color: var(--ink-3);
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .refresh-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .stat { padding: 1.5rem; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .stat-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .stat-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-2);
+    }
+
+    .cta-block {
+      margin-top: 2.5rem;
+      padding: 2rem 2.5rem;
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .cta-text { font-family: 'IBM Plex Serif', serif; font-size: 1rem; color: var(--ink); line-height: 1.7; }
+    .btn-primary {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { opacity: 0.8; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+    }
+    .footer-brand { font-weight: 400; text-transform: uppercase; letter-spacing: 0.14em; }
+
+    @media (max-width: 700px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat { border-bottom: 1px solid var(--border); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:nth-child(even) { border-right: none; }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
+      .cta-block { flex-direction: column; }
+      footer { flex-direction: column; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <a href="learn.html" class="nav-learn">/LEARN</a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="sui-terminal.html" class="active">SUI Terminal</a></li>
+    <li><a href="ratio-tracker.html">SUI/SOL Ratio</a></li>
+    <li><a href="learn.html">Learn</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Free &nbsp;&middot;&nbsp; Live</p>
+  <h1 class="page-title">SUI Terminal</h1>
+  <p class="page-subtitle">Live Sui ecosystem data — price, TVL, DEX volume, and staking rate.</p>
+</div>
+
+<div class="page-body">
+
+  <div class="status-bar">
+    <span id="updated">Loading&#8230;</span>
+    <button class="refresh-btn" onclick="fetchData();fetchNetwork();fetchStaking()">&#8635; Refresh</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <p class="stat-label">SUI Price</p>
+      <p class="stat-value" id="net-price">&#8212;</p>
+      <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">TVL</p>
+      <p class="stat-value" id="net-tvl">&#8212;</p>
+      <p class="stat-sub" id="net-tvl-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">DEX Volume</p>
+      <p class="stat-value" id="net-dex">&#8212;</p>
+      <p class="stat-sub" id="net-dex-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">Staking Rate</p>
+      <p class="stat-value" id="net-staking">&#8212;</p>
+      <p class="stat-sub">% of supply staked</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <p class="cta-text">Aristotle publishes a twice-daily Sui intelligence brief &#8212; price, TVL, DEX volume, staking ratio, and the Logos Index &#8212; free on Telegram.</p>
+    <a href="https://t.me/aristotlesuiupdate" target="_blank" class="btn-primary">Join Free Channel</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="footer-brand">Aristotle &#183; Sui Agora / Lyceum</span>
+  <span>No hype. No signals. Just data.</span>
+  <span>Not financial advice.</span>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu   = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+
+  function fmtPrice(v, d) { return '$' + v.toFixed(d); }
+  function fmtPct(v) { return (v >= 0 ? '+' : '') + v.toFixed(2) + '%'; }
+  function fmtLarge(v) {
+    if (v >= 1e9) return '$' + (v / 1e9).toFixed(2) + 'B';
+    if (v >= 1e6) return '$' + (v / 1e6).toFixed(0) + 'M';
+    return '$' + v.toFixed(0);
+  }
+
+  function tf(url) {
+    var ctrl = new AbortController();
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
+    return fetch(url, { signal: ctrl.signal })
+      .then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
+  }
+
+  function tfPost(url, body) {
+    var ctrl = new AbortController();
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: ctrl.signal
+    }).then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
+  }
+
+  function firstOk(sources) {
+    return new Promise(function(resolve, reject) {
+      var left = sources.length;
+      sources.forEach(function(s) {
+        s.p.then(function(d) { resolve({ d: d, src: s.src }); })
+           .catch(function()  { if (--left === 0) reject(); });
+      });
+    });
+  }
+
+  function srcMexc() {
+    return tf('https://api.mexc.com/api/v3/ticker/24hr?symbol=SUIUSDT')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) { return { suiPrice: parseFloat(j.lastPrice), suiChange: parseFloat(j.priceChangePercent) }; });
+  }
+  function srcBinance() {
+    return tf('https://api.binance.com/api/v3/ticker/24hr?symbol=SUIUSDT')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) { return { suiPrice: parseFloat(j.lastPrice), suiChange: parseFloat(j.priceChangePercent) }; });
+  }
+  function srcBybit() {
+    return tf('https://api.bybit.com/v5/market/tickers?category=spot&symbol=SUIUSDT')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) {
+        var s = j.result.list[0];
+        return { suiPrice: parseFloat(s.lastPrice), suiChange: parseFloat(s.price24hPcnt) * 100 };
+      });
+  }
+  function srcGate() {
+    return tf('https://api.gateio.ws/api/v4/spot/tickers?currency_pair=SUI_USDT')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) {
+        var s = j[0];
+        return { suiPrice: parseFloat(s.last), suiChange: parseFloat(s.change_percentage) };
+      });
+  }
+  function srcKraken() {
+    return tf('https://api.kraken.com/0/public/Ticker?pair=SUIUSD')
+      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
+      .then(function(j) {
+        if (j.error && j.error.length) throw 0;
+        var key = Object.keys(j.result)[0];
+        var sui = j.result[key];
+        var sp = parseFloat(sui.c[0]), so = parseFloat(sui.o);
+        return { suiPrice: sp, suiChange: (sp - so) / so * 100 };
+      });
+  }
+
+  function fetchData() {
+    document.getElementById('updated').textContent = 'Updating…';
+    firstOk([
+      { p: srcMexc(),    src: 'MEXC'    },
+      { p: srcBybit(),   src: 'Bybit'   },
+      { p: srcBinance(), src: 'Binance' },
+      { p: srcGate(),    src: 'Gate'    },
+      { p: srcKraken(),  src: 'Kraken'  }
+    ]).then(function(res) {
+      var d = res.d;
+      document.getElementById('net-price').textContent     = fmtPrice(d.suiPrice, 4);
+      document.getElementById('net-price-sub').textContent = fmtPct(d.suiChange);
+      var now = new Date();
+      var hh  = String(now.getUTCHours()).padStart(2, '0');
+      var mm  = String(now.getUTCMinutes()).padStart(2, '0');
+      document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC · ' + res.src;
+    }).catch(function() {
+      document.getElementById('net-price').textContent = '—';
+      document.getElementById('updated').textContent = 'Data unavailable';
+    });
+  }
+
+  function fetchNetwork() {
+    tf('https://api.llama.fi/v2/chains')
+      .then(function(r) { return r.json(); })
+      .then(function(chains) {
+        var sui = chains.find(function(c) { return c.name === 'Sui'; });
+        if (sui && sui.tvl) {
+          document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
+          var chg = sui.change_1d;
+          document.getElementById('net-tvl-sub').textContent = (chg != null) ? fmtPct(chg) : '—';
+        }
+      }).catch(function() {
+        document.getElementById('net-tvl').textContent = '—';
+        document.getElementById('net-tvl-sub').textContent = '—';
+      });
+
+    tf('https://api.llama.fi/overview/dexs/Sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.total24h) {
+          document.getElementById('net-dex').textContent = fmtLarge(data.total24h);
+          var prev = data.total48hto24h;
+          var chgPct = (prev && prev > 0) ? (data.total24h - prev) / prev * 100 : null;
+          document.getElementById('net-dex-sub').textContent = (chgPct != null) ? fmtPct(chgPct) : '—';
+        }
+      }).catch(function() {
+        document.getElementById('net-dex').textContent = '—';
+        document.getElementById('net-dex-sub').textContent = '—';
+      });
+  }
+
+  function fetchStaking() {
+    tfPost('https://fullnode.mainnet.sui.io', {
+      jsonrpc: '2.0', id: 1,
+      method: 'suix_getLatestSuiSystemState', params: []
+    }).then(function(r) { return r.json(); })
+      .then(function(j) {
+        var stakeMist = parseFloat(j.result.totalStake);
+        var pct = (stakeMist / 1e19) * 100;
+        document.getElementById('net-staking').textContent = pct.toFixed(1) + '%';
+      }).catch(function() {
+        document.getElementById('net-staking').textContent = '—';
+      });
+  }
+
+  fetchData();
+  fetchNetwork();
+  fetchStaking();
+  setInterval(fetchData, 60000);
+  setInterval(fetchNetwork, 300000);
+  setInterval(fetchStaking, 300000);
+</script>
+
+</body>
+</html>

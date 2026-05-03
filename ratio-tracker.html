@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SUI Terminal · Aristotle</title>
+  <title>SUI/SOL Ratio · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -418,6 +418,7 @@
     <li><a href="index.html#how">How it works</a></li>
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="sui-terminal.html">SUI Terminal</a></li>
     <li><a href="ratio-tracker.html" class="active">SUI/SOL Ratio</a></li>
     <li><a href="learn.html">Learn</a></li>
     <li><a href="about.html">About</a></li>
@@ -426,45 +427,17 @@
 
 <div class="page-header">
   <p class="page-eyebrow">Free &nbsp;&middot;&nbsp; Live</p>
-  <h1 class="page-title">SUI Terminal</h1>
-  <p class="page-subtitle">Live Sui ecosystem data — price, TVL, DEX volume, and cross-chain ratio tracking.</p>
+  <h1 class="page-title">SUI / SOL Ratio</h1>
+  <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
 </div>
 
 <div class="page-body">
 
   <div class="status-bar">
     <span id="updated">Loading&#8230;</span>
-    <button class="refresh-btn" onclick="fetchData();fetchNetwork();fetchStaking()">&#8635; Refresh</button>
+    <button class="refresh-btn" onclick="fetchData()">&#8635; Refresh</button>
   </div>
 
-  <p class="section-header">SUI Terminal</p>
-  <div class="stats-row" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:2.5rem;">
-    <div class="stat">
-      <p class="stat-label">SUI Price</p>
-      <p class="stat-value" id="net-price">&#8212;</p>
-      <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label">TVL</p>
-      <p class="stat-value" id="net-tvl">&#8212;</p>
-      <p class="stat-sub" id="net-tvl-sub">loading&#8230;</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label">DEX Volume</p>
-      <p class="stat-value" id="net-dex">&#8212;</p>
-      <p class="stat-sub" id="net-dex-sub">loading&#8230;</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label">Staking Rate</p>
-      <p class="stat-value" id="net-staking">&#8212;</p>
-      <p class="stat-sub">% of supply staked</p>
-    </div>
-  </div>
-
-  <div class="sub-page-header">
-    <h2 class="page-title">SUI / SOL Ratio</h2>
-    <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
-  </div>
   <div class="price-table" style="margin-bottom:2.5rem;">
     <div class="price-row ratio-row" style="grid-template-columns:1fr 1fr;gap:0;">
       <span style="display:flex;flex-direction:column;gap:0.15rem;">
@@ -700,8 +673,6 @@
       var prevRatio = d.suiOpen  / d.solOpen;
       var rShift    = (ratio - prevRatio) / prevRatio * 100;
 
-      document.getElementById('net-price').textContent         = fmtPrice(d.suiPrice, 4);
-      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange);
       document.getElementById('sui-stat-price').textContent    = fmtPrice(d.suiPrice, 4);
       document.getElementById('sol-stat-price').textContent    = fmtPrice(d.solPrice, 2);
       document.getElementById('ratio-value').textContent       = ratio.toFixed(5);
@@ -719,58 +690,8 @@
     }).catch(showError);
   }
 
-  function fetchNetwork() {
-    tf('https://api.llama.fi/v2/chains')
-      .then(function(r) { return r.json(); })
-      .then(function(chains) {
-        var sui = chains.find(function(c) { return c.name === 'Sui'; });
-        if (sui && sui.tvl) {
-          document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
-          var chg = sui.change_1d;
-          document.getElementById('net-tvl-sub').textContent =
-            (chg != null) ? fmtPct(chg) : 'total value locked';
-        }
-      }).catch(function() {
-        document.getElementById('net-tvl').textContent = '—';
-        document.getElementById('net-tvl-sub').textContent = '—';
-      });
-
-    tf('https://api.llama.fi/overview/dexs/Sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.total24h) {
-          document.getElementById('net-dex').textContent = fmtLarge(data.total24h);
-          var prev = data.total48hto24h;
-          var chgPct = (prev && prev > 0) ? (data.total24h - prev) / prev * 100 : null;
-          document.getElementById('net-dex-sub').textContent =
-            (chgPct != null) ? fmtPct(chgPct) : 'on-chain swap volume';
-        }
-      }).catch(function() {
-        document.getElementById('net-dex').textContent = '—';
-        document.getElementById('net-dex-sub').textContent = '—';
-      });
-  }
-
-  function fetchStaking() {
-    tfPost('https://fullnode.mainnet.sui.io', {
-      jsonrpc: '2.0', id: 1,
-      method: 'suix_getLatestSuiSystemState', params: []
-    }).then(function(r) { return r.json(); })
-      .then(function(j) {
-        var stakeMist = parseFloat(j.result.totalStake);
-        var pct = (stakeMist / 1e19) * 100; // 10B SUI total supply in MIST
-        document.getElementById('net-staking').textContent = pct.toFixed(1) + '%';
-      }).catch(function() {
-        document.getElementById('net-staking').textContent = '—';
-      });
-  }
-
   fetchData();
-  fetchNetwork();
-  fetchStaking();
   setInterval(fetchData, 60000);
-  setInterval(fetchNetwork, 300000);
-  setInterval(fetchStaking, 300000);
 </script>
 
 </body>
