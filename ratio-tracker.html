@@ -264,32 +264,32 @@
     .stat:last-child { border-right: none; }
     .stat-label {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.85rem;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--ink);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
     .stat-price {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.95rem;
+      font-size: 1.2rem;
       font-weight: 400;
       color: var(--ink-2);
       letter-spacing: 0.02em;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
     }
     .stat-value {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.9rem;
+      font-size: 2.1rem;
       font-weight: 300;
       color: var(--ink);
       letter-spacing: -0.02em;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem;
     }
     .stat-sub {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       letter-spacing: 0.06em;
       color: var(--ink-2);
     }
@@ -434,11 +434,11 @@
 
   <div class="status-bar">
     <span id="updated">Loading&#8230;</span>
-    <button class="refresh-btn" onclick="fetchData();fetchNetwork()">&#8635; Refresh</button>
+    <button class="refresh-btn" onclick="fetchData();fetchNetwork();fetchStaking()">&#8635; Refresh</button>
   </div>
 
   <p class="section-header">SUI Terminal</p>
-  <div class="stats-row" style="margin-bottom:2.5rem;">
+  <div class="stats-row" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:2.5rem;">
     <div class="stat">
       <p class="stat-label">SUI Price</p>
       <p class="stat-value" id="net-price">&#8212;</p>
@@ -447,12 +447,17 @@
     <div class="stat">
       <p class="stat-label">TVL</p>
       <p class="stat-value" id="net-tvl">&#8212;</p>
-      <p class="stat-sub">total value locked</p>
+      <p class="stat-sub" id="net-tvl-sub">loading&#8230;</p>
     </div>
     <div class="stat">
       <p class="stat-label">24H DEX Vol</p>
       <p class="stat-value" id="net-dex">&#8212;</p>
-      <p class="stat-sub">on-chain swap volume</p>
+      <p class="stat-sub" id="net-dex-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">Staking Rate</p>
+      <p class="stat-value" id="net-staking">&#8212;</p>
+      <p class="stat-sub">% of supply staked</p>
     </div>
   </div>
 
@@ -584,6 +589,18 @@
       .catch(function(e) { clearTimeout(id); throw e;  });
   }
 
+  function tfPost(url, body) {
+    var ctrl = new AbortController();
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: ctrl.signal
+    }).then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
+  }
+
   function firstOk(sources) {
     return new Promise(function(resolve, reject) {
       var left = sources.length;
@@ -708,22 +725,51 @@
         var sui = chains.find(function(c) { return c.name === 'Sui'; });
         if (sui && sui.tvl) {
           document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
+          var chg = sui.change_1d;
+          document.getElementById('net-tvl-sub').textContent =
+            (chg != null) ? fmtPct(chg) + ' 24h' : 'total value locked';
         }
-      }).catch(function() { document.getElementById('net-tvl').textContent = '—'; });
+      }).catch(function() {
+        document.getElementById('net-tvl').textContent = '—';
+        document.getElementById('net-tvl-sub').textContent = '—';
+      });
 
     tf('https://api.llama.fi/overview/dexs/Sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.total24h) {
           document.getElementById('net-dex').textContent = fmtLarge(data.total24h);
+          var prev = data.total48hto24h;
+          var chgPct = (prev && prev > 0) ? (data.total24h - prev) / prev * 100 : null;
+          document.getElementById('net-dex-sub').textContent =
+            (chgPct != null) ? fmtPct(chgPct) + ' 24h' : 'on-chain swap volume';
         }
-      }).catch(function() { document.getElementById('net-dex').textContent = '—'; });
+      }).catch(function() {
+        document.getElementById('net-dex').textContent = '—';
+        document.getElementById('net-dex-sub').textContent = '—';
+      });
+  }
+
+  function fetchStaking() {
+    tfPost('https://fullnode.mainnet.sui.io', {
+      jsonrpc: '2.0', id: 1,
+      method: 'suix_getLatestSuiSystemState', params: []
+    }).then(function(r) { return r.json(); })
+      .then(function(j) {
+        var stakeMist = parseFloat(j.result.totalStake);
+        var pct = (stakeMist / 1e19) * 100; // 10B SUI total supply in MIST
+        document.getElementById('net-staking').textContent = pct.toFixed(1) + '%';
+      }).catch(function() {
+        document.getElementById('net-staking').textContent = '—';
+      });
   }
 
   fetchData();
   fetchNetwork();
+  fetchStaking();
   setInterval(fetchData, 60000);
   setInterval(fetchNetwork, 300000);
+  setInterval(fetchStaking, 300000);
 </script>
 
 </body>
