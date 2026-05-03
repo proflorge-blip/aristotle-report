@@ -403,12 +403,26 @@
     <button class="refresh-btn" onclick="fetchData();fetchNetwork()">&#8635; Refresh</button>
   </div>
 
-  <div class="price-table">
-    <div class="price-row">
-      <span class="price-token">SUI</span>
-      <span class="price-value" id="sui-price">&#8212;</span>
-      <span class="price-change" id="sui-change">&#8212;</span>
+  <p class="section-label">SUI Network &nbsp;&middot;&nbsp; Live</p>
+  <div class="stats-row" style="margin-bottom:2.5rem;">
+    <div class="stat">
+      <p class="stat-label">SUI Price</p>
+      <p class="stat-value" id="net-price">&#8212;</p>
+      <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
     </div>
+    <div class="stat">
+      <p class="stat-label">TVL</p>
+      <p class="stat-value" id="net-tvl">&#8212;</p>
+      <p class="stat-sub">total value locked</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">24H DEX Vol</p>
+      <p class="stat-value" id="net-dex">&#8212;</p>
+      <p class="stat-sub">on-chain swap volume</p>
+    </div>
+  </div>
+
+  <div class="price-table" style="margin-bottom:2.5rem;">
     <div class="price-row ratio-row" style="grid-template-columns:1fr 1fr;gap:0;">
       <span style="display:flex;flex-direction:column;gap:0.15rem;">
         <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SUI / SOL</span>
@@ -418,11 +432,6 @@
         <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SOL / SUI</span>
         <span style="font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:300;color:var(--ink);letter-spacing:-0.01em;" id="sol-ratio-value">&#8212;</span>
       </span>
-    </div>
-    <div class="price-row">
-      <span class="price-token">SOL</span>
-      <span class="price-value" id="sol-price">&#8212;</span>
-      <span class="price-change" id="sol-change">&#8212;</span>
     </div>
   </div>
 
@@ -453,27 +462,6 @@
       <p class="stat-label">SOL 24H</p>
       <p class="stat-value" id="sol-24h">&#8212;</p>
       <p class="stat-sub">vs yesterday</p>
-    </div>
-  </div>
-
-  <div style="margin-top:2.5rem;">
-    <p class="section-label">SUI Network &nbsp;&middot;&nbsp; Live</p>
-    <div class="stats-row">
-      <div class="stat">
-        <p class="stat-label">SUI Price</p>
-        <p class="stat-value" id="net-price">&#8212;</p>
-        <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">TVL</p>
-        <p class="stat-value" id="net-tvl">&#8212;</p>
-        <p class="stat-sub">total value locked</p>
-      </div>
-      <div class="stat">
-        <p class="stat-label">24H DEX Vol</p>
-        <p class="stat-value" id="net-dex">&#8212;</p>
-        <p class="stat-sub">on-chain swap volume</p>
-      </div>
     </div>
   </div>
 
@@ -655,17 +643,13 @@
       var prevRatio = d.suiOpen  / d.solOpen;
       var rShift    = (ratio - prevRatio) / prevRatio * 100;
 
-      document.getElementById('net-price').textContent     = fmtPrice(d.suiPrice, 4);
-      document.getElementById('net-price-sub').textContent = fmtPct(d.suiChange) + ' 24h';
-      document.getElementById('sui-price').textContent   = fmtPrice(d.suiPrice, 4);
-      document.getElementById('sol-price').textContent   = fmtPrice(d.solPrice, 2);
-      document.getElementById('ratio-value').textContent = ratio.toFixed(5);
-      document.getElementById('sol-ratio-value').textContent = (1 / ratio).toFixed(1);
-      document.getElementById('sui-change').textContent  = fmtPct(d.suiChange) + getArrow(d.suiChange);
-      document.getElementById('sol-change').textContent  = fmtPct(d.solChange) + getArrow(d.solChange);
-      document.getElementById('sui-24h').textContent     = fmtPct(d.suiChange);
-      document.getElementById('sol-24h').textContent     = fmtPct(d.solChange);
-      document.getElementById('ratio-shift').textContent = fmtPct(rShift);
+      document.getElementById('net-price').textContent         = fmtPrice(d.suiPrice, 4);
+      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange) + ' 24h';
+      document.getElementById('ratio-value').textContent       = ratio.toFixed(5);
+      document.getElementById('sol-ratio-value').textContent   = (1 / ratio).toFixed(1);
+      document.getElementById('sui-24h').textContent           = fmtPct(d.suiChange);
+      document.getElementById('sol-24h').textContent           = fmtPct(d.solChange);
+      document.getElementById('ratio-shift').textContent       = fmtPct(rShift);
       updateBar(d.suiChange - d.solChange);
 
       var now = new Date();
