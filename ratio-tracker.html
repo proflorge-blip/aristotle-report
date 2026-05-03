@@ -709,7 +709,7 @@
       document.getElementById('sui-24h').textContent           = fmtPct(d.suiChange);
       document.getElementById('sol-24h').textContent           = fmtPct(d.solChange);
       document.getElementById('ratio-shift').textContent       = fmtPct(rShift);
-      document.getElementById('ratio-shift-sub').textContent   = rShift >= 0 ? 'SUI gaining vs SOL' : 'SUI losing to SOL';
+      document.getElementById('ratio-shift-sub').textContent   = rShift >= 0 ? 'SUI gaining vs SOL' : 'SOL gaining vs SUI';
       updateBar(d.suiChange - d.solChange);
 
       var now = new Date();
