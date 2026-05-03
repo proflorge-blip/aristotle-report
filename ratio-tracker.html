@@ -273,7 +273,7 @@
     }
     .stat-price {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 400;
       color: var(--ink-2);
       letter-spacing: 0.02em;
@@ -281,7 +281,7 @@
     }
     .stat-value {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 2.1rem;
+      font-size: 2.4rem;
       font-weight: 300;
       color: var(--ink);
       letter-spacing: -0.02em;
@@ -500,7 +500,7 @@
     <div class="stat">
       <p class="stat-label">Ratio Shift</p>
       <p class="stat-value" id="ratio-shift">&#8212;</p>
-      <p class="stat-sub">24h change</p>
+      <p class="stat-sub" id="ratio-shift-sub">24h change</p>
     </div>
     <div class="stat">
       <p class="stat-label">SOL 24H</p>
@@ -701,7 +701,7 @@
       var rShift    = (ratio - prevRatio) / prevRatio * 100;
 
       document.getElementById('net-price').textContent         = fmtPrice(d.suiPrice, 4);
-      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange) + ' 24h';
+      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange);
       document.getElementById('sui-stat-price').textContent    = fmtPrice(d.suiPrice, 4);
       document.getElementById('sol-stat-price').textContent    = fmtPrice(d.solPrice, 2);
       document.getElementById('ratio-value').textContent       = ratio.toFixed(5);
@@ -709,6 +709,7 @@
       document.getElementById('sui-24h').textContent           = fmtPct(d.suiChange);
       document.getElementById('sol-24h').textContent           = fmtPct(d.solChange);
       document.getElementById('ratio-shift').textContent       = fmtPct(rShift);
+      document.getElementById('ratio-shift-sub').textContent   = rShift >= 0 ? 'SUI gaining vs SOL' : 'SUI losing to SOL';
       updateBar(d.suiChange - d.solChange);
 
       var now = new Date();
@@ -727,7 +728,7 @@
           document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
           var chg = sui.change_1d;
           document.getElementById('net-tvl-sub').textContent =
-            (chg != null) ? fmtPct(chg) + ' 24h' : 'total value locked';
+            (chg != null) ? fmtPct(chg) : 'total value locked';
         }
       }).catch(function() {
         document.getElementById('net-tvl').textContent = '—';
@@ -742,7 +743,7 @@
           var prev = data.total48hto24h;
           var chgPct = (prev && prev > 0) ? (data.total24h - prev) / prev * 100 : null;
           document.getElementById('net-dex-sub').textContent =
-            (chgPct != null) ? fmtPct(chgPct) + ' 24h' : 'on-chain swap volume';
+            (chgPct != null) ? fmtPct(chgPct) : 'on-chain swap volume';
         }
       }).catch(function() {
         document.getElementById('net-dex').textContent = '—';
