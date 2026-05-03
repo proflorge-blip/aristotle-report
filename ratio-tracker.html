@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SUI/SOL Ratio · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
@@ -399,7 +400,7 @@
 
   <div class="status-bar">
     <span id="updated">Loading&#8230;</span>
-    <button class="refresh-btn" onclick="fetchData()">&#8635; Refresh</button>
+    <button class="refresh-btn" onclick="fetchData();fetchNetwork()">&#8635; Refresh</button>
   </div>
 
   <div class="price-table">
@@ -455,6 +456,27 @@
     </div>
   </div>
 
+  <div style="margin-top:2.5rem;">
+    <p class="section-label">SUI Network &nbsp;&middot;&nbsp; Live</p>
+    <div class="stats-row">
+      <div class="stat">
+        <p class="stat-label">SUI Price</p>
+        <p class="stat-value" id="net-price">&#8212;</p>
+        <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
+      </div>
+      <div class="stat">
+        <p class="stat-label">TVL</p>
+        <p class="stat-value" id="net-tvl">&#8212;</p>
+        <p class="stat-sub">total value locked</p>
+      </div>
+      <div class="stat">
+        <p class="stat-label">24H DEX Vol</p>
+        <p class="stat-value" id="net-dex">&#8212;</p>
+        <p class="stat-sub">on-chain swap volume</p>
+      </div>
+    </div>
+  </div>
+
   <hr class="divider"/>
 
   <div style="margin-bottom:2.5rem;">
@@ -495,6 +517,11 @@
 
   function fmtPrice(v, d) { return '$' + v.toFixed(d); }
   function fmtPct(v) { return (v >= 0 ? '+' : '') + v.toFixed(2) + '%'; }
+  function fmtLarge(v) {
+    if (v >= 1e9) return '$' + (v / 1e9).toFixed(2) + 'B';
+    if (v >= 1e6) return '$' + (v / 1e6).toFixed(0) + 'M';
+    return '$' + v.toFixed(0);
+  }
   function getArrow(v) {
     if (Math.abs(v) < 0.05) return ' \u2022';
     if (v >= 5) return ' \u25b2'; if (v >= 0) return ' \u25b3';
@@ -628,6 +655,8 @@
       var prevRatio = d.suiOpen  / d.solOpen;
       var rShift    = (ratio - prevRatio) / prevRatio * 100;
 
+      document.getElementById('net-price').textContent     = fmtPrice(d.suiPrice, 4);
+      document.getElementById('net-price-sub').textContent = fmtPct(d.suiChange) + ' 24h';
       document.getElementById('sui-price').textContent   = fmtPrice(d.suiPrice, 4);
       document.getElementById('sol-price').textContent   = fmtPrice(d.solPrice, 2);
       document.getElementById('ratio-value').textContent = ratio.toFixed(5);
@@ -646,8 +675,29 @@
     }).catch(showError);
   }
 
+  function fetchNetwork() {
+    tf('https://api.llama.fi/v2/chains')
+      .then(function(r) { return r.json(); })
+      .then(function(chains) {
+        var sui = chains.find(function(c) { return c.name === 'Sui'; });
+        if (sui && sui.tvl) {
+          document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
+        }
+      }).catch(function() { document.getElementById('net-tvl').textContent = '—'; });
+
+    tf('https://api.llama.fi/overview/dexs/Sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.total24h) {
+          document.getElementById('net-dex').textContent = fmtLarge(data.total24h);
+        }
+      }).catch(function() { document.getElementById('net-dex').textContent = '—'; });
+  }
+
   fetchData();
+  fetchNetwork();
   setInterval(fetchData, 60000);
+  setInterval(fetchNetwork, 300000);
 </script>
 
 </body>
