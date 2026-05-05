@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SUI Terminal · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='white' font-family='Georgia,serif' font-size='22' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -123,7 +123,7 @@
       font-size: 0.88rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--ink-3);
+      color: var(--ink);
       margin-bottom: 1.2rem;
     }
     .page-title {
@@ -137,7 +137,7 @@
     }
     .page-subtitle {
       font-family: 'IBM Plex Serif', serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: var(--ink-2);
       line-height: 1.6;
       max-width: 560px;
@@ -176,6 +176,76 @@
     }
     .refresh-btn:hover { color: var(--ink); border-color: var(--ink); }
 
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .stat { padding: 1.5rem; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.6rem;
+    }
+    .stat-price {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink-2);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.2rem;
+    }
+    .stat-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.3rem;
+    }
+    .stat-sub {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--ink-2);
+    }
+
+    .section-header {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid var(--border-strong);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-2);
+      margin-bottom: 1.2rem;
+    }
+
+    .sub-page-header {
+      margin: 4rem -3rem 2.5rem;
+      padding: 3rem 3rem 2.5rem;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
     .price-table { border: 1px solid var(--border); margin-bottom: 2.5rem; }
     .price-row {
       display: grid;
@@ -187,40 +257,8 @@
     }
     .price-row:last-child { border-bottom: none; }
     .price-row.ratio-row { background: var(--bg); }
-    .price-token {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-    }
-    .price-row.ratio-row .price-token { color: var(--ink); }
-    .price-value {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-    .price-row.ratio-row .price-value { font-size: 1.15rem; color: var(--ink-2); }
-    .price-change {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      text-align: right;
-      color: var(--ink);
-    }
 
     .perf-section { margin-bottom: 2.5rem; }
-    .section-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 1.2rem;
-    }
     .bar-wrap { display: flex; align-items: center; gap: 1.2rem; }
     .bar-label {
       font-family: 'IBM Plex Mono', monospace;
@@ -252,41 +290,6 @@
       height: 17px;
       background: var(--ink-3);
       transform: translateX(-50%);
-    }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      border: 1px solid var(--border);
-      margin-bottom: 2.5rem;
-    }
-    .stats-row-2 {
-      grid-template-columns: 1fr 1fr;
-      margin-top: -1px;
-    }
-    .stat { padding: 1.5rem; border-right: 1px solid var(--border); }
-    .stat:last-child { border-right: none; }
-    .stat-label {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: 0.5rem;
-    }
-    .stat-value {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 1.6rem;
-      font-weight: 300;
-      color: var(--ink);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.25rem;
-    }
-    .stat-sub {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.08em;
-      color: var(--ink-3);
     }
 
     .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
@@ -364,13 +367,12 @@
     @media (max-width: 700px) {
       nav { padding: 1.1rem 1.5rem; }
       .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
-      .price-row { grid-template-columns: 90px 1fr 100px; padding: 0.9rem 1rem; gap: 0.5rem; }
-      .price-value { font-size: 1.15rem; }
-      .price-row.ratio-row .price-value { font-size: 0.95rem; }
-      .stats-row { grid-template-columns: 1fr; }
-      .stats-row-2 { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); }
-      .stat:last-child { border-bottom: none; }
+      .sub-page-header { margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat { border-bottom: 1px solid var(--border); }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:nth-child(even) { border-right: none; }
+      .stat:nth-last-child(-n+2) { border-bottom: none; }
       .bar-label { min-width: 68px; font-size: 0.62rem; }
       .cta-block { flex-direction: column; }
       footer { flex-direction: column; gap: 0.4rem; }
@@ -387,48 +389,73 @@
   <a href="learn.html" class="nav-learn">/LEARN</a>
   <ul class="nav-menu" id="nav-menu">
     <li><a href="index.html#how">How it works</a></li>
-    <li><a href="index.html#tiers">Pricing</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
     <li><a href="logos-index.html">Logos Index</a></li>
-    <li><a href="sui-terminal.html" class="active">SUI/SOL Ratio</a></li>
+    <li><a href="sui-terminal.html" class="active">SUI Terminal</a></li>
     <li><a href="learn.html">Learn</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="pricing.html">Pricing</a></li>
   </ul>
 </nav>
 
 <div class="page-header">
-  <p class="page-eyebrow">Free Tool</p>
-  <h1 class="page-title">SUI / SOL Terminal</h1>
-  <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
+  <p class="page-eyebrow">Free &nbsp;&middot;&nbsp; Live</p>
+  <h1 class="page-title">SUI Terminal</h1>
+  <p class="page-subtitle">Live Sui ecosystem data — price, TVL, DEX volume, and cross-chain ratio tracking.</p>
 </div>
 
 <div class="page-body">
 
   <div class="status-bar">
-    <span id="updated">Loading…</span>
-    <button class="refresh-btn" onclick="fetchData()">&#8635; Refresh</button>
+    <span id="updated">Loading&#8230;</span>
+    <button class="refresh-btn" onclick="fetchData();fetchNetwork();fetchStaking()">&#8635; Refresh</button>
   </div>
 
-  <div class="price-table">
-    <div class="price-row">
-      <span class="price-token">SUI</span>
-      <span class="price-value" id="sui-price">—</span>
-      <span class="price-change" id="sui-change">—</span>
+  <!-- ── SUI TERMINAL METRICS ── -->
+  <p class="section-header">SUI Terminal</p>
+  <div class="stats-row" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:2.5rem;">
+    <div class="stat">
+      <p class="stat-label">SUI Price</p>
+      <p class="stat-value" id="net-price">&#8212;</p>
+      <p class="stat-sub" id="net-price-sub">loading&#8230;</p>
     </div>
-    <div class="price-row ratio-row">
-      <span class="price-token">SUI / SOL</span>
-      <span class="price-value" id="ratio-value">—</span>
-      <span class="price-change" id="ratio-reciprocal">—</span>
+    <div class="stat">
+      <p class="stat-label">TVL</p>
+      <p class="stat-value" id="net-tvl">&#8212;</p>
+      <p class="stat-sub" id="net-tvl-sub">loading&#8230;</p>
     </div>
-    <div class="price-row">
-      <span class="price-token">SOL</span>
-      <span class="price-value" id="sol-price">—</span>
-      <span class="price-change" id="sol-change">—</span>
+    <div class="stat">
+      <p class="stat-label">DEX Volume</p>
+      <p class="stat-value" id="net-dex">&#8212;</p>
+      <p class="stat-sub" id="net-dex-sub">loading&#8230;</p>
+    </div>
+    <div class="stat">
+      <p class="stat-label">Staking Rate</p>
+      <p class="stat-value" id="net-staking">&#8212;</p>
+      <p class="stat-sub">% of supply staked</p>
+    </div>
+  </div>
+
+  <!-- ── SUI/SOL RATIO ── -->
+  <div class="sub-page-header" id="ratio">
+    <h2 class="page-title">SUI / SOL Ratio</h2>
+    <p class="page-subtitle">Capital rotation between two competing L1 ecosystems, measured in real time.</p>
+  </div>
+
+  <div class="price-table" style="margin-bottom:2.5rem;">
+    <div class="price-row ratio-row" style="grid-template-columns:1fr 1fr;gap:0;">
+      <span style="display:flex;flex-direction:column;gap:0.15rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SUI / SOL</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:300;color:var(--ink);letter-spacing:-0.01em;" id="ratio-value">&#8212;</span>
+      </span>
+      <span style="display:flex;flex-direction:column;align-items:flex-end;gap:0.15rem;">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:300;letter-spacing:0.04em;color:var(--ink);">SOL / SUI</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:1.8rem;font-weight:300;color:var(--ink);letter-spacing:-0.01em;" id="sol-ratio-value">&#8212;</span>
+      </span>
     </div>
   </div>
 
   <div class="perf-section">
-    <p class="section-label">Relative 24H Performance — SUI vs SOL</p>
+    <p class="section-label">Relative Performance &#8212; SUI vs SOL</p>
     <div class="bar-wrap">
       <span class="bar-label" id="label-sol">SOL leading</span>
       <div class="bar-track">
@@ -441,32 +468,21 @@
 
   <div class="stats-row">
     <div class="stat">
-      <p class="stat-label">SUI 24H</p>
-      <p class="stat-value" id="sui-24h">—</p>
-      <p class="stat-sub">vs yesterday</p>
+      <p class="stat-label">SUI</p>
+      <p class="stat-price" id="sui-stat-price">&#8212;</p>
+      <p class="stat-value" id="sui-24h">&#8212;</p>
+      <p class="stat-sub">24hr</p>
     </div>
     <div class="stat">
       <p class="stat-label">Ratio Shift</p>
-      <p class="stat-value" id="ratio-shift">—</p>
-      <p class="stat-sub">24h change</p>
+      <p class="stat-value" id="ratio-shift">&#8212;</p>
+      <p class="stat-sub" id="ratio-shift-sub">loading&#8230;</p>
     </div>
     <div class="stat">
-      <p class="stat-label">SOL 24H</p>
-      <p class="stat-value" id="sol-24h">—</p>
-      <p class="stat-sub">vs yesterday</p>
-    </div>
-  </div>
-
-  <div class="stats-row stats-row-2">
-    <div class="stat">
-      <p class="stat-label">SUI Staking Rate</p>
-      <p class="stat-value" id="staking-rate">—</p>
-      <p class="stat-sub">of total supply</p>
-    </div>
-    <div class="stat">
-      <p class="stat-label">Logos Index</p>
-      <p class="stat-value" id="logos-value">—</p>
-      <p class="stat-sub">live approx. · /100</p>
+      <p class="stat-label">SOL</p>
+      <p class="stat-price" id="sol-stat-price">&#8212;</p>
+      <p class="stat-value" id="sol-24h">&#8212;</p>
+      <p class="stat-sub">24hr</p>
     </div>
   </div>
 
@@ -474,22 +490,22 @@
 
   <div style="margin-bottom:2.5rem;">
     <p class="section-label">How to read this</p>
-    <p class="section-body">A rising SUI/SOL ratio means SUI is gaining ground relative to SOL — outperforming, declining less, or both. A falling ratio means the reverse. The reciprocal (SOL/SUI) shows how many SUI one SOL buys. This is not a price prediction. It is a snapshot of relative momentum between two ecosystems competing for the same capital.</p>
+    <p class="section-body">A rising SUI/SOL ratio means SUI is gaining ground relative to SOL &#8212; outperforming, declining less, or both. A falling ratio means the reverse. This is not a price prediction. It is a snapshot of relative momentum between two ecosystems competing for the same capital.</p>
   </div>
 
   <div class="error-state" id="error-state">
-    Data unavailable — <button onclick="fetchData()">retry</button>&nbsp;&nbsp;If this persists, try disabling any ad blocker or VPN for this page.
+    Data unavailable &#8212; <button onclick="fetchData()">refresh to retry</button>
   </div>
 
   <div class="cta-block">
-    <p class="cta-text">Aristotle publishes a twice-daily Sui intelligence brief — price, TVL, DEX volume, staking ratio, and the Logos Index — free on Telegram.</p>
+    <p class="cta-text">Aristotle publishes a twice-daily Sui intelligence brief &#8212; price, TVL, DEX volume, staking ratio, and the Logos Index &#8212; free on Telegram.</p>
     <a href="https://t.me/aristotlesuiupdate" target="_blank" class="btn-primary">Join Free Channel</a>
   </div>
 
 </div>
 
 <footer>
-  <span class="footer-brand">Aristotle · Sui Logos</span>
+  <span class="footer-brand">Aristotle &#183; Sui Agora / Lyceum</span>
   <span>No hype. No signals. Just data.</span>
   <span>Not financial advice.</span>
 </footer>
@@ -508,91 +524,30 @@
     });
   });
 
-  /* ── Logos Index calculation (mirrors bot.py) ── */
-  var LG_RANGES = {
-    tvl:    {mn: 200e6,  mx: 800e6},
-    sc:     {mn: 100e6,  mx: 1100e6},
-    dex:    {mn: 10e6,   mx: 150e6},
-    price:  {mn: 0.50,   mx: 2.50},
-    db:     {mn: 0,      mx: 50e6}
-  };
-  var LG_WEIGHTS = {tvl: 0.30, sc: 0.20, dex: 0.13, price: 0.13, db: 0.12, mr: 0.12};
-
-  function lgNorm(v, mn, mx) {
-    var clamped = Math.max(mn, Math.min(mx, v != null ? v : mn));
-    return (clamped - mn) / (mx - mn) * 100;
+  function fmtPrice(v, d) { return '$' + v.toFixed(d); }
+  function fmtPct(v) { return (v >= 0 ? '+' : '') + v.toFixed(2) + '%'; }
+  function fmtLarge(v) {
+    if (v >= 1e9) return '$' + (v / 1e9).toFixed(2) + 'B';
+    if (v >= 1e6) return '$' + (v / 1e6).toFixed(0) + 'M';
+    return '$' + v.toFixed(0);
+  }
+  function getArrow(v) {
+    if (Math.abs(v) < 0.05) return ' •';
+    if (v >= 5) return ' ▲'; if (v >= 0) return ' △';
+    if (v > -5) return ' ▽'; return ' ▼';
   }
 
-  function computeLogos(price, tvl, sc, dex, db) {
-    var scores = {
-      tvl:   lgNorm(tvl,   LG_RANGES.tvl.mn,   LG_RANGES.tvl.mx),
-      sc:    lgNorm(sc,    LG_RANGES.sc.mn,    LG_RANGES.sc.mx),
-      dex:   lgNorm(dex,   LG_RANGES.dex.mn,   LG_RANGES.dex.mx),
-      price: lgNorm(price, LG_RANGES.price.mn, LG_RANGES.price.mx),
-      db:    lgNorm(db,    LG_RANGES.db.mn,    LG_RANGES.db.mx),
-      mr:    50
-    };
-    var raw = scores.tvl * LG_WEIGHTS.tvl + scores.sc * LG_WEIGHTS.sc +
-              scores.dex * LG_WEIGHTS.dex + scores.price * LG_WEIGHTS.price +
-              scores.db * LG_WEIGHTS.db + scores.mr * LG_WEIGHTS.mr;
-    return Math.max(1, Math.min(100, raw)).toFixed(1);
-  }
-
-  /* ── State for parallel fetch coordination ── */
-  var _suiPrice  = null;
-  var _llamaData = null;
-
-  function tryLogos() {
-    if (_suiPrice === null || _llamaData === null) return;
-    try {
-      var tvlHistory = _llamaData[0];
-      var tvl = tvlHistory && tvlHistory.length ? tvlHistory[tvlHistory.length - 1].tvl : null;
-
-      var scHistory = _llamaData[1];
-      var sc = 0;
-      if (scHistory && scHistory.length) {
-        var circ = scHistory[scHistory.length - 1].totalCirculating || {};
-        for (var k in circ) { if (typeof circ[k] === 'number') sc += circ[k]; }
-      }
-
-      var dexData = _llamaData[2];
-      var dex = dexData && dexData.total24h ? parseFloat(dexData.total24h) : null;
-
-      var dbData = _llamaData[3];
-      var db = dbData && dbData.total24h ? parseFloat(dbData.total24h) : 0;
-
-      if (tvl && sc && dex) {
-        document.getElementById('logos-value').textContent = computeLogos(_suiPrice, tvl, sc, dex, db);
-      } else {
-        document.getElementById('logos-value').textContent = 'N/A';
-      }
-    } catch(e) {
-      document.getElementById('logos-value').textContent = 'N/A';
-    }
-  }
-
-  /* ── Helpers ── */
-  function fmtPrice(val, decimals) { return '$' + val.toFixed(decimals); }
-  function fmtPct(val) { return (val >= 0 ? '+' : '') + val.toFixed(2) + '%'; }
-  function getArrow(val) {
-    if (Math.abs(val) < 0.05) return ' •';
-    if (val >= 5)  return ' ▲';
-    if (val >= 0)  return ' △';
-    if (val > -5)  return ' ▽';
-    return ' ▼';
-  }
-
-  function updateBar(relPerf) {
-    var bar      = document.getElementById('perf-bar');
-    var labelSol = document.getElementById('label-sol');
-    var labelSui = document.getElementById('label-sui');
-    var pct = Math.min(Math.abs(relPerf) / 15, 1) * 50;
-    if (relPerf >= 0) {
+  function updateBar(rel) {
+    var bar  = document.getElementById('perf-bar');
+    var lSol = document.getElementById('label-sol');
+    var lSui = document.getElementById('label-sui');
+    var pct  = Math.min(Math.abs(rel) / 15, 1) * 50;
+    if (rel >= 0) {
       bar.style.left = '50%'; bar.style.right = 'auto'; bar.style.width = pct + '%';
-      labelSui.classList.add('active'); labelSol.classList.remove('active');
+      lSui.classList.add('active'); lSol.classList.remove('active');
     } else {
       bar.style.right = '50%'; bar.style.left = 'auto'; bar.style.width = pct + '%';
-      labelSol.classList.add('active'); labelSui.classList.remove('active');
+      lSol.classList.add('active'); lSui.classList.remove('active');
     }
   }
 
@@ -604,10 +559,22 @@
 
   function tf(url) {
     var ctrl = new AbortController();
-    var id = setTimeout(function() { ctrl.abort(); }, 7000);
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
     return fetch(url, { signal: ctrl.signal })
-      .then(function(r) { clearTimeout(id); return r; })
-      .catch(function(e) { clearTimeout(id); throw e; });
+      .then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
+  }
+
+  function tfPost(url, body) {
+    var ctrl = new AbortController();
+    var id   = setTimeout(function() { ctrl.abort(); }, 7000);
+    return fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: ctrl.signal
+    }).then(function(r)  { clearTimeout(id); return r; })
+      .catch(function(e) { clearTimeout(id); throw e;  });
   }
 
   function firstOk(sources) {
@@ -615,15 +582,15 @@
       var left = sources.length;
       sources.forEach(function(s) {
         s.p.then(function(d) { resolve({ d: d, src: s.src }); })
-           .catch(function() { if (--left === 0) reject(); });
+           .catch(function()  { if (--left === 0) reject(); });
       });
     });
   }
 
   function bFmt(s, o) {
-    return { suiPrice: parseFloat(s.lastPrice), solPrice: parseFloat(o.lastPrice),
+    return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
              suiChange: parseFloat(s.priceChangePercent), solChange: parseFloat(o.priceChangePercent),
-             suiOpen: parseFloat(s.openPrice), solOpen: parseFloat(o.openPrice) };
+             suiOpen: parseFloat(s.openPrice),   solOpen: parseFloat(o.openPrice) };
   }
 
   function srcMexc() {
@@ -655,7 +622,7 @@
       return Promise.all([r[0].json(), r[1].json()]);
     }).then(function(j) {
       var s = j[0].result.list[0], o = j[1].result.list[0];
-      return { suiPrice: parseFloat(s.lastPrice), solPrice: parseFloat(o.lastPrice),
+      return { suiPrice: parseFloat(s.lastPrice),  solPrice: parseFloat(o.lastPrice),
                suiChange: parseFloat(s.price24hPcnt) * 100, solChange: parseFloat(o.price24hPcnt) * 100,
                suiOpen: parseFloat(s.prevPrice24h), solOpen: parseFloat(o.prevPrice24h) };
     });
@@ -693,101 +660,91 @@
       });
   }
 
-  function srcCoinCap() {
-    return Promise.all([
-      tf('https://api.coincap.io/v2/assets/sui'),
-      tf('https://api.coincap.io/v2/assets/solana')
-    ]).then(function(r) {
-      if (!r[0].ok || !r[1].ok) throw 0;
-      return Promise.all([r[0].json(), r[1].json()]);
-    }).then(function(j) {
-      var sp = parseFloat(j[0].data.priceUsd), sc = parseFloat(j[0].data.changePercent24Hr);
-      var op = parseFloat(j[1].data.priceUsd), oc = parseFloat(j[1].data.changePercent24Hr);
-      return { suiPrice: sp, solPrice: op, suiChange: sc, solChange: oc,
-               suiOpen: sp / (1 + sc / 100), solOpen: op / (1 + oc / 100) };
-    });
-  }
-
-  function srcCryptoCompare() {
-    return tf('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=SUI,SOL&tsyms=USD')
-      .then(function(r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function(j) {
-        if (!j.RAW || !j.RAW.SUI || !j.RAW.SOL) throw 0;
-        var s = j.RAW.SUI.USD, o = j.RAW.SOL.USD;
-        return { suiPrice: s.PRICE, solPrice: o.PRICE,
-                 suiChange: s.CHANGEPCT24HOUR, solChange: o.CHANGEPCT24HOUR,
-                 suiOpen: s.OPEN24HOUR, solOpen: o.OPEN24HOUR };
-      });
-  }
-
   function fetchData() {
     hideError();
-    _suiPrice  = null;
-    _llamaData = null;
     document.getElementById('updated').textContent = 'Updating…';
 
-    /* Staking rate — Sui RPC */
-    fetch('https://fullnode.mainnet.sui.io', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({jsonrpc:'2.0', id:1, method:'suix_getLatestSuiSystemState', params:[]})
-    }).then(function(r) { return r.json(); })
-      .then(function(j) {
-        var staked = parseInt(j.result.totalStake, 10);
-        var pct = staked / 1e19 * 100;
-        document.getElementById('staking-rate').textContent = pct.toFixed(1) + '%';
-      }).catch(function() {
-        document.getElementById('staking-rate').textContent = 'N/A';
-      });
-
-    /* DeFiLlama inputs for Logos Index */
-    Promise.all([
-      tf('https://api.llama.fi/v2/historicalChainTvl/Sui').then(function(r) { return r.json(); }),
-      tf('https://stablecoins.llama.fi/stablecoincharts/Sui').then(function(r) { return r.json(); }),
-      tf('https://api.llama.fi/overview/dexs/sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume').then(function(r) { return r.json(); }),
-      tf('https://api.llama.fi/summary/dexs/deepbook?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume').then(function(r) { return r.json(); }).catch(function() { return null; })
-    ]).then(function(results) {
-      _llamaData = results;
-      tryLogos();
-    }).catch(function() {
-      document.getElementById('logos-value').textContent = 'N/A';
-    });
-
-    /* Price — race 7 sources */
     firstOk([
-      { p: srcCryptoCompare(), src: 'CC'      },
-      { p: srcCoinCap(),       src: 'CoinCap' },
-      { p: srcMexc(),          src: 'MEXC'    },
-      { p: srcBybit(),         src: 'Bybit'   },
-      { p: srcBinance(),       src: 'Binance' },
-      { p: srcGate(),          src: 'Gate'    },
-      { p: srcKraken(),        src: 'Kraken'  }
+      { p: srcMexc(),    src: 'MEXC'    },
+      { p: srcBybit(),   src: 'Bybit'   },
+      { p: srcBinance(), src: 'Binance' },
+      { p: srcGate(),    src: 'Gate'    },
+      { p: srcKraken(),  src: 'Kraken'  }
     ]).then(function(res) {
       var d = res.d;
       var ratio     = d.suiPrice / d.solPrice;
       var prevRatio = d.suiOpen  / d.solOpen;
       var rShift    = (ratio - prevRatio) / prevRatio * 100;
-      document.getElementById('sui-price').textContent        = fmtPrice(d.suiPrice, 4);
-      document.getElementById('sol-price').textContent        = fmtPrice(d.solPrice, 2);
-      document.getElementById('ratio-value').textContent      = ratio.toFixed(5);
-      document.getElementById('ratio-reciprocal').textContent = 'SOL/SUI ' + (1 / ratio).toFixed(3);
-      document.getElementById('sui-change').textContent       = fmtPct(d.suiChange) + getArrow(d.suiChange);
-      document.getElementById('sol-change').textContent       = fmtPct(d.solChange) + getArrow(d.solChange);
-      document.getElementById('sui-24h').textContent          = fmtPct(d.suiChange);
-      document.getElementById('sol-24h').textContent          = fmtPct(d.solChange);
-      document.getElementById('ratio-shift').textContent      = fmtPct(rShift);
+
+      document.getElementById('net-price').textContent         = fmtPrice(d.suiPrice, 4);
+      document.getElementById('net-price-sub').textContent     = fmtPct(d.suiChange);
+      document.getElementById('sui-stat-price').textContent    = fmtPrice(d.suiPrice, 4);
+      document.getElementById('sol-stat-price').textContent    = fmtPrice(d.solPrice, 2);
+      document.getElementById('ratio-value').textContent       = ratio.toFixed(5);
+      document.getElementById('sol-ratio-value').textContent   = (1 / ratio).toFixed(1);
+      document.getElementById('sui-24h').textContent           = fmtPct(d.suiChange);
+      document.getElementById('sol-24h').textContent           = fmtPct(d.solChange);
+      document.getElementById('ratio-shift').textContent       = fmtPct(rShift);
+      document.getElementById('ratio-shift-sub').textContent   = rShift >= 0 ? 'SUI gaining vs SOL' : 'SOL gaining vs SUI';
       updateBar(d.suiChange - d.solChange);
-      _suiPrice = d.suiPrice;
-      tryLogos();
+
       var now = new Date();
       var hh  = String(now.getUTCHours()).padStart(2, '0');
       var mm  = String(now.getUTCMinutes()).padStart(2, '0');
-      document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC \xb7 ' + res.src;
+      document.getElementById('updated').textContent = 'Updated ' + hh + ':' + mm + ' UTC · ' + res.src;
     }).catch(showError);
   }
 
+  function fetchNetwork() {
+    tf('https://api.llama.fi/v2/chains')
+      .then(function(r) { return r.json(); })
+      .then(function(chains) {
+        var sui = chains.find(function(c) { return c.name === 'Sui'; });
+        if (sui && sui.tvl) {
+          document.getElementById('net-tvl').textContent = fmtLarge(sui.tvl);
+          var chg = sui.change_1d;
+          document.getElementById('net-tvl-sub').textContent = (chg != null) ? fmtPct(chg) : '—';
+        }
+      }).catch(function() {
+        document.getElementById('net-tvl').textContent = '—';
+        document.getElementById('net-tvl-sub').textContent = '—';
+      });
+
+    tf('https://api.llama.fi/overview/dexs/Sui?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=dailyVolume')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.total24h) {
+          document.getElementById('net-dex').textContent = fmtLarge(data.total24h);
+          var prev = data.total48hto24h;
+          var chgPct = (prev && prev > 0) ? (data.total24h - prev) / prev * 100 : null;
+          document.getElementById('net-dex-sub').textContent = (chgPct != null) ? fmtPct(chgPct) : '—';
+        }
+      }).catch(function() {
+        document.getElementById('net-dex').textContent = '—';
+        document.getElementById('net-dex-sub').textContent = '—';
+      });
+  }
+
+  function fetchStaking() {
+    tfPost('https://fullnode.mainnet.sui.io', {
+      jsonrpc: '2.0', id: 1,
+      method: 'suix_getLatestSuiSystemState', params: []
+    }).then(function(r) { return r.json(); })
+      .then(function(j) {
+        var stakeMist = parseFloat(j.result.totalStake);
+        var pct = (stakeMist / 1e19) * 100;
+        document.getElementById('net-staking').textContent = pct.toFixed(1) + '%';
+      }).catch(function() {
+        document.getElementById('net-staking').textContent = '—';
+      });
+  }
+
   fetchData();
+  fetchNetwork();
+  fetchStaking();
   setInterval(fetchData, 60000);
+  setInterval(fetchNetwork, 300000);
+  setInterval(fetchStaking, 300000);
 </script>
 
 </body>
