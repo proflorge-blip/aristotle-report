@@ -2,149 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=3"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Why SUI Token Unlocks Matter Less Than You Might Think · Aristotle</title>
+  <meta name="description" content="SUI token unlocks create more noise than signal. Here's what actually matters for price and supply."/>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='white' font-family='Georgia,serif' font-size='22' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:           #f4f4f4;
-      --cream:        #FFFEFD;
-      --ink:          #0a0a0a;
-      --ink-2:        #3a3a38;
-      --ink-3:        #888884;
-      --border:       #d8d8d4;
-      --border-strong:#c8c8c0;
+      --bg: #f4f4f4; --ink: #0a0a0a; --ink-2: #3a3a38; --ink-3: #888884;
+      --border: #d8d8d4; --border-strong: #c8c8c0;
     }
+    body { background: var(--bg); color: var(--ink); font-family: 'IBM Plex Serif', serif; font-weight: 300; font-size: 16px; line-height: 1.7; min-height: 100vh; }
 
-    body {
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'IBM Plex Serif', serif;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      padding: 1.2rem 3rem;
-      border-bottom: 1px solid var(--border);
-      background: rgba(244,244,244,0.96);
-      backdrop-filter: blur(8px);
-    }
-    .nav-hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 0.2rem;
-      flex-shrink: 0;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 1.5px;
-      background: var(--ink);
-      transition: all 0.2s;
-    }
+    nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 3rem; border-bottom: 1px solid var(--border); background: rgba(244,244,244,0.96); backdrop-filter: blur(8px); }
+    .nav-hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.2rem; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--ink); transition: all 0.2s; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-logo {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-      color: var(--ink);
-      text-transform: uppercase;
-      text-decoration: none;
-    }
-    .nav-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      min-width: 220px;
-      flex-direction: column;
-      z-index: 99;
-      list-style: none;
-    }
+    .nav-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; font-weight: 400; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase; text-decoration: none; }
+    .nav-logo span { color: inherit; }
+    .nav-learn { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #ffffff; background: var(--ink); text-decoration: none; padding: 0.45rem 0.9rem; }
+    .nav-menu { display: none; position: absolute; top: 100%; left: 0; background: #ffffff; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); min-width: 220px; flex-direction: column; z-index: 99; list-style: none; }
     .nav-menu.open { display: flex; }
     .nav-menu li { border-bottom: 1px solid var(--border); }
     .nav-menu li:last-child { border-bottom: none; }
-    .nav-menu a {
-      display: block;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--ink-3);
-      text-decoration: none;
-      padding: 0.9rem 1.5rem;
-      transition: background 0.12s, color 0.12s;
-    }
-    .nav-menu a:hover { color: var(--ink); background: var(--cream); }
+    .nav-menu a { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; padding: 0.9rem 1.5rem; transition: color 0.15s; }
+    .nav-menu a:hover { color: var(--ink); }
     .nav-menu a.active { color: var(--ink); font-weight: 500; }
-    .nav-learn {
-      margin-left: auto;
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #ffffff;
-      background: var(--ink);
-      text-decoration: none;
-      padding: 0.45rem 0.9rem;
-    }
 
-    /* ── ARTICLE LAYOUT ── */
-    .art-wrap { max-width: 900px; margin: 0 auto; }
+    .page-header { max-width: 1100px; margin: 0 auto; padding: 4rem 3rem 2.5rem; border-bottom: 1px solid var(--border); }
+    .page-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 1rem; }
+    .page-title { font-family: 'IBM Plex Serif', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 
-    .art-header {
-      padding: 5rem 3rem 2.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .art-eyebrow {
-      font-family: 'IBM Plex Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink);
-      margin-bottom: 1rem;
-    }
-    .art-eyebrow a { color: var(--ink); text-decoration: none; }
-    .art-eyebrow a:hover { opacity: 0.7; }
-    .art-title {
-      font-family: 'IBM Plex Serif', serif;
-      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.15;
-      color: var(--ink);
-      max-width: 560px;
-    }
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 4rem 3rem 5rem; background: #fff; border: 1px solid var(--border); border-top: none; }
 
-    /* ── ARTICLE BODY ── */
-    .art-body {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      margin: 2.5rem 3rem 4rem;
-      padding: 2.8rem 3rem 3.5rem;
+    .section { margin-bottom: 3rem; }
+    .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: #000; margin-bottom: 1rem; }
+    .section-body { font-family: 'IBM Plex Serif', serif; font-size: 1rem; line-height: 1.9; color: var(--ink); }
+    .section-body + .section-body { margin-top: 1rem; }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+    .back-link { display: inline-block; margin-top: 3rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; transition: color 0.15s; }
+    .back-link:hover { color: var(--ink); }
+
+    footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; color: var(--ink); letter-spacing: 0.06em; }
+    .footer-brand { font-weight: 400; color: var(--ink); text-transform: uppercase; letter-spacing: 0.14em; }
+
+    @media (max-width: 700px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .page-header, .page-body { padding-left: 1.5rem; padding-right: 1.5rem; }
     }
-    .art-body > p:first-of-type::first-letter {
+  </style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <a href="learn.html" class="nav-learn">/LEARN</a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="subscribe.html">Subscribe</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="sui-terminal.html">SUI Terminal</a></li>
+    <li><a href="sui-terminal.html#ratio">SUI/SOL Ratio</a></li>
+    <li><a href="learn.html" class="active">Learn</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow">Aristotle · Learn · 07</p>
+  <h1 class="page-title">Why SUI Token Unlocks Matter Less Than You Might Think</h1>
+</div>
+
+<div class="page-body">
+
+  <div class="section">
+    <p class="section-body">SUI token unlocks create more noise than almost anything else in the ecosystem. Every month, the same pattern repeats: anxious posts, dramatic price predictions, and warnings about massive sell pressure.</p>
+    <p class="section-body">Some of the concern is justified. But most of it overstates how directly unlocks translate into actual selling.</p>
+    <p class="section-body">The unlock schedule is straightforward and easy to track. What it doesn't reveal is what happens to those tokens once they're unlocked — and that gap is where most analysis falls short.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">The Inflation Slowdown Is Real</p>
+    <p class="section-body">The numbers back up the Reddit and CT narrative on supply growth. Over the past year, SUI's circulating supply grew from roughly 3.3 billion to about 4 billion tokens — an annual inflation rate close to 20%.</p>
+    <p class="section-body">That rate is now dropping sharply to around 6% this year, and the unlock curve continues to flatten going forward. For an asset that has dealt with heavy supply pressure, this is a meaningful structural shift.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">Why Looking Only at Unlocks Is Incomplete</p>
+    <p class="section-body">An unlock simply moves tokens from "locked" to "circulating." It doesn't tell you what the recipients actually do with them.</p>
+    <p class="section-body">Tokens going to ecosystem funds, community reserves, or validator incentives are often redeployed back into the network — through staking, grants, or operations. Tokens going to early investors or team members carry higher sell risk.</p>
+    <p class="section-body">Treating every unlocked token as automatic sell pressure is one of the most common mistakes in tokenomics analysis.</p>
+    <p class="section-body">Cliff unlocks add extra complexity. Large batches released all at once create anticipation that can move price and funding rates even if actual selling ends up being modest.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">The Deflationary Forces Often Overlooked</p>
+    <p class="section-body">What rarely gets discussed is the other side of the equation. Sui's storage fund grows with network usage and effectively removes SUI from circulation. The more activity on the chain, the stronger this deflationary pressure becomes.</p>
+    <p class="section-body">On top of that, a high and rising staking ratio locks up even more tokens, shrinking the liquid float available for selling.</p>
+    <p class="section-body">In short: unlock pressure is declining while staking lockups and storage fund mechanics are pulling in the opposite direction.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">What Actually Matters</p>
+    <p class="section-body">Instead of fixating on unlock dates, pay attention to these signals: which allocation categories are unlocking and who is receiving them. Whether staking ratio rises or falls around unlock periods. Whether on-chain activity — TVL, DEX volume, usage — is growing enough to feed the storage fund's deflationary loop.</p>
+    <p class="section-body">An unlock happening during rising network activity and increasing staking is very different from one hitting during stagnation.</p>
+  </div>
+
+  <hr class="divider"/>
+
+  <div class="section">
+    <p class="section-label">The Practical Takeaway</p>
+    <p class="section-body">The drop from ~20% to ~6% annual inflation is a legitimate positive development for SUI's tokenomics. But the unlock schedule is only one piece of the story.</p>
+    <p class="section-body">The tokens that ultimately matter are the ones that reach the open market — and understanding who holds them, what they tend to do, and what the broader on-chain picture looks like at the time gives you a much clearer view.</p>
+  </div>
+
+  <a href="learn.html" class="back-link">← Back to Learn</a>
+
+</div>
+
+<footer>
+  <span class="footer-brand">Aristotle · Sui Agora / Lyceum</span>
+  <span>No hype. No signals. Just data.</span>
+  <span>Not financial advice.</span>
+</footer>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+</script>
+
+</body>
+</html>
