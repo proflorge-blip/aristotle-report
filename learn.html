@@ -137,6 +137,20 @@
       color: var(--ink);
       font-style: italic;
     }
+    .glossary-btn {
+      display: inline-block;
+      margin-top: 1.2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      padding: 0.4rem 0.85rem;
+      transition: background 0.12s, color 0.12s;
+    }
+    .glossary-btn:hover { background: var(--ink); color: #ffffff; }
     .article-list {
       max-width: 1100px;
       margin: 0 auto;
@@ -217,6 +231,7 @@
   <p class="page-eyebrow">Aristotle · Learn</p>
   <h1 class="page-title">Learn</h1>
   <p class="page-sub">Short essays on onchain data, markets, and the Sui network.</p>
+  <a href="glossary.html" class="glossary-btn">Glossary →</a>
 </div>
 
 <ul class="article-list">
