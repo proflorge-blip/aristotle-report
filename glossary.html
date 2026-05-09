@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sui Glossary · Aristotle</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='white' font-family='Georgia,serif' font-size='22' font-style='italic'%3E%CE%BB%3C/text%3E%3C/svg%3E"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:           #f4f4f4;
+      --ink:          #0a0a0a;
+      --ink-2:        #3a3a38;
+      --ink-3:        #888884;
+      --border:       #d8d8d4;
+      --border-strong:#c8c8c0;
+      --cream:        #FFFEFD;
+    }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'IBM Plex Serif', serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(244,244,244,0.96);
+      backdrop-filter: blur(8px);
+    }
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 0.2s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-logo {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .nav-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      min-width: 220px;
+      flex-direction: column;
+      z-index: 99;
+      list-style: none;
+    }
+    .nav-menu.open { display: flex; }
+    .nav-menu li { border-bottom: 1px solid var(--border); }
+    .nav-menu li:last-child { border-bottom: none; }
+    .nav-menu a {
+      display: block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.9rem 1.5rem;
+      transition: background 0.12s, color 0.12s;
+    }
+    .nav-menu a:hover { color: var(--ink); background: var(--cream); }
+    .nav-menu a.active { color: var(--ink); font-weight: 500; }
+    .nav-learn {
+      margin-left: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      background: var(--ink);
+      text-decoration: none;
+      padding: 0.45rem 0.9rem;
+    }
+    .page-header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 3rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .page-eyebrow a { color: var(--ink); text-decoration: none; }
+    .page-eyebrow a:hover { opacity: 0.7; }
+    .page-title {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 0.7rem;
+    }
+    .page-sub {
+      font-family: 'IBM Plex Serif', serif;
+      font-size: 0.95rem;
+      color: var(--ink-3);
+      font-style: italic;
+    }
+    .alpha-index {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.1rem;
+      background: #ffffff;
+    }
+    .alpha-index a {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 0.3rem 0.45rem;
+      transition: color 0.12s, background 0.12s;
+    }
+    .alpha-index a:hover { color: var(--ink); }
+    .alpha-index a.active-letter { color: var(--ink); font-weight: 500; }
+    .alpha-index span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--border-strong);
+      padding: 0.3rem 0.45rem;
+    }
+    .glossary-body {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0 0 4rem;
+    }
+    .letter-section { border-top: 1px solid var(--border); }
+    .letter-section:first-child { border-top: none; }
+    .letter-heading {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 1.6rem 3rem 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .letter-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .term-block {
+      padding: 1.8rem 3rem;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .term-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-top: 0.15rem;
+    }
+    .term-def {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--ink-2);
+    }
+    .founder-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .founder-name {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+    .founder-bio {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--ink-2);
+    }
+    .glossary-footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 3rem 5rem;
+      border-top: 1px solid var(--border);
+    }
+    .art-back {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .art-back:hover { opacity: 0.7; }
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .page-header { padding: 4rem 1.5rem 2rem; }
+      .alpha-index { padding: 1rem 1.5rem; }
+      .letter-heading { padding: 1.4rem 1.5rem 0.6rem; }
+      .term-block { grid-template-columns: 1fr; gap: 0.6rem; padding: 1.5rem; }
+      .glossary-footer { padding: 2rem 1.5rem 4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
+  <a href="learn.html" class="nav-learn">/LEARN</a>
+  <ul class="nav-menu" id="nav-menu">
+    <li><a href="index.html#how">How it works</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="logos-index.html">Logos Index</a></li>
+    <li><a href="sui-terminal.html">Ratio Tracker</a></li>
+    <li><a href="learn.html">Learn</a></li>
+    <li><a href="glossary.html" class="active">Glossary</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+</nav>
+
+<div class="page-header">
+  <p class="page-eyebrow"><a href="learn.html">← Learn</a> &nbsp;·&nbsp; Reference</p>
+  <h1 class="page-title">Sui Glossary</h1>
+  <p class="page-sub">Key terms, protocols, and concepts — defined in the context of how Aristotle uses them.</p>
+</div>
+
+<div class="alpha-index">
+  <a href="#A" class="active-letter">A</a>
+  <a href="#B" class="active-letter">B</a>
+  <a href="#C" class="active-letter">C</a>
+  <a href="#D" class="active-letter">D</a>
+  <a href="#E" class="active-letter">E</a>
+  <a href="#F" class="active-letter">F</a>
+  <span>G</span>
+  <a href="#H" class="active-letter">H</a>
+  <span>I</span><span>J</span>
+  <a href="#K" class="active-letter">K</a>
+  <a href="#L" class="active-letter">L</a>
+  <a href="#M" class="active-letter">M</a>
+  <a href="#N" class="active-letter">N</a>
+  <a href="#O" class="active-letter">O</a>
+  <a href="#P" class="active-letter">P</a>
+  <span>Q</span><span>R</span>
+  <a href="#S" class="active-letter">S</a>
+  <a href="#T" class="active-letter">T</a>
+  <span>U</span>
+  <a href="#V" class="active-letter">V</a>
+  <a href="#W" class="active-letter">W</a>
+  <span>X</span><span>Y</span><span>Z</span>
+</div>
+
+<div class="glossary-body">
+
+  <div class="letter-section" id="A">
+    <div class="letter-heading">A</div>
+    <div class="term-block">
+      <div class="term-name">Active Addresses</div>
+      <div class="term-def">The count of unique addresses initiating transactions within a given period. A crude but useful proxy for ecosystem engagement. On Sui, active addresses undercount actual usage because PTBs can execute multiple operations from a single address. Aristotle treats this metric as directional rather than absolute.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Aftermath</div>
+      <div class="term-def">A DeFi aggregator and perpetuals exchange on Sui. It combines spot trading, leveraged positions, and yield strategies in a unified interface. Aftermath's architecture leverages PTBs to execute complex multi-step trades atomically. Aristotle tracks Aftermath volume as a component of total DEX activity, distinguishing it from Cetus AMM flow and DeepBook order book flow.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Agentic Economy</div>
+      <div class="term-def">The emerging economic layer where autonomous AI agents transact, hold assets, and execute contracts without human intermediation. Sui's sub-second finality, low gas costs, and object-centric architecture make it structurally suited for agentic activity — agents require chains where transactions settle faster than decision loops. This is speculative infrastructure today; Aristotle monitors early signals (Talus deployments, PTB complexity growth, non-human address patterns) as indicators of whether Sui is becoming substrate for machine-native commerce rather than just human speculation.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">AMM (Automated Market Maker)</div>
+      <div class="term-def">A protocol that enables token swaps by replacing traditional order books with algorithmic liquidity pools. Instead of matching buyers and sellers directly, AMMs price assets using a mathematical formula — commonly x × y = k — and allow anyone to deposit tokens as liquidity in exchange for fee revenue. Cetus and Turbos are the primary AMMs on Sui. AMMs are accessible and permissionless, but carry disadvantages relative to order books: impermanent loss for liquidity providers, and price impact that scales non-linearly with trade size. Aristotle distinguishes AMM volume from CLOB volume (DeepBook, BluefinX) when evaluating the quality of DEX activity.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="B">
+    <div class="letter-heading">B</div>
+    <div class="term-block">
+      <div class="term-name">BEEP</div>
+      <div class="term-def">A memecoin launchpad and social token platform on Sui. BEEP enables permissionless token creation and immediate tradability via a bonding curve mechanism that sets price during the initial distribution phase — similar in model to pump.fun on Solana. Its relevance to Aristotle's analysis: high BEEP-originated volume inflates aggregate DEX metrics without reflecting capital efficiency or DeFi utility. Aristotle disaggregates speculative launchpad volume when evaluating ecosystem quality, treating it as a measure of retail sentiment rather than structural adoption.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">BluefinX</div>
+      <div class="term-def">An RFQ (request-for-quote) trading protocol on Sui, backed by Mysten Labs and Wintermute. Unlike DeepBook's public order book, BluefinX matches large orders privately with market makers, minimizing slippage and MEV exposure. If DeepBook is the stock exchange, BluefinX is the trading desk. Aristotle tracks BluefinX volume separately in Lyceum briefs as an indicator of institutional-sized flow.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Bucket</div>
+      <div class="term-def">A stablecoin protocol on Sui. Users deposit collateral (SUI, ETH, etc.) and mint BUCK, a stablecoin pegged to the USD. It uses over-collateralization and liquidation mechanisms similar to MakerDAO/Dai. Relevant for tracking stablecoin supply growth and leverage demand on Sui. Aristotle includes BUCK supply in aggregate stablecoin flow metrics.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="C">
+    <div class="letter-heading">C</div>
+    <div class="term-block">
+      <div class="term-name">Cetus</div>
+      <div class="term-def">A concentrated liquidity AMM on Sui. Similar to Uniswap V3, Cetus allows liquidity providers to specify price ranges, improving capital efficiency. TVL in Cetus can be misleading — concentrated liquidity requires less capital to achieve the same depth as full-range AMMs. Aristotle adjusts Cetus TVL figures when comparing across protocols.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="D">
+    <div class="letter-heading">D</div>
+    <div class="term-block">
+      <div class="term-name">DeepBook</div>
+      <div class="term-def">Sui's native central limit order book (CLOB), developed by Mysten Labs. Unlike automated market makers (AMMs), DeepBook matches orders directly, enabling precise price execution and reduced slippage for large trades. Liquidity depth and order book imbalance are leading indicators of near-term price pressure. Aristotle tracks DeepBook liquidity as a distinct metric in Lyceum briefs.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Dynamic Fields</div>
+      <div class="term-def">Child objects attached to a parent at runtime, without predefined schema. A DeFi position might hold dynamic fields for each liquidity range. They enable flexible data structures but add storage cost complexity. Relevant when analyzing protocol economics: dynamic field creation burns SUI, permanently removing it from circulation.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="E">
+    <div class="letter-heading">E</div>
+    <div class="term-block">
+      <div class="term-name">Epoch</div>
+      <div class="term-def">A time period (currently ~24 hours) during which the validator set and stake distribution remain fixed. At epoch boundaries, rewards distribute, stake rebalances, and validator performance metrics reset. TVL and price movements around epoch transitions often reflect staking flows rather than organic capital movement.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="F">
+    <div class="letter-heading">F</div>
+    <div class="term-block">
+      <div class="term-name">Founders</div>
+      <div class="term-def">
+        The five architects of Sui, all alumni of Meta's Novi research division. Their collective background explains the chain's design priorities: formal verification, parallel execution, and resource-oriented programming.
+        <div class="founder-list">
+          <div class="founder-entry">
+            <div class="founder-name">Evan Cheng — Chief Executive Officer</div>
+            <div class="founder-bio">Former Director of Novi Research at Meta; previously a key engineer at Apple for ten years. ACM Software System Award recipient. His systems engineering background informs Sui's performance-oriented architecture.</div>
+          </div>
+          <div class="founder-entry">
+            <div class="founder-name">Sam Blackshear — Chief Technology Officer</div>
+            <div class="founder-bio">Primary creator of the Move programming language; former Principal Engineer at Novi/Meta. Move's resource-oriented model — assets that cannot be copied or implicitly discarded — is the foundation of Sui's object model and security guarantees.</div>
+          </div>
+          <div class="founder-entry">
+            <div class="founder-name">Adeniyi Abiodun — Chief Product Officer</div>
+            <div class="founder-bio">Former Head of Product at Novi; previously held lead roles at VMware, Oracle, and PeerNova. His enterprise infrastructure experience shapes Sui's positioning as developer infrastructure rather than speculative platform.</div>
+          </div>
+          <div class="founder-entry">
+            <div class="founder-name">George Danezis — Chief Scientist</div>
+            <div class="founder-bio">Professor of Security and Privacy Engineering at University College London; former Research Scientist at Meta/Novi specializing in consensus and distributed systems. His academic work on sharding and privacy-preserving networks informs Mysticeti's design.</div>
+          </div>
+          <div class="founder-entry">
+            <div class="founder-name">Kostas Chalkias — Chief Cryptographer</div>
+            <div class="founder-bio">Former Lead Cryptographer at Meta/Novi; expert in zero-knowledge proofs and blockchain security. His cryptographic work underpins Sui's commitment to formal verification and provable security properties.</div>
+          </div>
+        </div>
+        <br>Aristotle references this lineage not for narrative effect, but because it explains the architectural choices that differentiate Sui from chains built by generalist engineering teams.
+      </div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="H">
+    <div class="letter-heading">H</div>
+    <div class="term-block">
+      <div class="term-name">Haedal</div>
+      <div class="term-def">A liquid staking protocol on Sui. Users deposit SUI and receive haSUI, a tokenized representation of staked SUI that remains liquid and usable in DeFi. Haedal enables staking participation without locking capital — haSUI can collateralize loans, provide liquidity, or trade freely. Liquid staking ratio is a key indicator of capital efficiency; high adoption suggests sophisticated rather than passive staking behavior.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="K">
+    <div class="letter-heading">K</div>
+    <div class="term-block">
+      <div class="term-name">Kriya</div>
+      <div class="term-def">A DeFi protocol on Sui offering spot trading, perpetuals, and structured yield products. Kriya's perpetuals use an oracle-based pricing model with isolated margin, differing from BluefinX's RFQ approach and Aftermath's aggregated model. Aristotle tracks Kriya perpetual volume as a distinct category, noting when perpetual open interest diverges from spot volume — a signal of leveraged sentiment.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="L">
+    <div class="letter-heading">L</div>
+    <div class="term-block">
+      <div class="term-name">Logos Index</div>
+      <div class="term-def">Aristotle's proprietary composite score (1–100) measuring Sui network health across five dimensions: price stability, TVL trajectory, DEX volume consistency, DeepBook liquidity depth, and staking participation. Each dimension is weighted and normalized. The index does not predict price direction; it measures whether network fundamentals are converging or diverging. A reading of 50 indicates equilibrium; sustained readings above 70 or below 30 suggest structural shifts warranting attention.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="M">
+    <div class="letter-heading">M</div>
+    <div class="term-block">
+      <div class="term-name">Move</div>
+      <div class="term-def">The programming language for Sui, originally developed at Meta for the Diem project. Move uses a resource-oriented model: assets cannot be copied or implicitly discarded, only moved. This prevents common smart contract vulnerabilities like double-spend or accidental loss. The language's lineage explains why Sui's architecture differs fundamentally from EVM or Solana chains.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Mysticeti</div>
+      <div class="term-def">Sui's consensus protocol. Byzantine fault tolerant, low-latency, and optimized for the object model. It separates the fast path (owned objects, no consensus) from the consensus path (shared objects). Understanding this bifurcation explains why Sui's headline TPS figures require contextual reading — not all transactions are equal.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="N">
+    <div class="letter-heading">N</div>
+    <div class="term-block">
+      <div class="term-name">NAVI / Suilend</div>
+      <div class="term-def">Lending protocols on Sui. They enable leveraged positions and yield-bearing stablecoin deposits. Borrowing rates and utilization ratios indicate demand for leverage. High utilization suggests speculative positioning; low utilization, risk-off sentiment. Aristotle does not currently track lending protocol metrics in Agora briefs; Lyceum includes select utilization data.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="O">
+    <div class="letter-heading">O</div>
+    <div class="term-block">
+      <div class="term-name">Object Model</div>
+      <div class="term-def">The fundamental unit of state on Sui. Unlike account-based chains (Ethereum, Solana), Sui stores data as discrete objects with unique IDs. Ownership is explicit: an object either belongs to an address, is shared, or is immutable. This design enables parallel transaction execution — unrelated objects can be processed simultaneously without contention.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Owned Object</div>
+      <div class="term-def">An object tied to a specific address. Transactions involving only owned objects bypass consensus entirely — validators process them directly. This is why simple transfers on Sui settle in sub-second times. When reading Aristotle data, note which metrics involve owned vs. shared objects; the performance characteristics differ materially.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="P">
+    <div class="letter-heading">P</div>
+    <div class="term-block">
+      <div class="term-name">Programmable Transaction Blocks (PTBs)</div>
+      <div class="term-def">A batch of transactions executed atomically. Instead of one instruction per transaction, PTBs chain multiple operations — swap, then stake, then bridge — in a single execution. This reduces gas costs and improves composability. When Aristotle reports DEX volume, some portion reflects PTB complexity rather than simple trade count.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="S">
+    <div class="letter-heading">S</div>
+    <div class="term-block">
+      <div class="term-name">Scallop</div>
+      <div class="term-def">A lending and borrowing protocol on Sui with an emphasis on institutional-grade risk management. Scallop uses isolated lending pools and dynamic interest rate models that adjust based on utilization and collateral volatility. Its architecture permits granular risk parameters per asset pool. Aristotle monitors Scallop's total borrow volume and liquidation activity as indicators of leveraged market stress.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Seal</div>
+      <div class="term-def">A content monetization and access-control protocol on Sui. Creators can tokenize access to digital content — articles, media, software — with programmable licensing. Seal uses Sui's object model to enforce usage rights at the protocol level rather than through external contracts. Relevant for tracking emerging non-DeFi economic activity on the network.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Shared Object</div>
+      <div class="term-def">An object accessible by any transaction, with no single owner. The trade-off: shared objects require consensus (via Mysticeti), while owned objects can execute immediately. DeepBook pools, for example, are shared objects. This distinction matters for latency and throughput analysis.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Storage Fund</div>
+      <div class="term-def">A mechanism where users pay a one-time SUI fee to store data on-chain, with a portion distributed to validators as ongoing incentive. The fund grows as on-chain state expands. It creates a long-term alignment between storage demand and validator economics. The storage fund balance is a leading indicator of network adoption — more objects stored means more applications built.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">SUI</div>
+      <div class="term-def">The native asset of the Sui network, used to pay gas fees, stake with validators, and participate in governance. Total supply is capped at 10 billion tokens, distributed across investors, the team, Mysten Labs, and community reserves, with ongoing issuance through staking rewards. Circulating supply grows via unlock schedules; deflationary pressure comes from the storage fund, which permanently removes SUI from circulation with each byte of on-chain storage created. Aristotle tracks SUI price as one of six inputs in the Logos Index — not as a directional signal, but as a measure of relative price stability against its own recent baseline.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Sui Bridge / Wormhole</div>
+      <div class="term-def">Cross-chain infrastructure enabling asset transfers between Sui and other networks. Bridge flows indicate ecosystem connectivity — net inflows suggest Sui is gaining relative attractiveness; outflows, the reverse. Bridge TVL is distinct from DeFi TVL and should not be conflated.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="T">
+    <div class="letter-heading">T</div>
+    <div class="term-block">
+      <div class="term-name">Talus</div>
+      <div class="term-def">An AI agent infrastructure protocol on Sui. Talus enables autonomous agents to hold assets, execute transactions, and interact with smart contracts through natural language intent. Agents on Talus are represented as Sui objects with verifiable ownership and execution history. This is early-stage infrastructure — the agentic economy on Sui remains theoretical rather than measurable.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Transaction Count</div>
+      <div class="term-def">The number of transactions processed by the network. Sui's parallel execution means transaction count scales differently than on sequential chains. A "transaction" on Sui can represent a single transfer or a complex PTB with ten operations. Aristotle reports raw counts but emphasizes that throughput quality matters more than throughput quantity.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Turbos</div>
+      <div class="term-def">A meme coin launchpad and DEX on Sui, built on a constant product AMM model. Turbos occupies a different market position than Cetus or DeepBook — it optimizes for accessibility and speculative token discovery rather than capital efficiency or institutional execution. Aristotle includes Turbos volume in aggregate DEX figures but does not analyze it separately in Agora briefs.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">TVL (Total Value Locked)</div>
+      <div class="term-def">The aggregate value of assets deposited into DeFi protocols on the network. TVL is the most widely cited measure of ecosystem adoption, and also one of the most frequently misread. On Sui, concentrated liquidity AMMs such as Cetus generate comparable depth with less capital than full-range pools, making direct TVL comparisons across protocols misleading. Bridge TVL is often included in aggregate figures but should be disaggregated — it reflects cross-chain flow, not productive DeFi deployment. Aristotle tracks TVL as a 30-day normalized input in the Logos Index, weighting trend direction over absolute level.</div>
+    </div>
+    <div class="term-block">
+      <div class="term-name">Typus</div>
+      <div class="term-def">A DeFi protocol focused on options and structured products on Sui. It enables users to trade European-style options with on-chain settlement, and offers yield strategies through automated options selling. Adds derivatives complexity to the ecosystem that Aristotle does not currently track in briefs.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="V">
+    <div class="letter-heading">V</div>
+    <div class="term-block">
+      <div class="term-name">Validator</div>
+      <div class="term-def">An operator staking SUI to process transactions and secure the network. Sui uses delegated proof-of-stake: token holders delegate to validators rather than running hardware directly. Validator commission rates, uptime, and stake concentration affect network health. Aristotle does not track individual validator performance, but aggregate stake distribution informs the Logos Index.</div>
+    </div>
+  </div>
+
+  <div class="letter-section" id="W">
+    <div class="letter-heading">W</div>
+    <div class="term-block">
+      <div class="term-name">Walrus</div>
+      <div class="term-def">A decentralized storage network built for Sui, optimized for large binary objects — video, high-resolution media, machine learning datasets. Unlike file storage on Arweave or IPFS, Walrus is designed for mutable content with programmable access control. It extends Sui's object model into off-chain storage, enabling applications that would otherwise be cost-prohibitive to host entirely on-chain. Aristotle monitors Walrus adoption as an indicator of non-financial application growth on Sui.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="glossary-footer">
+  <a href="learn.html" class="art-back">← Back to Learn</a>
+</div>
+
+<script>
+  var hamburger = document.getElementById('hamburger');
+  var navMenu = document.getElementById('nav-menu');
+  hamburger.addEventListener('click', function() {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+</script>
+</body>
+</html>
