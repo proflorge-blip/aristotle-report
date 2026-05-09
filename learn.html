@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Learn · Aristotle</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Serif:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@1,700&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ctext x='16' y='23' text-anchor='middle' fill='white' font-family='Georgia,serif' font-size='22' font-style='italic'%3Eλ%3C/text%3E%3C/svg%3E"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg:           #f4f4f4;
       --ink:          #0a0a0a;
@@ -15,10 +15,8 @@
       --ink-3:        #888884;
       --border:       #d8d8d4;
       --border-strong:#c8c8c0;
-      --accent:       #20364A;
       --cream:        #FFFEFD;
     }
-
     body {
       background: var(--bg);
       color: var(--ink);
@@ -28,8 +26,6 @@
       line-height: 1.7;
       min-height: 100vh;
     }
-
-    /* ── NAV ── */
     nav {
       position: sticky;
       top: 0;
@@ -42,7 +38,6 @@
       background: rgba(244,244,244,0.96);
       backdrop-filter: blur(8px);
     }
-
     .nav-hamburger {
       display: flex;
       flex-direction: column;
@@ -63,7 +58,6 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
     .nav-logo {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.88rem;
@@ -73,7 +67,6 @@
       text-transform: uppercase;
       text-decoration: none;
     }
-
     .nav-menu {
       display: none;
       position: absolute;
@@ -103,7 +96,6 @@
     }
     .nav-menu a:hover { color: var(--ink); background: var(--cream); }
     .nav-menu a.active { color: var(--ink); font-weight: 500; }
-
     .nav-learn {
       margin-left: auto;
       font-family: 'IBM Plex Mono', monospace;
@@ -112,12 +104,10 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: #ffffff;
-      background: #20364A;
+      background: var(--ink);
       text-decoration: none;
       padding: 0.45rem 0.9rem;
     }
-
-    /* ── PAGE HEADER ── */
     .page-header {
       max-width: 1100px;
       margin: 0 auto;
@@ -138,7 +128,7 @@
       font-weight: 400;
       letter-spacing: -0.02em;
       line-height: 1.1;
-      color: #20364A;
+      color: var(--ink);
       margin-bottom: 0.7rem;
     }
     .page-sub {
@@ -147,14 +137,11 @@
       color: var(--ink);
       font-style: italic;
     }
-
-    /* ── ARTICLE LIST ── */
     .article-list {
       max-width: 1100px;
       margin: 0 auto;
       list-style: none;
     }
-
     .article-item {
       border-bottom: 1px solid var(--border);
       display: grid;
@@ -164,17 +151,10 @@
       transition: background 0.12s;
     }
     .article-item:last-child { border-bottom: none; }
-    .article-item a {
-      display: contents;
-      text-decoration: none;
-      color: inherit;
-    }
+    .article-item a { display: contents; text-decoration: none; color: inherit; }
     .article-item { background: #ffffff; }
     .article-item:hover { background: var(--cream); }
-
-    .article-main {
-      padding: 2rem 3rem;
-    }
+    .article-main { padding: 2rem 3rem; }
     .article-num {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.68rem;
@@ -186,7 +166,7 @@
       font-family: 'IBM Plex Serif', serif;
       font-size: 1.35rem;
       font-weight: 400;
-      color: #20364A;
+      color: var(--ink);
       line-height: 1.35;
       margin-bottom: 0.6rem;
     }
@@ -206,7 +186,6 @@
       white-space: nowrap;
       padding: 2rem 3rem 0 0;
     }
-
     @media (max-width: 600px) {
       nav { padding: 1.2rem 1.5rem; }
       .page-header { padding: 4rem 1.5rem 2rem; }
@@ -221,15 +200,15 @@
   <button class="nav-hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
-  <a href="index.html" class="nav-logo"><img src="lambda-logo.png" alt="Aristotle" style="height:22px;vertical-align:middle;"></a>
+  <a href="index.html" class="nav-logo">ARISTOTLE <span>REPORT</span></a>
   <a href="learn.html" class="nav-learn">/LEARN</a>
   <ul class="nav-menu" id="nav-menu">
     <li><a href="index.html#how">How it works</a></li>
-    <li><a href="subscribe.html">Subscribe</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
     <li><a href="logos-index.html">Logos Index</a></li>
-    <li><a href="sui-terminal.html">SUI Terminal</a></li>
-    <li><a href="sui-terminal.html#ratio">SUI/SOL Ratio</a></li>
+    <li><a href="sui-terminal.html">Ratio Tracker</a></li>
     <li><a href="learn.html" class="active">Learn</a></li>
+    <li><a href="glossary.html">Glossary</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
 </nav>
@@ -292,26 +271,27 @@
     </a>
   </li>
   <li class="article-item">
-    <a href="learn-06.html">
-      <div class="article-main">
-        <div class="article-num">06</div>
-        <div class="article-title">BluefinX: From Pool to Trading Desk</div>
-        <div class="article-excerpt">A new RFQ system on Sui backed by Mysten Labs and Wintermute. If DeepBook is the stock exchange, BluefinX is the trading desk.</div>
-      </div>
-      <div class="article-meta">4 min read</div>
-    </a>
-  </li>
-  <li class="article-item">
     <a href="learn-07.html">
       <div class="article-main">
-        <div class="article-num">07</div>
+        <div class="article-num">06</div>
         <div class="article-title">Why SUI Token Unlocks Matter Less Than You Might Think</div>
-        <div class="article-excerpt">Token unlocks create more noise than signal. Here's what actually drives sell pressure — and what doesn't.</div>
+        <div class="article-excerpt">Token unlock schedules create more noise than almost anything else in the ecosystem. What they don't reveal is what happens once tokens are unlocked — and that gap is where most analysis falls short.</div>
       </div>
       <div class="article-meta">5 min read</div>
     </a>
   </li>
 </ul>
+
+<div style="max-width:1100px;margin:0 auto;border-top:1px solid var(--border);background:#ffffff;">
+  <a href="glossary.html" style="display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;text-decoration:none;color:inherit;padding:1.8rem 3rem;transition:background 0.12s;" onmouseover="this.style.background='var(--cream)'" onmouseout="this.style.background='transparent'">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;color:var(--ink);margin-bottom:0.4rem;">REFERENCE</div>
+      <div style="font-family:'IBM Plex Serif',serif;font-size:1.35rem;font-weight:400;color:var(--ink);line-height:1.35;margin-bottom:0.6rem;">Sui Glossary</div>
+      <div style="font-family:'IBM Plex Serif',serif;font-size:1rem;color:var(--ink);line-height:1.6;font-style:italic;">Key terms, protocols, and concepts — defined in the context of how Aristotle uses them.</div>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);white-space:nowrap;padding-top:2rem;">34 terms</div>
+  </a>
+</div>
 
 <script>
   var hamburger = document.getElementById('hamburger');
